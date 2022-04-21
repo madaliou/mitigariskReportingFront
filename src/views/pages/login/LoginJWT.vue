@@ -1,13 +1,13 @@
 <template>
   <div>
     <vs-input
-        v-validate="'required'"
+        v-validate="'required|email|min:3'"
         data-vv-validate-on="blur"
         name="email"
         icon-no-border
         icon="icon icon-user"
         icon-pack="feather"
-        label-placeholder="Nom d'utilisateur"
+        label-placeholder="Email"
         v-model="email"
         class="w-full"/>
     <span class="text-danger text-sm">{{ errors.first('email') }}</span>
@@ -40,8 +40,8 @@
 export default {
   data () {
     return {
-      email: '',
-      password: '',
+      email: 'admin',
+      password: 'moozi123',
       checkbox_remember_me: false
     }
   },

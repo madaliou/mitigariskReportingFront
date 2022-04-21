@@ -24,7 +24,7 @@
               <div class="px-8 pt-20 login-tabs-container items-center">
 
                 <div class="vx-card__title mb-8">
-                  <h1 class="mb-4" > <strong style="color: #0263AC" >MAT </strong><strong style="color: #000000" >invent</strong></h1>
+                  <h1 class="mb-4" > <strong style="color: #0263AC" >Moozi</strong><strong style="color: #000000" >Support</strong></h1>
                   <p>Ouvrez une session pour commencer à utiliser l'application.</p>
                 </div>
 

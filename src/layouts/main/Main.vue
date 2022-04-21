@@ -222,26 +222,6 @@ export default {
       // eslint-disable-next-line no-unused-vars
       const user_name = JSON.parse(localStorage.getItem('userInfo')).username
       // eslint-disable-next-line no-unused-vars
-      const prospects = {
-        url: '/base/prospects',
-        name: 'Prospects',
-        icon: 'UserCheckIcon',
-        slug: 'base-prospects'
-      }
-
-      const recipients = {
-        url: '/base/biens',
-        name: 'Biens',
-        icon: 'GiftIcon',
-        slug: 'base-biens'
-      }
-
-      const regions = {
-        url: '/base/regions',
-        name: 'Régions',
-        icon: 'GlobeIcon',
-        slug: 'base-regions'
-      }
 
       const users = {
         url: '/base/users',
@@ -256,39 +236,6 @@ export default {
         icon: 'MapIcon',
         slug: 'base-Locality'
       }
-      const sites = {
-        url: '/base/sites',
-        name: 'Sites',
-        icon: 'TruckIcon',
-        slug: 'base-sites'
-      }
-      const familles = {
-        url: '/base/familles',
-        name: 'Familles',
-        icon: 'PlusCircleIcon',
-        slug: 'base-familles'
-      }
-      const adhesions = {
-        url: '/base/adhesions',
-        name: 'Adhésions',
-        icon: 'AwardIcon',
-        slug: 'base-adhesions'
-      }
-      // eslint-disable-next-line no-unused-vars
-      const ecarts = {
-        url: '/base/ecarts',
-        name: 'Ecarts',
-        icon: 'ActivityIcon',
-        slug: 'base-ecarts'
-      }
-
-      // eslint-disable-next-line no-unused-vars
-      const validation = {
-        url: '/base/validation',
-        name: 'Validations',
-        icon: 'CheckSquareIcon',
-        slug: 'base-validation'
-      }
 
       const dashboard = {
         url: '/dashboard',
@@ -297,88 +244,54 @@ export default {
         icon: 'HomeIcon',
         i18n: 'Dashboard'
       }
-      // eslint-disable-next-line no-unused-vars
-      const biens_nouveaux = {
-        url: '/base/Biens-nouveaux',
-        name: 'Biens-nouveaux',
-        slug: 'Biens-nouveaux',
-        icon: 'GridIcon',
-        i18n: 'Biens nouveaux'
+      const ticket = {
+        url: '#',
+        name: 'Ticket',
+        slug: 'base-ticket',
+        icon: 'FileMinusIcon',
+        i18n: 'Tickets'
       }
-      const codification = {
-        url: '/base/codification',
-        name: 'Codification',
-        slug: 'codification',
-        icon: 'GridIcon',
-        i18n: 'Codification'
+      const company = {
+        url: '##',
+        name: 'Company',
+        slug: 'base-company',
+        icon: 'GlobeIcon',
+        i18n: 'Compagines'
       }
-      const etiquete = {
-        url: '/base/etiqueter',
-        name: 'base-etiquetes',
-        slug: 'base-etiquetes',
-        icon: 'GridIcon',
-        i18n: 'Biens étiquetés'
+      const category = {
+        url: '###',
+        name: 'Category',
+        slug: 'base-category',
+        icon: 'LayersIcon',
+        i18n: 'categories'
       }
-      const non_etiquete = {
-        url: '/base/nonetiqueter',
-        name: 'base-nonetiquetes',
-        slug: 'base-nonetiquetes',
-        icon: 'GridIcon',
-        i18n: 'Biens non étiquetés'
-      }
+
 
       let role = []
 
       const role_admin = [
         dashboard,
-        regions,
+        ticket,
+        company,
+        category,
         Locality,
-        sites,
-        familles,
-        recipients,
-        validation,
-        ecarts,
-        biens_nouveaux,
-        codification,
-        etiquete,
-        non_etiquete,
         users
       ]
 
-      const role_contributor = [
+      const role_user = [
         dashboard,
-        regions,
-        Locality,
-        sites,
-        familles,
-        recipients,
-        validation,
-        biens_nouveaux,
-        codification,
-        etiquete,
-        non_etiquete,
-        ecarts
-      ]
-
-      const role_prospect = [
-        dashboard,
-        recipients,
-        adhesions
+        Locality
 
       ]
 
-      if (user_role === 'admin' && user_name === 'admin') {
+
+      if (user_role === 'admin') {
         role = role_admin
       }
 
-      if (user_role === 'admin' && user_name !== 'admin') {
-        role = role_contributor
+      if (user_role === 'user') {
+        role = role_user
       }
-
-      if (user_role === 'prospect') {
-        role = role_prospect
-      }
-
       return role
     },
     bodyOverlay () { return this.$store.state.bodyOverlay },

@@ -244,16 +244,16 @@ export default {
         i18n: 'Tickets'
       }
       const company = {
-        url: '/company',
+        url: '/companies',
         name: 'Company',
         slug: 'company',
         icon: 'GlobeIcon',
         i18n: 'Compagines'
       }
       const category = {
-        url: '###',
+        url: '/categories',
         name: 'Category',
-        slug: 'base-category',
+        slug: 'category',
         icon: 'LayersIcon',
         i18n: 'categories'
       }

@@ -87,9 +87,9 @@ const router = new Router({
         },
 
         {
-          path: 'company',
+          path: 'companies',
           beforeEnter: ifAuthenticated,
-          name: 'company',
+          name: 'companies',
           component: () => import('./views_moozisupport/Company/DataListCompagny.vue'),
           meta: {
             breadcrumb: [
@@ -97,6 +97,21 @@ const router = new Router({
               { title: 'Compagnies', active: true }
             ],
             pageTitle: 'Compagnies',
+            rule: 'editor'
+          }
+        },
+
+        {
+          path: 'categories',
+          beforeEnter: ifAuthenticated,
+          name: 'categories',
+          component: () => import('./views_moozisupport/category/DataListCategory'),
+          meta: {
+            breadcrumb: [
+              { title: 'Tableau de bord', url: '/' },
+              { title: '', active: true }
+            ],
+            pageTitle: 'Categories',
             rule: 'editor'
           }
         },

@@ -11,13 +11,13 @@
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
-      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} COMPAGNIE  </h4>
+      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} CATEGORIE  </h4>
       <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
     </div>
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">Compagnie<b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">Categorie<b style="color: #ff6141" >*</b> </p>
         <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
@@ -26,20 +26,20 @@
           class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('nametype')">{{ errors.first('nametype') }}</span>
 
-        <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>
-         <vs-input
-          v-validate="'required'"
-          data-vv-validate-on="blur"
-          name="description"
-          v-model="input.description"
-          class="w-full" />
-        <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
+<!--        <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>-->
+<!--        <vs-input-->
+<!--          v-validate="'required'"-->
+<!--          data-vv-validate-on="blur"-->
+<!--          name="description"-->
+<!--          v-model="input.description"-->
+<!--          class="w-full" />-->
+<!--        <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>-->
 
       </div>
     </component>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button class="mr-6" @click="company_validate">Soumettre</vs-button>
+      <vs-button class="mr-6" @click="category_validate">Soumettre</vs-button>
       <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Annuler</vs-button>
     </div>
   </vs-sidebar>
@@ -69,8 +69,7 @@ Validator.localize('en', dict)
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 const input_tempon = {
-  name: '',
-  description:''
+  name: ''
 }
 
 export default {
@@ -130,7 +129,7 @@ export default {
       if (this.data.id) return
       this.input = JSON.parse(JSON.stringify(input_tempon))
     },
-    company_validate () {
+    category_validate () {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.submitData()
@@ -142,21 +141,21 @@ export default {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
 
-      let url = 'companies/'
+      let url = 'categories/'
       let methods = 'post'
       const message = {
         error: 'Votre enrégistrement à échouer.',
-        success: 'La compagnie est enrégistrée avec succès.'
+        success: 'La categorie est enrégistrée avec succès.'
       }
       if (input.id) {
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'La compagnie est modifiée avec succès.'
+        message.success = 'La catetegorie est modifiée avec succès.'
       }
 
       this.$http[methods](url, input)
         .then((response) => {
-          window.Compagnies.getAllCompagny()
+          window.Categories.getAllCategory()
           window.getPrendTaCom.success(message.success, response)
           this.$emit('closeSidebar')
           this.initValues()
@@ -168,7 +167,7 @@ export default {
             const item = clefs[i]
             let libelle = ''
             if (item === 'name') {
-              libelle = 'compagnie'
+              libelle = 'categorie'
             }
             if (item === 'description') {
               libelle = 'description'

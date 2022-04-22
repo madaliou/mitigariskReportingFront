@@ -1,7 +1,7 @@
 <template>
   <div id="data-list-list-view" class="data-list-container">
     <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
-    <vs-table ref="table" pagination :max-items="itemsPerPage" search :data="companies">
+    <vs-table ref="table" pagination :max-items="itemsPerPage" search :data="categories">
 
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -16,7 +16,7 @@
         <!-- ITEMS PER PAGE -->
         <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
           <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ companies.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : companies.length }} of {{ queriedItems }}</span>
+            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ categories.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : categories.length }} of {{ queriedItems }}</span>
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
           <vs-dropdown-menu>
@@ -38,7 +38,7 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="compagnies">compagnies</vs-th>
+        <vs-th sort-key="compagnies">Categories</vs-th>
         <vs-th sort-key="Description">Description</vs-th>
         <vs-th>Action</vs-th>
       </template>
@@ -50,7 +50,7 @@
             <p class="product-name font-medium truncate">{{tr.name}}</p>
           </vs-td>
           <vs-td>
-            <p class="product-name font-medium truncate">{{ tr.description}}</p>
+            <p class="product-name font-medium truncate"></p>
           </vs-td>
           <vs-td class="whitespace-no-wrap">
             <div class="flex">
@@ -82,10 +82,7 @@
 </template>
 <script>
 
-import DataViewSidebar from './DataViewSidebarCompagny'
-
-const color_array = ['warning', 'success', 'danger', 'primary']
-let iopi = 0
+import DataViewSidebar from './DataViewSidebarCategory'
 
 export default {
   components: {
@@ -93,7 +90,7 @@ export default {
   },
   data () {
     return {
-      companies: [],
+      categories: [],
       selected: [],
       itemsPerPage: 20,
       isMounted: false,
@@ -109,7 +106,7 @@ export default {
       return 0
     },
     queriedItems () {
-      return this.$refs.table ? this.$refs.table.queriedResults.length : this.companies.length
+      return this.$refs.table ? this.$refs.table.queriedResults.length : this.categories.length
     }
   },
   methods: {
@@ -129,10 +126,10 @@ export default {
         cancelText: 'Annuler',
         accept: async () => {
           this.$vs.loading()
-          this.$http.delete(`companies/${id}/`)
+          this.$http.delete(`categories/${id}/`)
             .then(response => {
-              base_self.getAllCompagny()
-              window.getPrendTaCom.success('La compagnie est supprimée avec succès.', response)
+              base_self.getAllCategory()
+              window.getPrendTaCom.success('La categorie est supprimée avec succès.', response)
             })
             .catch(() => {
               window.getPrendTaCom.error({ message: 'La suppression a échoué.' })
@@ -146,23 +143,15 @@ export default {
       this.sidebarData = data
       this.toggleDataSidebar(true)
     },
-    getOrderStatusColor () {
-      const libelle = color_array[iopi]
-      if ((iopi + 1) < color_array.length) {
-        iopi++
-      } else {
-        iopi = 0
-      }
-      return libelle
-    },
+
     toggleDataSidebar (val = false) {
       this.addNewDataSidebar = val
     },
-    getAllCompagny () {
+    getAllCategory () {
       this.$vs.loading()
-      this.$http.get('companies/')
+      this.$http.get('categories/')
         .then((response) => {
-          this.companies = response.data
+          this.categories = response.data
           this.$vs.loading.close()
         })
         .catch(() => {
@@ -171,8 +160,8 @@ export default {
     }
   },
   async created () {
-    window.Compagnies = this
-    this.getAllCompagny()
+    window.Categories = this
+    this.getAllCategory()
   },
   mounted () {
     this.isMounted = true

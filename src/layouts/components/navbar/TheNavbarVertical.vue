@@ -60,13 +60,10 @@ export default {
     return {
       roleObject: {
         admin: 'ADMINISTRATEUR',
-        contributor: 'APPORTEUR D\'AFFAIRE',
-        prospect: 'PROSPECT',
-        recipient: 'BENEFICIAIRE'
+        user: 'UTILISATEUR'
       }
     }
   },
-
   name: 'the-navbar-vertical',
   props: {
     navbarColor: {

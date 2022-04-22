@@ -29,7 +29,7 @@
     <v-nav-menu
       :navMenuItems = "navMenuItems"
       :logo         = "navMenuLogo"
-      title         = "MAT invent"
+      title         = "MooziSupport"
       parent        = ".layout--main" />
 
     <div id="content-area" :class="[contentAreaClass, {'show-overlay': bodyOverlay}]">
@@ -229,14 +229,6 @@ export default {
         icon: 'UsersIcon',
         slug: 'base-users'
       }
-
-      const Locality = {
-        url: '/base/locality',
-        name: 'Localités',
-        icon: 'MapIcon',
-        slug: 'base-Locality'
-      }
-
       const dashboard = {
         url: '/dashboard',
         name: 'Dashboard',
@@ -248,13 +240,13 @@ export default {
         url: '#',
         name: 'Ticket',
         slug: 'base-ticket',
-        icon: 'FileMinusIcon',
+        icon: 'FileTextIcon',
         i18n: 'Tickets'
       }
       const company = {
-        url: '##',
+        url: '/company',
         name: 'Company',
-        slug: 'base-company',
+        slug: 'company',
         icon: 'GlobeIcon',
         i18n: 'Compagines'
       }
@@ -274,14 +266,12 @@ export default {
         ticket,
         company,
         category,
-        Locality,
         users
       ]
 
       const role_user = [
         dashboard,
-        Locality
-
+        ticket
       ]
 
 

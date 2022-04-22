@@ -11,24 +11,13 @@
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
-      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} LOCALITÉ  </h4>
+      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} COMPAGNIE  </h4>
       <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
     </div>
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">Région<b style="color: #ff6141" >*</b> </p>
-        <vs-select
-          v-model="input.regionNew"
-          autocomplete
-          class="mt-5 w-full"
-          name="regionNew"
-          v-validate="'required'">
-          <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in regionNews" />
-        </vs-select>
-        <span class="text-danger text-sm" v-show="errors.has('regionNew')">{{ errors.first('regionNew') }}</span>
-        <p class="pt-4"> Nom de la localité <b style="color: #ff6141" >*</b> </p>
-
+        <p class="pt-4">Compagnie<b style="color: #ff6141" >*</b> </p>
         <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
@@ -37,18 +26,26 @@
           class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('nametype')">{{ errors.first('nametype') }}</span>
 
+        <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>
+         <vs-input
+          v-validate="'required'"
+          data-vv-validate-on="blur"
+          name="description"
+          v-model="input.description"
+          class="w-full" />
+        <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
+
       </div>
     </component>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button class="mr-6" @click="Prospect_validate">Soumettre</vs-button>
+      <vs-button class="mr-6" @click="company_validate">Soumettre</vs-button>
       <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Annuler</vs-button>
     </div>
   </vs-sidebar>
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker'
 
 // For custom error message
 import { Validator } from 'vee-validate'
@@ -57,10 +54,10 @@ const dict = {
   custom: {
 
     nametype: {
-      required: 'Le champ localité est obligatoire'
+      required: 'Le champ compagnie est obligatoire'
     },
-    regionNew: {
-      required: 'Le champ région est obligatoire'
+    description: {
+      required: 'Le champ description est description'
     }
 
   }
@@ -73,7 +70,7 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 const input_tempon = {
   name: '',
-  regionNew:''
+  description:''
 }
 
 export default {
@@ -88,12 +85,11 @@ export default {
     }
   },
   components: {
-    VuePerfectScrollbar,
-    Datepicker
+    VuePerfectScrollbar
   },
   data () {
     return {
-      regionNews:[],
+
       input: JSON.parse(JSON.stringify(input_tempon)),
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
@@ -109,10 +105,8 @@ export default {
         this.$validator.reset()
       } else {
         this.input = JSON.parse(JSON.stringify(this.data))
-        this.input.regionNew = this.input.regionNew.id
         this.initValues()
       }
-      // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
 
@@ -136,7 +130,7 @@ export default {
       if (this.data.id) return
       this.input = JSON.parse(JSON.stringify(input_tempon))
     },
-    Prospect_validate () {
+    company_validate () {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.submitData()
@@ -148,21 +142,21 @@ export default {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
 
-      let url = 'localitiesNew/'
+      let url = 'companies/'
       let methods = 'post'
       const message = {
         error: 'Votre enrégistrement à échouer.',
-        success: 'La localité est enrégistrée avec succès.'
+        success: 'La compagnie est enrégistrée avec succès.'
       }
       if (input.id) {
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'La localité est modifiée avec succès.'
+        message.success = 'La compagnie est modifiée avec succès.'
       }
 
       this.$http[methods](url, input)
         .then((response) => {
-          window.getProspect.getAllMembers()
+          window.Compagnies.getAllCompagny()
           window.getPrendTaCom.success(message.success, response)
           this.$emit('closeSidebar')
           this.initValues()
@@ -174,7 +168,10 @@ export default {
             const item = clefs[i]
             let libelle = ''
             if (item === 'name') {
-              libelle = 'Montant'
+              libelle = 'compagnie'
+            }
+            if (item === 'description') {
+              libelle = 'compagnie'
             }
 
             for (let j = 0; j < error.response.data[item].length; j++) {
@@ -194,13 +191,6 @@ export default {
         reader.readAsDataURL(input.target.files[0])
       }
     }
-
-
-  },
-  async created () {
-    this.$http.get('regionsNew/')
-      .then((response) => { this.regionNews = response.data })
-      .catch(() => { })
   }
 }
 </script>

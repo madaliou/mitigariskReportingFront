@@ -1,15 +1,7 @@
-<!-- =========================================================================================
-  File Name: DataListListView.vue
-  Description: Data List - List View
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
 <template>
   <div id="data-list-list-view" class="data-list-container">
     <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
-    <vs-table ref="table" pagination :max-items="itemsPerPage" search :data="members">
+    <vs-table ref="table" pagination :max-items="itemsPerPage" search :data="companies">
 
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -19,25 +11,14 @@
             <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
             <span class="ml-2 text-base text-primary">Ajouter</span>
           </div>
-
-          <download-excel
-            class="btn-add-new  p-3 mb-4 mr-2 ml-2 rounded-lg cursor-pointer flex items-center justify-center  font-medium text-base text-primary border border-solid border-primary"
-            :fetch= "fetchData"
-            :fields="json_fields"
-            worksheet="My Worksheet"
-            name="Familles.xls"
-          >
-            Exporter
-          </download-excel>
         </div>
 
         <!-- ITEMS PER PAGE -->
         <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
           <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ members.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : members.length }} of {{ queriedItems }}</span>
+            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ companies.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : companies.length }} of {{ queriedItems }}</span>
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
-          <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
           <vs-dropdown-menu>
 
             <vs-dropdown-item @click="itemsPerPage=20">
@@ -57,32 +38,20 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="amount">Code famille</vs-th>
-        <vs-th sort-key="nature">nature</vs-th>
-        <vs-th sort-key="domain">Domaine</vs-th>
-        <vs-th sort-key="meaning">Signification</vs-th>
+        <vs-th sort-key="compagnies">compagnies</vs-th>
+        <vs-th sort-key="Description">Description</vs-th>
         <vs-th>Action</vs-th>
       </template>
 
       <template slot-scope="{data}">
         <tbody>
         <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-
           <vs-td>
-            <p class="product-name font-medium truncate">{{tr.code}}</p>
+            <p class="product-name font-medium truncate">{{tr.name}}</p>
           </vs-td>
           <vs-td>
-            <p class="product-name font-medium truncate">{{ natureObject[tr.nature] !== "" ? natureObject[tr.nature] : 'AUCUN'}}</p>
+            <p class="product-name font-medium truncate">{{ tr.description}}</p>
           </vs-td>
-
-          <vs-td>
-            <p class="product-name font-medium truncate">{{domainObject[tr.domain]}}</p>
-          </vs-td>
-
-          <vs-td>
-            <p class="product-name font-medium truncate">{{tr.meaning}}</p>
-          </vs-td>
-
           <vs-td class="whitespace-no-wrap">
             <div class="flex">
               <vx-tooltip text="Modifier" color="warning">
@@ -94,8 +63,7 @@
                   @click="editData(tr)"
                 />
               </vx-tooltip>
-<!--              <vx-tooltip v-if="profile_moov!=='studio'"  text="Supprimer" color="danger">-->
-              <vx-tooltip  text="Supprimer" color="danger">
+              <vx-tooltip text="Supprimer" color="danger">
                 <feather-icon
                   @click="deleteData(tr.id)"
                   style="color: red"
@@ -106,9 +74,7 @@
               </vx-tooltip>
             </div>
           </vs-td>
-
         </vs-tr>
-
         </tbody>
       </template>
     </vs-table>
@@ -116,7 +82,7 @@
 </template>
 <script>
 
-import DataViewSidebar from './DataViewSidebarFamille'
+import DataViewSidebar from './DataViewSidebarCompagny'
 
 const color_array = ['warning', 'success', 'danger', 'primary']
 let iopi = 0
@@ -127,30 +93,10 @@ export default {
   },
   data () {
     return {
-      natureObject: {
-        'technical':'Technique',
-        'material':'Matériel',
-        'Matériel':'Matériel',
-        'Licence': 'Licence',
-        'licence': 'Licence',
-        'other':'Autre',
-        ''   :'AUCUN'
-      },
-      domainObject: {
-        'untechnical': 'Non technique',
-        'technical': 'technique',
-        ''   :'AUCUN'
-      },
-      json_fields: {
-        'ID': 'id',
-        'FAMILLE': 'code'
-      },
-      members: [],
+      companies: [],
       selected: [],
-      profile_moov:'',
       itemsPerPage: 20,
       isMounted: false,
-      // Data Sidebar
       addNewDataSidebar: false,
       sidebarData: {}
     }
@@ -163,19 +109,13 @@ export default {
       return 0
     },
     queriedItems () {
-      return this.$refs.table ? this.$refs.table.queriedResults.length : this.members.length
+      return this.$refs.table ? this.$refs.table.queriedResults.length : this.companies.length
     }
   },
   methods: {
     addNewData () {
       this.sidebarData = {}
       this.toggleDataSidebar(true)
-    },
-    async fetchData () {
-      this.$vs.loading()
-      const response = await this.$http.get('familiesNew/')
-      this.$vs.loading.close()
-      return response.data
     },
 
     deleteData (id) {
@@ -189,10 +129,10 @@ export default {
         cancelText: 'Annuler',
         accept: async () => {
           this.$vs.loading()
-          this.$http.delete(`familiesNew/${id}/`)
+          this.$http.delete(`companies/${id}/`)
             .then(response => {
-              base_self.getAllMembers()
-              window.getPrendTaCom.success('La famille est supprimée avec succès.', response)
+              base_self.getAllCompagny()
+              window.getPrendTaCom.success('La localité est supprimée avec succès.', response)
             })
             .catch(() => {
               window.getPrendTaCom.error({ message: 'La suppression a échoué.' })
@@ -201,6 +141,7 @@ export default {
       })
 
     },
+
     editData (data) {
       this.sidebarData = data
       this.toggleDataSidebar(true)
@@ -214,34 +155,24 @@ export default {
       }
       return libelle
     },
-    getPopularityColor (num) {
-      if (num > 90)  return 'success'
-      if (num > 70)  return 'primary'
-      if (num >= 50) return 'warning'
-      if (num < 50)  return 'danger'
-      return 'primary'
-    },
     toggleDataSidebar (val = false) {
       this.addNewDataSidebar = val
     },
-    getAllMembers () {
+    getAllCompagny () {
       this.$vs.loading()
-      this.$http.get('familiesNew/')
+      this.$http.get('companies/')
         .then((response) => {
-          this.members = response.data
+          this.companies = response.data
           this.$vs.loading.close()
         })
         .catch(() => {
           this.$vs.loading.close()
         })
     }
-
   },
   async created () {
-    window.getProspect = this
-    this.profile_moov = JSON.parse(localStorage.getItem('userInfo')).last_name
-    this.getAllMembers()
-
+    window.Compagnies = this
+    this.getAllCompagny()
   },
   mounted () {
     this.isMounted = true
@@ -364,6 +295,10 @@ export default {
 }
 </style>
 
+
+<style scoped>
+
+</style>
 
 <style scoped>
 

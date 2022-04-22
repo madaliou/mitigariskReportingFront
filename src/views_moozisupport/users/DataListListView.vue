@@ -51,7 +51,6 @@
       <template slot="thead">
         <vs-th sort-key="cni">Profil</vs-th>
         <vs-th sort-key="last_name">NOM & PRENOMS </vs-th>
-        <vs-th sort-key="birthDate">Date de naissance</vs-th>
         <vs-th sort-key="email">Email</vs-th>
         <vs-th>Action</vs-th>
       </template>
@@ -66,9 +65,6 @@
 
               <vs-td>
                 <p class="product-name font-medium truncate">{{ tr.last_name}}{{ " "}}{{ tr.first_name}}</p>
-              </vs-td>
-              <vs-td>
-                <p class="product-category">{{ tr.birthDate }}</p>
               </vs-td>
 
               <vs-td >
@@ -108,8 +104,6 @@
 
 <script>
 import DataViewSidebar from './DataViewSidebar.vue'
-import moduleDataList from '@/store/data-list/moduleDataList.js'
-
 const color_array = ['#FF9F43', '#28C76F', '#EA5455', '#7367F0']
 let iopi = 0
 
@@ -207,7 +201,7 @@ export default {
       this.$vs.loading()
       this.$http.get('users/')
         .then((response) => {
-          this.users = response.data.results
+          this.users = response.data
           this.$vs.loading.close()
         })
         .catch(() => {
@@ -218,12 +212,6 @@ export default {
   created () {
     window.getProspect = this
     this.getAllUsers()
-
-    if (!moduleDataList.isRegistered) {
-      this.$store.registerModule('dataList', moduleDataList)
-      moduleDataList.isRegistered = true
-    }
-    this.$store.dispatch('dataList/fetchDataListItems')
   },
   mounted () {
     this.isMounted = true

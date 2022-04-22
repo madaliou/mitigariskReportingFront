@@ -19,42 +19,43 @@
               <statistics-card-line
                 hideChart
                 class="mb-base"
+                icon="FileTextIcon"
+                icon-right
+                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
+                statisticTitle="Tickets reçus" />
+            </div>
+<!--            :statistic="new Intl.NumberFormat('de-DE').format( (variable_dashboard ? variable_dashboard.regions  : '0') )"-->
+
+            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
+              <statistics-card-line
+                hideChart
+                class="mb-base"
+                icon="FileIcon"
+                icon-right
+                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
+                statisticTitle="Tickets Traités " />
+            </div>
+
+            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
+              <statistics-card-line
+                hideChart
+                class="mb-base"
                 icon="GlobeIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (variable_dashboard ? variable_dashboard.regions  : '0') )"
-                statisticTitle="Régions" />
+                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
+                statisticTitle="Compagnies" />
             </div>
 
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" @click="familles()">
+            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
               <statistics-card-line
                 hideChart
                 class="mb-base"
-                icon="PlusCircleIcon"
+                icon="UsersIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (variable_dashboard ? variable_dashboard.famylies   : '0') )"
-                statisticTitle="Familles" />
+                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
+                statisticTitle="Utilisateurs" />
             </div>
-
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" @click="sites()">
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="TruckIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (variable_dashboard ? variable_dashboard.sites  : '0') )"
-                statisticTitle="Sites" />
-            </div>
-
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" @click="biens()">
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="GiftIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (variable_dashboard ? variable_dashboard.properties  : '0') )"
-                statisticTitle="Biens" />
-            </div>
-            <chartjs-bar-chart></chartjs-bar-chart>
+<!--            <chartjs-bar-chart></chartjs-bar-chart>-->
           </div>
           <div class="vx-row" v-if="showByContributors">
             <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4"  >
@@ -209,7 +210,7 @@ import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine
 import analyticsData from '@/views/ui-elements/card/analyticsData.js'
 import ChangeTimeDurationDropdown from '@/components/ChangeTimeDurationDropdown.vue'
 import VxTimeline from '@/components/timeline/VxTimeline'
-import ChartjsBarChart from '/src/views_prendtacom/statistiqueGraph/ChartjsBarChart'
+import ChartjsBarChart from '/src/views_moozisupport/statistiqueGraph/ChartjsBarChart'
 
 
 export default {
@@ -256,11 +257,11 @@ export default {
     }
   },
   created () {
-    this.dashboard()
+    // this.dashboard()
     const user_role = JSON.parse(localStorage.getItem('userInfo')).role
     if (user_role === 'admin') {
       this.showByAdmin = true
-    } else if (user_role === 'contributor') {
+    } else if (user_role === 'user') {
       this.showByContributors = true
       this.$http.get('contributorProspects/')
         .then((response) => {
@@ -270,15 +271,6 @@ export default {
 
         })
 
-    } else if (user_role === 'prospect') {
-      this.showByPropect = true
-      this.$http.get('prospectRecipients/')
-        .then((response) => {
-          this.get_prospects = response.data
-        })
-        .catch(() => {
-
-        })
     }
   }
 }

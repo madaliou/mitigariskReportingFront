@@ -308,11 +308,11 @@ export default {
           window.getPrendTaCom.$http.post('login/', payload.userDetails.data)
             .then((response) => {
 
-              localStorage.setItem('accessToken', response.data.token)
+              localStorage.setItem('accessToken', response.data.accessToken)
               // if (response.data.user.passwordChanged === true){
               if (response1.data.userData) {
                 // Navigate User to homepage
-                if (!response.data.user.passwordChanged === true) {
+                if (!response.data.userData.passwordChanged === true) {
                   router.push(router.currentRoute.query.to || '/pages/Changelogin')
                   this.$vs.loading.close()
                 } else {
@@ -321,16 +321,16 @@ export default {
                 // router.push(router.currentRoute.query.to || '/')
 
                 // Set accessToken
-                localStorage.setItem('accessToken', response.data.token)
-                window.getPrendTaCom.$http.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+                localStorage.setItem('accessToken', response.data.accessToken)
+                window.getPrendTaCom.$http.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
                 window.getPrendTaCom.$http.defaults = JSON.parse(JSON.stringify(window.getPrendTaCom.$http.defaults))
 
-                Object.assign(response1.data.userData, response.data.user)
+                Object.assign(response1.data.userData, response.data.userData)
 
                 // Update user details
                 commit('UPDATE_USER_INFO', response1.data.userData, {root: true})
 
-                // Set bearer token in axios
+                // Set bearer accessToken in axios
                 commit('SET_BEARER', response1.data.accessToken)
 
                 resolve(response1)

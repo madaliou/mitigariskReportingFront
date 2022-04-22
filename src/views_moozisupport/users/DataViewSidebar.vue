@@ -45,16 +45,6 @@
             class="w-full" />
           <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
 
-          <p class="pt-4"> Date de naissance <b style="color: #ff6141" >*</b> </p>
-          <datepicker
-            label-placeholder="Select Date"
-            v-model="input.birthDate"
-            v-validate="'required'"
-            name="birthDate"
-            class="w-full"
-            ></datepicker>
-          <span class="text-danger text-sm" v-show="errors.has('birthDate')">{{ errors.first('birthDate') }}</span>
-
           <p class="pt-4"> Email <b style="color: #ff6141" >*</b> </p>
           <vs-input
             v-validate="'required|email'"
@@ -63,20 +53,11 @@
             v-model="input.email"
             class="w-full" />
           <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
-
-          <p class="pt-4"> Nom d'utilisateur <b style="color: #ff6141" >*</b> </p>
-          <vs-input
-            v-validate="'required'"
-            name="username"
-            v-model="input.username"
-            class="w-full" />
-          <span class="text-danger text-sm" v-show="errors.has('username')">{{ errors.first('username') }}</span>
-
         </div>
       </component>
 
       <div class="flex flex-wrap items-center p-6" slot="footer">
-        <vs-button class="mr-6" @click="Prospect_validate">Soumettre</vs-button>
+        <vs-button class="mr-6" @click="User_validate">Soumettre</vs-button>
         <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Annuler</vs-button>
       </div>
   </vs-sidebar>
@@ -96,17 +77,8 @@ const dict = {
     first_name: {
       required: 'Le champ prénoms est obligatoire'
     },
-    birthDate: {
-      required: 'Le champ date de naissance est obligatoire'
-    },
-    // gender: {
-    //   required: 'Le champ sexe est obligatoire'
-    // },
     role: {
       required: 'Le champ role est obligatoire'
-    },
-    username: {
-      required: 'Le champ nom d\'utilisateur est obligatoire'
     },
     email: {
       required: 'Le champ email est obligatoire'
@@ -120,12 +92,9 @@ Validator.localize('en', dict)
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 const input_tempon = {
-  username: '',
   email: '',
   first_name: '',
   last_name: '',
-  birthDate: '',
-  // gender: '',
   role: ''
 }
 
@@ -150,6 +119,10 @@ export default {
         {
           key: 'admin',
           name: 'Administrateur'
+        },
+        {
+          key: 'user',
+          name: 'Utilisateur'
         }
 
       ],
@@ -195,7 +168,7 @@ export default {
       if (this.data.id) return
       this.input = JSON.parse(JSON.stringify(input_tempon))
     },
-    Prospect_validate () {
+    User_validate () {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.submitData()
@@ -205,7 +178,6 @@ export default {
     async submitData () {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
-      input.birthDate = this.$store.state.convertDateTime(new Date(input.birthDate)).date
       delete input.parent
       let url = 'users/'
       let methods = 'post'
@@ -231,27 +203,15 @@ export default {
           for (let i = 0; i < clefs.length; i++) {
             const item = clefs[i]
             let libelle = ''
-
             if (item === 'username') {
               libelle = 'Nom d\'utilisateur'
             } else if (item === 'email') {
               libelle = 'Email'
-            } else if (item === 'password') {
-              libelle = 'Mot de passe'
-            } else if (item === 'password2') {
-              libelle = 'Confirmer le mot de passe'
             } else if (item === 'first_name') {
               libelle = 'Prénoms'
             } else if (item === 'last_name') {
               libelle = 'Nom'
-            } else if (item === 'birthDate') {
-              libelle = 'Date de naissance'
-            } else if (item === 'gender') {
-              libelle = 'Sexe'
-            } else if (item === 'country') {
-              libelle = 'Pays'
             }
-
             for (let j = 0; j < error.response.data[item].length; j++) {
               window.getPrendTaCom.error(`${libelle} :  ${error.response.data[item][j]}`)
             }

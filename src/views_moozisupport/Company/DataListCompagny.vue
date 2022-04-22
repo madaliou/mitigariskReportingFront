@@ -39,7 +39,7 @@
 
       <template slot="thead">
         <vs-th sort-key="compagnies">compagnies</vs-th>
-        <vs-th sort-key="Description">Description</vs-th>
+        <vs-th sort-key="Description">Descriptions</vs-th>
         <vs-th>Action</vs-th>
       </template>
 

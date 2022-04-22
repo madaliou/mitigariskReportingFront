@@ -26,14 +26,14 @@
           class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('nametype')">{{ errors.first('nametype') }}</span>
 
-<!--        <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>-->
-<!--        <vs-input-->
-<!--          v-validate="'required'"-->
-<!--          data-vv-validate-on="blur"-->
-<!--          name="description"-->
-<!--          v-model="input.description"-->
-<!--          class="w-full" />-->
-<!--        <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>-->
+        <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>
+        <vs-input
+          v-validate="'required'"
+          data-vv-validate-on="blur"
+          name="description"
+          v-model="input.description"
+          class="w-full" />
+        <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
 
       </div>
     </component>
@@ -69,7 +69,8 @@ Validator.localize('en', dict)
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 const input_tempon = {
-  name: ''
+  name: '',
+  description: ''
 }
 
 export default {

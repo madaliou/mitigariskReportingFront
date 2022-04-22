@@ -72,9 +72,9 @@ const router = new Router({
 
 
         {
-          path: '/base/users',
+          path: 'users',
           beforeEnter: ifAuthenticated,
-          name: 'base-users',
+          name: 'users',
           component: () => import('./views_moozisupport/users/DataListListView.vue'),
           meta: {
             breadcrumb: [
@@ -82,6 +82,20 @@ const router = new Router({
               { title: 'Utilisateurs', active: true }
             ],
             pageTitle: 'Utilisateurs',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/tickets',
+          beforeEnter: ifAuthenticated,
+          name: 'tickets',
+          component: () => import('./views_moozisupport/ticket/Email'),
+          meta: {
+            breadcrumb: [
+              { title: 'Tableau de bord', url: '/' },
+              { title: 'Tickets', active: true }
+            ],
+            pageTitle: 'Tickets',
             rule: 'editor'
           }
         },

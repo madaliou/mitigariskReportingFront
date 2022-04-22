@@ -39,7 +39,7 @@
 
       <template slot="thead">
         <vs-th sort-key="compagnies">Categories</vs-th>
-        <vs-th sort-key="Description">Description</vs-th>
+        <vs-th sort-key="Description">Descriptions</vs-th>
         <vs-th>Action</vs-th>
       </template>
 
@@ -50,7 +50,7 @@
             <p class="product-name font-medium truncate">{{tr.name}}</p>
           </vs-td>
           <vs-td>
-            <p class="product-name font-medium truncate"></p>
+            <p class="product-name font-medium truncate">{{tr.description}}</p>
           </vs-td>
           <vs-td class="whitespace-no-wrap">
             <div class="flex">

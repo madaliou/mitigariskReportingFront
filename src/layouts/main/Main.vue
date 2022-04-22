@@ -224,10 +224,10 @@ export default {
       // eslint-disable-next-line no-unused-vars
 
       const users = {
-        url: '/base/users',
+        url: 'users',
         name: 'Utilisateurs',
         icon: 'UsersIcon',
-        slug: 'base-users'
+        slug: 'users'
       }
       const dashboard = {
         url: '/dashboard',
@@ -237,9 +237,9 @@ export default {
         i18n: 'Dashboard'
       }
       const ticket = {
-        url: '#',
+        url: '/tickets',
         name: 'Ticket',
-        slug: 'base-ticket',
+        slug: 'tickets',
         icon: 'FileTextIcon',
         i18n: 'Tickets'
       }

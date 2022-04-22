@@ -141,7 +141,6 @@ export default {
     async submitData () {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
-
       let url = 'companies/'
       let methods = 'post'
       const message = {

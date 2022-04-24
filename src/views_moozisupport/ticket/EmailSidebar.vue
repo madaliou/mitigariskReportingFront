@@ -63,12 +63,11 @@
             <div class="px-6 pb-2 flex flex-col">
 
                 <!-- inbox -->
-                <router-link tag="span" :to="`${baseUrl}/#`" class="flex justify-between items-center cursor-pointer" :class="{'text-primary': mailFilter === 'inbox'}">
-                    <div class="flex items-center mb-2">
+                    <div class="flex items-center mb-2 cursor-pointer">
                         <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
                         <span class="text-lg ml-3">Tickets reçus</span>
                     </div>
-                </router-link>
+
 
                 <!-- sent -->
                 <router-link tag="span" :to="`${baseUrl}/##`" class="flex items-center mt-4 mb-2 cursor-pointer" :class="{'text-primary': mailFilter === 'sent'}">

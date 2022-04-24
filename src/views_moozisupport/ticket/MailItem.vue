@@ -8,24 +8,23 @@
 ========================================================================================== -->
 
 <template>
-    <div class="mail__mail-item sm:px-4 px-2 py-6" :class="{'mail__opened-mail': !mail.unread}">
-
+    <div class="mail__mail-item sm:px-4 px-2 py-6">
         <!-- MAIL ROW 1 : META -->
         <div class="flex w-full">
-            <vs-avatar class="sender__avatar flex-shrink-0 mr-3 border-2 border-solid border-white" :src="mail.img" size="40px"></vs-avatar>
+            <vs-avatar class="sender__avatar flex-shrink-0 mr-3 border-2 border-solid border-white"  size="40px"></vs-avatar>
 
             <div class="flex w-full justify-between items-start">
                 <div class="mail__details">
-                    <h5 class="mb-1" :class="{'font-semibold': mail.unread}">{{ mail.sender_name }}</h5>
-                    <span v-if="mail.subject">{{ mail.subject }}</span>
+                    <h5 class="mb-1">{{ mail.author.last_name +" "}}{{ mail.author.first_name}}</h5>
+                    <span v-if="mail.category.name">{{ mail.category.name }}</span>
                     <span v-else>(no subject)</span>
                 </div>
 
                 <div class="mail-item__meta flex items-center">
-                    <div class="email__labels hidden sm:flex items-center">
-                        <div class="h-2 w-2 rounded-full mr-2" :class="'bg-' + labelColor(label)" v-for="(label, index) in mail.labels" :key="index"></div>
-                    </div>
-                    <span>{{ mail.time | date }}</span>
+<!--                    <div class="email__labels hidden sm:flex items-center">-->
+<!--                        <div class="h-2 w-2 rounded-full mr-2" :class="'bg-' + labelColor(label)" v-for="(label, index) in mail.labels" :key="index"></div>-->
+<!--                    </div>-->
+                    <span>{{ mail.created_at | date }}</span>
                 </div>
             </div>
         </div>
@@ -33,12 +32,11 @@
 
         <!-- MAIL ROW 2 : MSG & ACTIONS -->
         <div class="flex w-full">
-            <div class="flex items-center ml-1">
-                <vs-checkbox v-model="isSelectedMail" @click.stop class="vs-checkbox-small ml-0 mr-1"></vs-checkbox>
-                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="[{'text-warning fill-current stroke-current': mail.isStarred}, 'w-5', 'h-5']" @click.stop="toggleIsStarred"></feather-icon>
+            <div class="flex items-center ml-0">
+                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" @click.stop="toggleIsStarred"></feather-icon>
             </div>
             <div class="mail__message truncate ml-3">
-                <span>{{ mail.message | filter_tags }}</span>
+                <span>{{ mail.description | filter_tags }}</span>
             </div>
         </div>
         <!-- /MAIL ROW 2 -->

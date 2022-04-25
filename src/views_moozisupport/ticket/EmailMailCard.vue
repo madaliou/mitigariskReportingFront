@@ -21,7 +21,7 @@
         <div class="flex flex-col justify-end">
           <span class="text-right">{{ props.mailContent.created_at | time }}</span>
           <div class="flex justify-end mt-2">
-            <span class="text-right">{{ props.mailContent.created_at| date(true) }}</span>
+            <span class="text-right">{{ props.mailContent.created_at| date }}</span>
           </div>
         </div>
       </div>

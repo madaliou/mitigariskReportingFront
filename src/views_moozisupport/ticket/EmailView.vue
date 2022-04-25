@@ -27,12 +27,12 @@
           <div class="vx-row">
             <div class="vx-col w-full">
               <div class="email__labels--single flex ml-10 items-center mt-2">
-                <transition-group name="list" tag="div" class="flex">
+
                   <div class="open-mail-label flex items-center mr-4">
                     <div class="h-3 w-3  rounded-full bg-primary mr-1" ></div>
-                    <span class="text-sm">{{currentMail.category.name | capitalize }}</span>
+                    <span class="text-sm">{{currentMail.author.company  || 'MOOZISTUDIO' }}</span>
                   </div>
-                </transition-group>
+
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ const userDefaults = {
   userRole    : 'admin'
 }
 
-const userInfoLocalStorage = JSON.parse(localStorage.getItem('userData')) || {}
+const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {}
 
 // Set default values for active-user
 // More data can be added by auth provider or other plugins/packages

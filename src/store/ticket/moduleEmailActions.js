@@ -21,11 +21,31 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+  fetchEmailsRecu ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('fix_tickets/')
+        .then((response) => {
+          commit('SET_MAILS', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  fetchEmailstrait ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('unfixed_tickets/')
+        .then((response) => {
+          commit('SET_MAILS', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
 
   // Fetch Tags
   fetchTags ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/apps/email/tags')
+      axios.get('categories/')
         .then((response) => {
           commit('SET_TAGS', response.data)
           resolve(response)

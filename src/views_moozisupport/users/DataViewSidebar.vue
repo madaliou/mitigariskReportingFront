@@ -16,7 +16,7 @@
       </div>
       <vs-divider class="mb-0"></vs-divider>
       <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
-        <div class="p-6">
+        <div class="p-6" v-if="showByAdmin">
 
           <p> Rôle <b style="color: #ff6141" >*</b> </p>
           <v-select
@@ -29,6 +29,43 @@
           </v-select>
           <span class="text-danger text-sm" v-show="errors.has('role')">{{ errors.first('role') }}</span>
 
+          <p class="pt-4">Compagnie<b style="color: #ff6141" >*</b> </p>
+          <vs-select
+              v-validate="'required'"
+              autocomplete
+              v-model="input.companie"
+              class="w-full"
+              name="companie">
+            <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in companies" />
+          </vs-select>
+          <span class="text-danger text-sm" v-show="errors.has('companie')">{{ errors.first('companie') }}</span>
+
+          <p class="pt-4"> Nom <b style="color: #ff6141" >*</b> </p>
+          <vs-input
+            v-validate="'required'"
+            name="last_name"
+            v-model="input.last_name"
+            class="w-full" />
+          <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
+
+          <p class="pt-4"> Prénoms <b style="color: #ff6141" >*</b> </p>
+          <vs-input
+            v-validate="'required'"
+            name="first_name"
+            v-model="input.first_name"
+            class="w-full" />
+          <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
+
+          <p class="pt-4"> Email <b style="color: #ff6141" >*</b> </p>
+          <vs-input
+            v-validate="'required|email'"
+            name="email"
+            type="email"
+            v-model="input.email"
+            class="w-full" />
+          <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+        </div>
+        <div class="p-6" v-if="showByUser">
           <p class="pt-4"> Nom <b style="color: #ff6141" >*</b> </p>
           <vs-input
             v-validate="'required'"
@@ -82,6 +119,9 @@ const dict = {
     },
     email: {
       required: 'Le champ email est obligatoire'
+    },
+    companie: {
+      required: 'Le champ companie est obligatoire'
     }
   }
 }
@@ -95,6 +135,7 @@ const input_tempon = {
   email: '',
   first_name: '',
   last_name: '',
+  company: '',
   role: ''
 }
 
@@ -126,7 +167,10 @@ export default {
         }
 
       ],
+      showByAdmin: false,
+      showByUser: false,
 
+      companies:[],
       input: JSON.parse(JSON.stringify(input_tempon)),
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
@@ -142,10 +186,9 @@ export default {
         this.$validator.reset()
       } else {
         this.input = JSON.parse(JSON.stringify(this.data))
-
+        this.input.companie = this.input.companie.id
         this.initValues()
       }
-      // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
   computed: {
@@ -209,6 +252,8 @@ export default {
               libelle = 'Email'
             } else if (item === 'first_name') {
               libelle = 'Prénoms'
+            } else if (item === 'company') {
+              libelle = 'Compagnie'
             } else if (item === 'last_name') {
               libelle = 'Nom'
             }
@@ -231,6 +276,15 @@ export default {
     }
   },
   created () {
+    const user_role = JSON.parse(localStorage.getItem('userInfo')).role
+    if (user_role === 'admin') {
+      this.showByAdmin = true
+    } else if (user_role === 'user') {
+      this.showByUser = true
+    }
+    this.$http.get('companies/')
+      .then((response) => { this.companies = response.data })
+      .catch(() => { })
   }
 }
 </script>

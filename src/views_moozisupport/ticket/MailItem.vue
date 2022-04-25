@@ -32,8 +32,11 @@
 
         <!-- MAIL ROW 2 : MSG & ACTIONS -->
         <div class="flex w-full">
-            <div class="flex items-center ml-0">
+            <div class="flex items-center ml-0" v-if="mail.fixed === false">
                 <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" @click.stop="toggleIsStarred"></feather-icon>
+            </div>
+          <div class="flex items-center ml-0" v-if="mail.fixed === true">
+                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-primary fill-current stroke-current'" @click.stop="toggleIsStarred"></feather-icon>
             </div>
             <div class="mail__message truncate ml-3">
                 <span>{{ mail.description | filter_tags }}</span>

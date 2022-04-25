@@ -63,25 +63,31 @@
             <div class="px-6 pb-2 flex flex-col">
 
                 <!-- inbox -->
-                    <div class="flex items-center mb-2 cursor-pointer">
+                    <div class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
                         <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
+                        <span class="text-lg ml-3">Tickets totaux</span>
+                    </div>
+
+              <!-- inbox -->
+                    <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
+                        <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
                         <span class="text-lg ml-3">Tickets reçus</span>
                     </div>
 
 
                 <!-- sent -->
-                <router-link tag="span" :to="`${baseUrl}/##`" class="flex items-center mt-4 mb-2 cursor-pointer" :class="{'text-primary': mailFilter === 'sent'}">
+              <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
                     <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
                     <span class="text-lg ml-3">Tickets traités</span>
-                </router-link>
+              </div>
             </div>
             <vs-divider></vs-divider>
             <div class="email__labels px-6 py-4">
                 <h5 class="mb-8">Catégories</h5>
                 <div class="email__lables-list">
-                    <router-link tag="span" class="email__label flex items-center mb-4 cursor-pointer" v-for="(tag, index) in emailTags" :key="index" :to="`${baseUrl}/${tag.value}`">
-                        <div class="ml-1 h-3 w-3 rounded-full mr-4" :class="'border-2 border-solid border-' + tag.color"></div>
-                        <span class="text-lg" :class="{'text-primary': mailFilter === tag.value}">{{ tag.text }}</span>
+                    <router-link tag="span" class="email__label flex items-center mb-4 cursor-pointer" v-for="(tag, index) in emailTags" :key="index" :to="`${baseUrl}`">
+                        <div class="ml-1 h-3 w-3 rounded-full mr-4 border-2 border-solid border-primary" ></div>
+                        <span class="text-lg" :class="{'text-primary': mailFilter === tag.value}">{{ tag.name }}</span>
                     </router-link>
                 </div>
             </div>
@@ -94,10 +100,8 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import { quillEditor } from 'vue-quill-editor'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-// const input_tempon = {
-//   name: '',
-//   description:''
-// }
+import moduleEmail         from '@/store/ticket/moduleEmail.js'
+
 export default {
   props: {
     emailTags: {
@@ -155,29 +159,49 @@ export default {
   methods: {
     clearFields () {
       this.$nextTick(() => {
-        this.mailTo = ''
         this.category = ''
         this.description = ''
       })
     },
+    All_tickets () {
+      this.openLoading()
+      this.$store.dispatch('email/fetchEmails')
+    },
+    unfixed_tickets () {
+      this.openLoading()
+      this.$store.dispatch('email/fetchEmailstrait')
+    },
+    fix_tickets () {
+      this.openLoading()
+      this.$store.dispatch('email/fetchEmailsRecu')
+    },
+    openLoading () {
+      this.$vs.loading()
+      setTimeout(() => {
+        this.$vs.loading.close()
+      }, 2000)
+    },
     async sendMail () {
       this.$vs.loading()
-      const input = JSON.parse(JSON.stringify(this.input))
-      let url = 'companies/'
+      const input = {
+        description:this.description,
+        category:this.category
+      }
+      let url = 'tickets/'
       let methods = 'post'
       const message = {
         error: 'Votre enrégistrement à échouer.',
-        success: 'La compagnie est enrégistrée avec succès.'
+        success: 'Le ticket est enrégistré avec succès.'
       }
       if (input.id) {
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'La compagnie est modifiée avec succès.'
+        message.success = 'La ticket est modifié avec succès.'
       }
       this.$http[methods](url, input)
         .then((response) => {
-          window.Compagnies.getAllCompagny()
           window.getPrendTaCom.success(message.success, response)
+          this.$store.dispatch('email/fetchEmails')
           this.clearFields()
         })
         .catch((error) => {
@@ -205,6 +229,7 @@ export default {
     VuePerfectScrollbar
   },
   async created () {
+    this.$store.registerModule('email', moduleEmail)
     this.$http.get('categories/')
       .then((response) => { this.categories = response.data })
       .catch(() => { })

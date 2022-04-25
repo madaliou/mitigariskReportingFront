@@ -19,7 +19,7 @@
       <!-- EMAIL ACTION BAR -->
       <div class="email__actions flex items-center flex-wrap justify-between p-4 border border-r-0 border-l-0 border-solid d-theme-border-grey-light">
         <div class="flex items-center">
-          <h1>Tickets reçus</h1>
+          <h1>TICKETS</h1>
         </div>
         <div class="flex"></div>
 
@@ -100,6 +100,10 @@ export default {
       this.openMailId = mailId
       this.isSidebarActive = true
     },
+    moveCurrentTo (to) {
+      this.selectedMails = [this.openMailId]
+      this.moveTo(to)
+    },
     closeMailViewSidebar () {
       this.isSidebarActive = false
     },
@@ -129,12 +133,8 @@ export default {
   created () {
     this.$store.registerModule('email', moduleEmail)
     this.setSidebarWidth()
-    this.$store.dispatch('email/fetchEmails', { filter: this.$route.params.filter }) // Fetch Emails From API
-    this.$store.dispatch('email/fetchTags')                                          // Fetch Mail Tags
-  },
-
-  mounted () {
-    this.$store.dispatch('email/setEmailSearchQuery', '')
+    this.$store.dispatch('email/fetchEmails') // Fetch Emails From API
+    this.$store.dispatch('email/fetchTags')  // Fetch Mail Tags
   }
 }
 

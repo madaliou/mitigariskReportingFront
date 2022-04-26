@@ -23,7 +23,7 @@ export default {
   },
   fetchEmailsRecu ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get('fix_tickets/')
+      axios.get('fixed_tickets/')
         .then((response) => {
           commit('SET_MAILS', response.data)
           resolve(response)

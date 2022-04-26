@@ -52,6 +52,7 @@
         <vs-th sort-key="cni">Profil</vs-th>
         <vs-th sort-key="last_name">NOM & PRENOMS </vs-th>
         <vs-th sort-key="email">Email</vs-th>
+        <vs-th sort-key="compagny">Compagnie</vs-th>
         <vs-th>Action</vs-th>
       </template>
 
@@ -70,7 +71,9 @@
               <vs-td >
                 <p :style="'color: ' + getOrderStatusColor()">{{ tr.email }}</p>
               </vs-td>
-
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.company || 'MOOZISTUDIO'}}</p>
+              </vs-td>
               <vs-td class="whitespace-no-wrap">
                 <div class="flex">
                   <vx-tooltip text="Modifier" color="warning">
@@ -94,7 +97,6 @@
 
                 </div>
               </vs-td>
-
             </vs-tr>
           </tbody>
         </template>
@@ -186,13 +188,6 @@ export default {
         iopi = 0
       }
       return libelle
-    },
-    getPopularityColor (num) {
-      if (num > 90)  return 'success'
-      if (num > 70)  return 'primary'
-      if (num >= 50) return 'warning'
-      if (num < 50)  return 'danger'
-      return 'primary'
     },
     toggleDataSidebar (val = false) {
       this.addNewDataSidebar = val

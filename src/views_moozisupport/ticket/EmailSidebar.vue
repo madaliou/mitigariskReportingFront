@@ -179,7 +179,7 @@ export default {
       this.$vs.loading()
       setTimeout(() => {
         this.$vs.loading.close()
-      }, 2000)
+      }, 1000)
     },
     async sendMail () {
       this.$vs.loading()

@@ -20,6 +20,28 @@
               <h4 v-else>(no subject)</h4>
             </div>
           </div>
+          <div class="ml-10 mb-4 mt-1">
+            <div class="email__actions--single flex items-baseline">
+<!--              <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="[{'text-warning stroke-current stroke-current': currentMail.isStarred}, 'h-6 w-6']" @click="toggleIsStarred" />-->
+              <!-- ADD LABEL DROPDOWN -->
+              <vx-tooltip text="Traiter" color="success">
+              <feather-icon style="color: lime"  v-if="currentMail.fixed === false" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
+              </vx-tooltip>
+              <vx-tooltip text="Editer" color="warning">
+              <feather-icon style="color: gold" icon="EditIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>
+              </vx-tooltip>
+              <vx-tooltip text="Message" color="primary">
+              <feather-icon style="color: blue "  icon="SendIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>
+              </vx-tooltip>
+              <vx-tooltip text="Suivant" color="black">
+              <feather-icon style="color: black " :icon="$vs.rtl ? 'ChevronsRightIcon' : 'ChevronsLeftIcon'" svg-classes="h-6 w-6" class="cursor-pointer ml-4 hidden sm:inline-flex" @click="$emit('previousMail')" />
+              </vx-tooltip>
+              <vx-tooltip text="Précédent" color="black">
+              <feather-icon style="color: black " :icon="$vs.rtl ? 'ChevronsLeftIcon' : 'ChevronsRightIcon'" svg-classes="h-6 w-6" class="cursor-pointer ml-4 hidden sm:inline-flex" @click="$emit('nextMail')" />
+              </vx-tooltip>
+            </div>
+          </div>
+
         </div>
 
         <component :is="scrollbarTag" class="scroll-area-mail-content md:px-8 md:pb-8 pt-4 px-6 pb-6" :settings="settings" :key="$vs.rtl">

@@ -96,6 +96,10 @@ export default {
     }
   },
   methods: {
+    validation () {
+      this.openLoading()
+    },
+
     updateOpenMail (mailId) {
       this.openMailId = mailId
       this.isSidebarActive = true
@@ -113,6 +117,25 @@ export default {
       } else {
         this.isEmailSidebarActive = this.clickNotClose = true
       }
+    },
+    openLoading () {
+      this.$vs.loading()
+      setTimeout(() => {
+        this.$vs.loading.close()
+      }, 1000)
+    },
+    nextMail () {
+      const currentMailIndex = this.mails.findIndex((mail) => mail.id === this.openMailId)
+      if (this.mails[currentMailIndex + 1]) this.openMailId = this.mails[currentMailIndex + 1].id
+    },
+    previousMail () {
+      const currentMailIndex = this.mails.findIndex((mail) => mail.id === this.openMailId)
+      if (this.mails[currentMailIndex - 1]) this.openMailId = this.mails[currentMailIndex - 1].id
+    },
+    removeOpenMail () {
+      this.selectedMails = [this.openMailId]
+      this.moveTo('trashed')
+      this.isSidebarActive = false
     },
     toggleEmailSidebar (value = false) {
       if (!value) {
@@ -133,6 +156,7 @@ export default {
   created () {
     this.$store.registerModule('email', moduleEmail)
     this.setSidebarWidth()
+    this.openLoading()
     this.$store.dispatch('email/fetchEmails') // Fetch Emails From API
     this.$store.dispatch('email/fetchTags')  // Fetch Mail Tags
   }

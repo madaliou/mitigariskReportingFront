@@ -20,8 +20,21 @@
         <!-- Mail Time & Date -->
         <div class="flex flex-col justify-end">
           <span class="text-right">{{ props.mailContent.created_at | time }}</span>
+          <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === true">
+            <div class="open-mail-label flex items-center ">
+            <div class="h-3 w-3  rounded-full bg-primary mr-2" ></div>
+               <span class="text-right" >Traiter</span>
+            </div>
+          </div>
+          <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === false">
+            <div class="open-mail-label flex items-center ">
+            <div class="h-3 w-3  rounded-full bg-warning mr-2" ></div>
+               <span class="text-right" >Non traiter</span>
+            </div>
+          </div>
+
           <div class="flex justify-end mt-2">
-            <span class="text-right">{{ props.mailContent.created_at| date }}</span>
+            <span class="text-right">{{ props.mailContent.created_at| moment }}</span>
           </div>
         </div>
       </div>
@@ -33,8 +46,8 @@
       <div class="vx-col w-full">
         <div class="mail__content break-words mt-8 mb-4" v-html="props.mailContent.description"></div>
       </div>
-    </div>
 
+    </div>
   </vx-card>
 </template>
 

@@ -23,13 +23,13 @@
           <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === true">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-primary mr-2" ></div>
-               <span class="text-right" >Traiter</span>
+               <span class="text-right" >Traité</span>
             </div>
           </div>
           <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === false">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-warning mr-2" ></div>
-               <span class="text-right" >Non traiter</span>
+               <span class="text-right" >Non traité</span>
             </div>
           </div>
 

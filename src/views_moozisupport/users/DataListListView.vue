@@ -162,7 +162,7 @@ export default {
               window.getPrendTaCom.success('L\'utilisateur est supprimé avec succès.', response)
             })
             .catch(() => {
-              window.getPrendTaCom.error({ message: 'La suppression de l\'utilisateur a échouée.' })
+              window.getPrendTaCom.error({ message: 'La suppression de l\'utilisateur a échoué.' })
             })
         }
       })

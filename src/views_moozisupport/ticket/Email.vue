@@ -29,7 +29,7 @@
       <component :is="scrollbarTag" class="email-content-scroll-area" :settings="settings" ref="mailListPS" :key="$vs.rtl">
         <transition-group name="list-enter-up" class="email__mails" tag="ul" appear>
           <li class="cursor-pointer email__mail-item" v-for="(mail, index) in mails" :key="mail.id" @click="updateOpenMail(mail.id)" :style="{transitionDelay: (index * 0.1) + 's'}">
-            <mail-item :mail="mail" :isSelected="isMailSelected(mail.id)"  />
+            <mail-item :mail="mail" :isSelected="isMailSelected(mail.id)"/>
           </li>
         </transition-group>
       </component>
@@ -40,6 +40,11 @@
         :emailTags       = "emailTags"
         :openMailId      = "openMailId"
         :isSidebarActive = "isSidebarActive"
+        @removeMail      = "removeOpenMail"
+        @validation      = "validation"
+        @previousMail    = "previousMail"
+        @nextMail        = "nextMail"
+        @moveTo          = "moveCurrentTo"
         @closeSidebar    = "closeMailViewSidebar">
     </email-view>
   </div>
@@ -77,7 +82,6 @@ export default {
     }
   },
   computed: {
-
     emailTags () {
       return this.$store.state.email.mailTags
     },
@@ -88,6 +92,7 @@ export default {
       return this.selectedMails.length === this.mails.length ? 'icon-check' : 'icon-minus'
     },
     scrollbarTag () { return this.$store.getters.scrollbarTag },
+    //pour récupéré l'id du mail en cours
     isMailSelected () {
       return (mailId) => this.selectedMails.indexOf(mailId) !== -1
     },
@@ -96,10 +101,58 @@ export default {
     }
   },
   methods: {
+    //pour traiter un ticket
     validation () {
-      this.openLoading()
-    },
+      this.$vs.dialog({
+        type:'confirm',
+        color: 'success',
+        title: 'Confirmation',
+        text: 'Confirmer le traitement?',
+        acceptText: 'Confirmer',
+        cancelText: 'Annuler',
+        accept: async () => {
+          this.$vs.loading()
+          this.$http.post('fix_ticket/', { ticket:this.openMailId})
+            .then(response => {
+              this.openLoading()
+              window.getPrendTaCom.success('Ticket traité avec succès.', response)
+              this.$store.dispatch('email/fetchEmails')
+              this.isSidebarActive = false
+            })
+            .catch(() => {
+              window.getPrendTaCom.error({ message: 'Le traitement du ticket a échoué.' })
+              this.isSidebarActive = false
+            })
+        }
+      })
 
+    },
+    //pour effecer un ticket
+    removeOpenMail () {
+      const id = this.openMailId
+      this.$vs.dialog({
+        type:'confirm',
+        color: 'danger',
+        title: 'Confirmation',
+        text: 'Confirmer la suppression?',
+        acceptText: 'Confirmer',
+        cancelText: 'Annuler',
+        accept: async () => {
+          this.$vs.loading()
+          this.$http.delete(`tickets/${id}/`)
+            .then(response => {
+              this.openLoading()
+              window.getPrendTaCom.success('Ticket supprimer avec succès.', response)
+              this.$store.dispatch('email/fetchEmails')
+              this.isSidebarActive = false
+            })
+            .catch(() => {
+              window.getPrendTaCom.error({ message: 'La suppression du ticket a échoué.' })
+              this.isSidebarActive = false
+            })
+        }
+      })
+    },
     updateOpenMail (mailId) {
       this.openMailId = mailId
       this.isSidebarActive = true
@@ -132,11 +185,6 @@ export default {
       const currentMailIndex = this.mails.findIndex((mail) => mail.id === this.openMailId)
       if (this.mails[currentMailIndex - 1]) this.openMailId = this.mails[currentMailIndex - 1].id
     },
-    removeOpenMail () {
-      this.selectedMails = [this.openMailId]
-      this.moveTo('trashed')
-      this.isSidebarActive = false
-    },
     toggleEmailSidebar (value = false) {
       if (!value) {
         this.closeMailViewSidebar()
@@ -146,6 +194,7 @@ export default {
       }
       this.isEmailSidebarActive = value
     }
+
   },
   components: {
     MailItem,

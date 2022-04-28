@@ -28,7 +28,7 @@
       <!-- EMAILS LIST -->
       <component :is="scrollbarTag" class="email-content-scroll-area" :settings="settings" ref="mailListPS" :key="$vs.rtl">
         <transition-group name="list-enter-up" class="email__mails" tag="ul" appear>
-          <li class="cursor-pointer email__mail-item" v-for="(mail, index) in mails" :key="mail.id" @click="updateOpenMail(mail.id)" :style="{transitionDelay: (index * 0.1) + 's'}">
+          <li class="cursor-pointer email__mail-item" v-for="(mail, index) in mails" :key="mail.id" @click="updateOpenMail(mail.id,mail.description,mail.category.id)" :style="{transitionDelay: (index * 0.1) + 's'}">
             <mail-item :mail="mail" :isSelected="isMailSelected(mail.id)"/>
           </li>
         </transition-group>
@@ -40,9 +40,10 @@
         :emailTags       = "emailTags"
         :openMailId      = "openMailId"
         :isSidebarActive = "isSidebarActive"
-        @removeMail      = "removeOpenMail"
+        @removeMail      = "removeMail"
         @validation      = "validation"
-        @send_Message      = "send_Message"
+        @send_Message    = "send_Message"
+        @Edit_ticket     = "Edit_ticket"
         @previousMail    = "previousMail"
         @nextMail        = "nextMail"
         @moveTo          = "moveCurrentTo"
@@ -53,9 +54,9 @@
         title="Nouveau message"
         accept-text= "Envoyer"
         cancel-text= "Annuler"
-        @cancel="clearFields"
+        @cancel="clearMessage"
         @accept="sendMail"
-        @close="clearFields"
+        @close="clearMessage"
         :is-valid="validateForm && validateForm1"
         :active.sync="activePrompt">
       <component :is="scrollbarTag" class="scroll-area p-4" :settings="settings" :key="$vs.rtl">
@@ -85,6 +86,60 @@
         </form>
       </component>
     </vs-prompt>
+    <vs-prompt
+        class="email-compose"
+        title="Modifier un ticket"
+        accept-text= "Modifier"
+        cancel-text= "Annuler"
+        @cancel="clearTickets"
+        @accept="Edit_ticket"
+        @close="clearTickets"
+        :is-valid="validateForm && validateForm1 && validateForm2"
+        :active.sync="activePrompt1">
+      <component :is="scrollbarTag" class="scroll-area p-4" :settings="settings" :key="$vs.rtl">
+        <form @submit.prevent>
+          <vs-input disabled="true"
+                    v-validate="'required'"
+                    name="mailTo"
+                    label-placeholder="Destinataire"
+                    v-model="mailTo"
+                    class="w-full mb-6"
+                    :danger="!validateForm && mailTo !== ''"
+                    val-icon-danger="clear"
+                    :success="validateForm"
+                    val-icon-success="done"
+                    :color="validateForm ? 'success' : 'danger'" />
+
+          <vs-select
+
+              v-validate="'required'"
+              autocomplete
+              v-model="category"
+              label="Categorie"
+              class="w-full mb-6"
+              name="category"
+              :danger="!validateForm1 && category !== ''"
+              val-icon-danger="clear"
+              :success="validateForm1"
+              val-icon-success="done"
+              :color="validateForm1 ? 'success' : 'danger'"
+          >
+            <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in emailTags" />
+          </vs-select>
+
+          <quill-editor
+              v-model="description"
+              v-validate="'required'"
+              :options="editorOption"
+              :danger="!validateForm2 && description !== ''"
+              val-icon-danger="clear"
+              :success="validateForm2"
+              val-icon-success="done"
+              :color="validateForm2 ? 'success' : 'danger'"
+          />
+        </form>
+      </component>
+    </vs-prompt>
   </div>
 </template>
 
@@ -102,6 +157,8 @@ export default {
   data () {
     return {
       openMailId           : null,
+      openMailTexte        : null,
+      openMailCategotyId  : null,
       selectedMails        : [],
       isSidebarActive      : false,
       showThread           : false,
@@ -112,7 +169,10 @@ export default {
         wheelSpeed         : 0.30
       },
       activePrompt: false,
+      activePrompt1: false,
       mailTo: 'MOOZISTUDIO',
+      description:'',
+      category:'',
       categories:[],
       ticket: '',
       message: '',
@@ -145,7 +205,9 @@ export default {
     validateForm1 () {
       return !this.errors.any() &&  this.message !== ''
     },
-
+    validateForm2 () {
+      return !this.errors.any()  && this.category !== ''
+    },
     emailTags () {
       return this.$store.state.email.mailTags
     },
@@ -192,7 +254,7 @@ export default {
 
     },
     //pour effecer un ticket
-    removeOpenMail () {
+    removeMail () {
       const id = this.openMailId
       this.$vs.dialog({
         type:'confirm',
@@ -222,10 +284,15 @@ export default {
       this.activePrompt = true
     },
     Edit_ticket () {
-
+      console.log(`voir lidMail: ${ this.openMailId} voir le texte: ${ this.openMailTexte} voir la categorie: ${  this.openMailCategotyId}`)
+      this.description = this.openMailTexte
+      this.category = this.openMailCategotyId
+      this.activePrompt1 = true
     },
-    updateOpenMail (mailId) {
+    updateOpenMail (mailId, mailTexte, mailCategoryId) {
       this.openMailId = mailId
+      this.openMailTexte = mailTexte
+      this.openMailCategotyId = mailCategoryId
       this.isSidebarActive = true
     },
     moveCurrentTo (to) {
@@ -265,7 +332,13 @@ export default {
       }
       this.isEmailSidebarActive = value
     },
-    clearFields () {
+    clearMessage () {
+      this.$nextTick(() => {
+        this.ticket = ''
+        this.message = ''
+      })
+    },
+    clearTickets () {
       this.$nextTick(() => {
         this.ticket = ''
         this.message = ''
@@ -292,7 +365,7 @@ export default {
         .then((response) => {
           window.getPrendTaCom.success(message.success, response)
           // this.$store.dispatch('email/fetchMessage')
-          this.clearFields()
+          this.clearMessage()
         })
         .catch((error) => {
           const clefs = Object.keys(error.response.data)

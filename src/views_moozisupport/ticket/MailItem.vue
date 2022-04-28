@@ -21,9 +21,6 @@
                 </div>
 
                 <div class="mail-item__meta flex items-center">
-<!--                    <div class="email__labels hidden sm:flex items-center">-->
-<!--                        <div class="h-2 w-2 rounded-full mr-2" :class="'bg-' + labelColor(label)" v-for="(label, index) in mail.labels" :key="index"></div>-->
-<!--                    </div>-->
                     <span>{{ mail.created_at | moment }}</span>
                 </div>
             </div>
@@ -42,7 +39,7 @@
                 <span>{{ mail.description | filter_tags }}</span>
             </div>
         </div>
-        <!-- /MAIL ROW 2 -->
+
     </div>
 </template>
 

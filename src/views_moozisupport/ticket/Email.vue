@@ -42,15 +42,56 @@
         :isSidebarActive = "isSidebarActive"
         @removeMail      = "removeOpenMail"
         @validation      = "validation"
+        @send_Message      = "send_Message"
         @previousMail    = "previousMail"
         @nextMail        = "nextMail"
         @moveTo          = "moveCurrentTo"
         @closeSidebar    = "closeMailViewSidebar">
     </email-view>
+    <vs-prompt
+        class="email-compose"
+        title="Nouveau message"
+        accept-text= "Envoyer"
+        cancel-text= "Annuler"
+        @cancel="clearFields"
+        @accept="sendMail"
+        @close="clearFields"
+        :is-valid="validateForm && validateForm1"
+        :active.sync="activePrompt">
+      <component :is="scrollbarTag" class="scroll-area p-4" :settings="settings" :key="$vs.rtl">
+        <form @submit.prevent>
+          <vs-input disabled="true"
+                    v-validate="'required'"
+                    name="mailTo"
+                    label-placeholder="Destinataire"
+                    v-model="mailTo"
+                    class="w-full mb-6"
+                    :danger="!validateForm && mailTo !== ''"
+                    val-icon-danger="clear"
+                    :success="validateForm"
+                    val-icon-success="done"
+                    :color="validateForm ? 'success' : 'danger'" />
+          <quill-editor
+              v-model="message"
+              name="message"
+              v-validate="'required'"
+              :options="editorOption"
+              :danger="!message"
+              val-icon-danger="clear"
+              :success="!message"
+              val-icon-success="done"
+              :color="!message ? 'success' : 'danger'"
+          />
+        </form>
+      </component>
+    </vs-prompt>
   </div>
 </template>
 
 <script>
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import { quillEditor } from 'vue-quill-editor'
 import EmailSidebar        from './EmailSidebar.vue'
 import MailItem            from './MailItem.vue'
 import EmailView           from './EmailView.vue'
@@ -69,6 +110,22 @@ export default {
       settings             : {
         maxScrollbarLength : 60,
         wheelSpeed         : 0.30
+      },
+      activePrompt: false,
+      mailTo: 'MOOZISTUDIO',
+      categories:[],
+      ticket: '',
+      message: '',
+      editorOption: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike', 'link', 'blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'font': [] }]
+          ]
+        },
+        placeholder: 'Message'
       }
     }
   },
@@ -82,6 +139,13 @@ export default {
     }
   },
   computed: {
+    validateForm () {
+      return !this.errors.any() && this.mailTo !== ''
+    },
+    validateForm1 () {
+      return !this.errors.any() &&  this.message !== ''
+    },
+
     emailTags () {
       return this.$store.state.email.mailTags
     },
@@ -153,6 +217,13 @@ export default {
         }
       })
     },
+    //send messeger
+    send_Message () {
+      this.activePrompt = true
+    },
+    Edit_ticket () {
+
+    },
     updateOpenMail (mailId) {
       this.openMailId = mailId
       this.isSidebarActive = true
@@ -193,10 +264,57 @@ export default {
         }
       }
       this.isEmailSidebarActive = value
+    },
+    clearFields () {
+      this.$nextTick(() => {
+        this.ticket = ''
+        this.message = ''
+      })
+    },
+    async sendMail () {
+      this.$vs.loading()
+      const input = {
+        message:this.message,
+        ticket:this.openMailId
+      }
+      let url = 'replies/'
+      let methods = 'post'
+      const message = {
+        error: 'Votre message à échouer.',
+        success: 'Le message est envoyé avec succès.'
+      }
+      if (input.id) {
+        url += `${input.id}/`
+        methods = 'put'
+        message.success = 'Le message est modifié avec succès.'
+      }
+      this.$http[methods](url, input)
+        .then((response) => {
+          window.getPrendTaCom.success(message.success, response)
+          // this.$store.dispatch('email/fetchMessage')
+          this.clearFields()
+        })
+        .catch((error) => {
+          const clefs = Object.keys(error.response.data)
+          for (let i = 0; i < clefs.length; i++) {
+            const item = clefs[i]
+            let libelle = ''
+            if (item === 'ticket') {
+              libelle = 'Ticket'
+            }
+            if (item === 'message') {
+              libelle = 'Message'
+            }
+            for (let j = 0; j < error.response.data[item].length; j++) {
+              window.getPrendTaCom.error(`${libelle} :  ${error.response.data[item][j]}`)
+            }
+          }
+          window.getPrendTaCom.error(message.error)
+        })
     }
-
   },
   components: {
+    quillEditor,
     MailItem,
     EmailSidebar,
     EmailView,
@@ -208,6 +326,7 @@ export default {
     this.openLoading()
     this.$store.dispatch('email/fetchEmails') // Fetch Emails From API
     this.$store.dispatch('email/fetchTags')  // Fetch Mail Tags
+    this.$store.dispatch('email/fetchMessage') // Fetch Messages
   }
 }
 

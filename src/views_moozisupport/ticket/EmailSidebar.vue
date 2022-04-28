@@ -30,6 +30,7 @@
                                   :color="validateForm ? 'success' : 'danger'" />
 
                       <vs-select
+
                         v-validate="'required'"
                         autocomplete
                         v-model="category"
@@ -80,6 +81,12 @@
                     <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
                     <span class="text-lg ml-3">Tickets traités</span>
               </div>
+
+              <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
+                    <feather-icon icon="MailIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
+                    <span class="text-lg ml-3">Messages</span>
+              </div>
+
             </div>
             <vs-divider></vs-divider>
             <div class="email__labels px-6 py-4">

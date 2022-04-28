@@ -57,7 +57,7 @@ const dict = {
       required: 'Le champ compagnie est obligatoire'
     },
     description: {
-      required: 'Le champ description est description'
+      required: 'Le champ description est obligatoire'
     }
 
   }

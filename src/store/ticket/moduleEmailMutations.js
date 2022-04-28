@@ -15,6 +15,9 @@ export default {
   SET_TAGS (state, tags) {
     state.mailTags = tags
   },
+  SET_MESSAGES (state, messages) {
+    state.messages = messages
+  },
 
   TOGGLE_IS_MAIL_STARRED (state, payload) {
     state.mails.find((mail) => mail.id === payload.mailId).isStarred = payload.value

@@ -28,13 +28,13 @@
               <feather-icon style="color: lime"  v-if="currentMail.fixed === false" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
               </vx-tooltip>
               <vx-tooltip text="Editer" color="warning">
-              <feather-icon style="color: gold" icon="EditIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>
+              <feather-icon style="color: gold" icon="EditIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Edit_ticket')"></feather-icon>
               </vx-tooltip>
               <vx-tooltip text="Supprimer" color="danger">
               <feather-icon style="color: red" icon="TrashIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>
               </vx-tooltip>
               <vx-tooltip text="Message" color="primary">
-              <feather-icon style="color: blue "  icon="SendIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>
+              <feather-icon style="color: blue "  icon="SendIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('send_Message')"></feather-icon>
               </vx-tooltip>
               <vx-tooltip text="Précédent" color="black">
               <feather-icon style="color: black " :icon="$vs.rtl ? 'ChevronsRightIcon' : 'ChevronsLeftIcon'" svg-classes="h-6 w-6" class="cursor-pointer ml-4 hidden sm:inline-flex" @click="$emit('previousMail')" />

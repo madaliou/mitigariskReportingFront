@@ -52,6 +52,16 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
+  },
+  fetchMessage ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('replies/')
+        .then((response) => {
+          commit('SET_MESSAGES', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
   }
 
 }

@@ -92,9 +92,9 @@
         accept-text= "Modifier"
         cancel-text= "Annuler"
         @cancel="clearTickets"
-        @accept="Edit_ticket"
+        @accept="UpdateTicket"
         @close="clearTickets"
-        :is-valid="validateForm && validateForm1 && validateForm2"
+        :is-valid="validateForm && validateCategory && validateDesignation"
         :active.sync="activePrompt1">
       <component :is="scrollbarTag" class="scroll-area p-4" :settings="settings" :key="$vs.rtl">
         <form @submit.prevent>
@@ -118,7 +118,7 @@
               label="Categorie"
               class="w-full mb-6"
               name="category"
-              :danger="!validateForm1 && category !== ''"
+              :danger="!validateCategory && description !== ''"
               val-icon-danger="clear"
               :success="validateForm1"
               val-icon-success="done"
@@ -131,11 +131,11 @@
               v-model="description"
               v-validate="'required'"
               :options="editorOption"
-              :danger="!validateForm2 && description !== ''"
+              :danger="!validateDesignation && category !== ''"
               val-icon-danger="clear"
-              :success="validateForm2"
+              :success="validateDesignation"
               val-icon-success="done"
-              :color="validateForm2 ? 'success' : 'danger'"
+              :color="validateDesignation ? 'success' : 'danger'"
           />
         </form>
       </component>
@@ -152,7 +152,10 @@ import MailItem            from './MailItem.vue'
 import EmailView           from './EmailView.vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import moduleEmail         from '@/store/ticket/moduleEmail.js'
-
+const lastData = {
+  descriptionTicket:'',
+  categoryTicket:''
+}
 export default {
   data () {
     return {
@@ -199,14 +202,20 @@ export default {
     }
   },
   computed: {
+    //prompt message
     validateForm () {
       return !this.errors.any() && this.mailTo !== ''
     },
     validateForm1 () {
       return !this.errors.any() &&  this.message !== ''
     },
-    validateForm2 () {
+    //prompt ticket
+
+    validateCategory () {
       return !this.errors.any()  && this.category !== ''
+    },
+    validateDesignation () {
+      return !this.errors.any()  && this.description !== ''
     },
     emailTags () {
       return this.$store.state.email.mailTags
@@ -284,10 +293,60 @@ export default {
       this.activePrompt = true
     },
     Edit_ticket () {
-      console.log(`voir lidMail: ${ this.openMailId} voir le texte: ${ this.openMailTexte} voir la categorie: ${  this.openMailCategotyId}`)
-      this.description = this.openMailTexte
-      this.category = this.openMailCategotyId
-      this.activePrompt1 = true
+      if (this.openMailTexte === '' && this.openMailCategotyId === '') {
+        this.description = lastData.descriptionTicket
+        this.category = lastData.categoryTicket
+        this.activePrompt1 = true
+      } else {
+        this.description = this.openMailTexte
+        this.category = this.openMailCategotyId
+        this.activePrompt1 = true
+      }
+
+    },
+    UpdateTicket () {
+      this.$vs.loading()
+      const input = {
+        description:this.description,
+        category:this.category,
+        id:this.openMailId
+      }
+      lastData.descriptionTicket = input.description
+      lastData.categoryTicket = input.category
+      let url = 'tickets/'
+      let methods = 'post'
+      const message = {
+        error: 'Votre enrégistrement à échouer.',
+        success: 'Le ticket est enrégistré avec succès.'
+      }
+      if (input.id) {
+        url += `${input.id}/`
+        methods = 'put'
+        message.success = 'La ticket est modifié avec succès.'
+      }
+      this.$http[methods](url, input)
+        .then((response) => {
+          window.getPrendTaCom.success(message.success, response)
+          this.$store.dispatch('email/fetchEmails')
+          this.clearTickets()
+        })
+        .catch((error) => {
+          const clefs = Object.keys(error.response.data)
+          for (let i = 0; i < clefs.length; i++) {
+            const item = clefs[i]
+            let libelle = ''
+            if (item === 'category') {
+              libelle = 'categorie'
+            }
+            if (item === 'description') {
+              libelle = 'description'
+            }
+            for (let j = 0; j < error.response.data[item].length; j++) {
+              window.getPrendTaCom.error(`${libelle} :  ${error.response.data[item][j]}`)
+            }
+          }
+          window.getPrendTaCom.error(message.error)
+        })
     },
     updateOpenMail (mailId, mailTexte, mailCategoryId) {
       this.openMailId = mailId
@@ -340,8 +399,10 @@ export default {
     },
     clearTickets () {
       this.$nextTick(() => {
-        this.ticket = ''
-        this.message = ''
+        this.category = ''
+        this.description = ''
+        this.openMailTexte = ''
+        this.openMailCategotyId = ''
       })
     },
     async sendMail () {

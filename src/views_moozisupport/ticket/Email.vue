@@ -456,6 +456,7 @@ export default {
   },
   created () {
     this.$store.registerModule('email', moduleEmail)
+    window.getCloseSidebar = this
     this.setSidebarWidth()
     this.openLoading()
     this.$store.dispatch('email/fetchEmails') // Fetch Emails From API

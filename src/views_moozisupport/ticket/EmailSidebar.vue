@@ -64,12 +64,14 @@
             <div class="px-6 pb-2 flex flex-col">
 
                 <!-- inbox -->
+
                     <div class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
                         <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
                         <span class="text-lg ml-3">Tickets totaux</span>
                     </div>
 
               <!-- inbox -->
+
                     <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
                         <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
                         <span class="text-lg ml-3">Tickets reçus</span>
@@ -77,10 +79,12 @@
 
 
                 <!-- sent -->
+
               <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
                     <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
                     <span class="text-lg ml-3">Tickets traités</span>
               </div>
+
 
               <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
                     <feather-icon icon="MailIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
@@ -145,6 +149,10 @@ export default {
     }
   },
   computed: {
+    baseUrl () {
+      const path = this.$route.path
+      return path.slice(0, path.lastIndexOf('tickets'))
+    },
     validateForm () {
       return !this.errors.any() && this.mailTo !== ''
     },
@@ -153,10 +161,6 @@ export default {
     },
     validateForm2 () {
       return !this.errors.any()  && this.category !== ''
-    },
-    baseUrl () {
-      const path = this.$route.path
-      return path.slice(0, path.lastIndexOf('/'))
     },
     emailMeta () {
       return this.$store.state.email.meta
@@ -172,14 +176,17 @@ export default {
     },
     All_tickets () {
       this.openLoading()
+      window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmails')
     },
     unfixed_tickets () {
       this.openLoading()
+      window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmailstrait')
     },
     fix_tickets () {
       this.openLoading()
+      window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmailsRecu')
     },
     openLoading () {

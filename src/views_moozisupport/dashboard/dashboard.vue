@@ -15,50 +15,40 @@
         <!-- CARD 6: Product Orders -->
         <div class="vx-col w-full mb-base">
           <div class="vx-row" v-if="showByAdmin">
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
+            <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets" >
               <statistics-card-line
                 hideChart
                 class="mb-base"
                 icon="FileTextIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
-                statisticTitle="Tickets reçus" />
+                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.unfixed_tickets || 0) )"
+                statisticTitle="Tickets Traités" />
             </div>
-<!--            :statistic="new Intl.NumberFormat('de-DE').format( (variable_dashboard ? variable_dashboard.regions  : '0') )"-->
 
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
+            <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets">
               <statistics-card-line
                 hideChart
                 class="mb-base"
                 icon="FileIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
-                statisticTitle="Tickets Traités " />
+                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.fixed_tickets || 0) )"
+                statisticTitle="Tickets non Traités " />
             </div>
 
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
+            <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3" @click="companies">
               <statistics-card-line
                 hideChart
                 class="mb-base"
                 icon="GlobeIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
+                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.companies || 0) )"
                 statisticTitle="Compagnies" />
             </div>
 
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="UsersIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
-                statisticTitle="Utilisateurs" />
-            </div>
 <!--            <chartjs-bar-chart></chartjs-bar-chart>-->
           </div>
           <div class="vx-row" v-if="showByContributors">
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4"  >
+            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/3"  >
               <statistics-card-line
                 hideChart
                 class="mb-base"
@@ -217,7 +207,6 @@ export default {
   data () {
     return {
       showByAdmin: false,
-      showByPropect: false,
       showByContributors: false,
       variable_dashboard : {},
       variable_prospects : {},
@@ -236,12 +225,12 @@ export default {
     VxTimeline
   },
   methods: {
-    familles () {
-      this.$router.push('/base/familles').catch(() => {})
+    tickets () {
+      this.$router.push('/tickets').catch(() => {})
     },
 
-    biens () {
-      this.$router.push('/base/biens').catch(() => {})
+    companies () {
+      this.$router.push('/companies').catch(() => {})
     },
     sites () {
       this.$router.push('/base/sites').catch(() => {})
@@ -261,16 +250,9 @@ export default {
     const user_role = JSON.parse(localStorage.getItem('userInfo')).role
     if (user_role === 'admin') {
       this.showByAdmin = true
+      this.dashboard()
     } else if (user_role === 'user') {
       this.showByContributors = true
-      this.$http.get('contributorProspects/')
-        .then((response) => {
-          this.get_contributors = response.data
-        })
-        .catch(() => {
-
-        })
-
     }
   }
 }

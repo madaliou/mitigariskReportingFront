@@ -33,7 +33,7 @@
           <vs-select
               v-validate="'required'"
               autocomplete
-              v-model="input.companie"
+              v-model="input.company"
               class="w-full"
               name="compagnie">
             <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in companies" />
@@ -160,7 +160,7 @@ export default {
         this.$validator.reset()
       } else {
         this.input = JSON.parse(JSON.stringify(this.data))
-        this.input.companie = this.input.companie.id
+        this.input.company = this.input.company.id
         this.initValues()
       }
     }
@@ -207,7 +207,6 @@ export default {
         methods = 'put'
         message.success = 'L\'utilisateur est modifié avec succès.'
       }
-
       this.$http[methods](url, input)
         .then((response) => {
           window.getProspect.getAllUsers()

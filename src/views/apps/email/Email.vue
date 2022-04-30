@@ -268,7 +268,6 @@ export default {
   created () {
     this.$store.registerModule('email', moduleEmail)
     this.setSidebarWidth()
-
     this.$store.commit('email/UPDATE_MAIL_FILTER', this.$route.params.filter)        // Update Mail Filter
     this.$store.dispatch('email/fetchEmails', { filter: this.$route.params.filter }) // Fetch Emails From API
     this.$store.dispatch('email/fetchMeta')                                          // Fetch Unread Mails

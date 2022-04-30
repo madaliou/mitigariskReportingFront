@@ -21,7 +21,7 @@
                 class="mb-base"
                 icon="FileTextIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.unfixed_tickets || 0) )"
+                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.fixed_tickets || 0) )"
                 statisticTitle="Tickets Traités" />
             </div>
 
@@ -31,7 +31,7 @@
                 class="mb-base"
                 icon="FileIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.fixed_tickets || 0) )"
+                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.unfixed_tickets || 0) )"
                 statisticTitle="Tickets non Traités " />
             </div>
 

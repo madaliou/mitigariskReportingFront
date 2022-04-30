@@ -49,6 +49,7 @@
         @moveTo          = "moveCurrentTo"
         @closeSidebar    = "closeMailViewSidebar">
     </email-view>
+    <!-- ENVOYER UN MAIL-->
     <vs-prompt
         class="email-compose"
         title="Nouveau message"
@@ -86,6 +87,7 @@
         </form>
       </component>
     </vs-prompt>
+    <!-- MODIFICATION TICKET -->
     <vs-prompt
         class="email-compose"
         title="Modifier un ticket"
@@ -161,7 +163,7 @@ export default {
     return {
       openMailId           : null,
       openMailTexte        : null,
-      openMailCategotyId  : null,
+      openMailCategotyId   : null,
       selectedMails        : [],
       isSidebarActive      : false,
       showThread           : false,

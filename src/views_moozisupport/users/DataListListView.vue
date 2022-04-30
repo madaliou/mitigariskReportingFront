@@ -72,7 +72,7 @@
                 <p :style="'color: ' + getOrderStatusColor()">{{ tr.email }}</p>
               </vs-td>
               <vs-td>
-                <p class="product-name font-medium truncate">{{ tr.company || 'MOOZISTUDIO'}}</p>
+                <p class="product-name font-medium truncate">{{ tr.company != null ? tr.company.name : 'MOOZISTUDIO'}}</p>
               </vs-td>
               <vs-td class="whitespace-no-wrap">
                 <div class="flex">
@@ -117,9 +117,7 @@ export default {
     return {
       roleObject: {
         admin: 'Administrateur',
-        contributor: 'Apporteur d\'affaire',
-        prospect: 'Prospect',
-        recipient: 'Bénéficaire'
+        user: 'Utilisateur'
       },
       users: [],
       selected: [],

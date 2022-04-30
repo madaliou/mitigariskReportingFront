@@ -86,7 +86,7 @@
               </div>
 
 
-              <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
+              <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="All_message()">
                     <feather-icon icon="MailIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
                     <span class="text-lg ml-3">Messages</span>
               </div>
@@ -131,6 +131,7 @@ export default {
       categories:[],
       category: '',
       description: '',
+      HeaderName: 'Tickets totaux',
       editorOption: {
         modules: {
           toolbar: [
@@ -176,18 +177,30 @@ export default {
     },
     All_tickets () {
       this.openLoading()
+      this.HeaderName = 'TICKETS TOTAUX'
       window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmails')
     },
     unfixed_tickets () {
       this.openLoading()
+      this.HeaderName = 'TICKETS REÇUS'
       window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmailstrait')
     },
     fix_tickets () {
       this.openLoading()
+      this.HeaderName = 'TICKETS TRAITÉS'
       window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmailsRecu')
+    },
+    All_message () {
+      this.openLoading()
+      this.HeaderName = 'MESSAGES'
+      window.getCloseSidebar.closeMailViewSidebar()
+      this.$store.dispatch('email/replies')
+    },
+    HeaderNAme () {
+      return this.HeaderName
     },
     openLoading () {
       this.$vs.loading()
@@ -244,6 +257,7 @@ export default {
   },
   async created () {
     this.$store.registerModule('email', moduleEmail)
+    window.getHeaderSidebar = this
     this.$http.get('categories/')
       .then((response) => { this.categories = response.data })
       .catch(() => { })

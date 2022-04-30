@@ -55,7 +55,7 @@
 
                   <div class="open-mail-label flex items-center mr-4">
                     <div class="h-3 w-3  rounded-full bg-primary mr-1" ></div>
-                    <span class="text-sm">{{currentMail.author.company  || 'MOOZISTUDIO' }}</span>
+                    <span class="text-sm">{{ currentMail.author.company != null ? currentMail.author.company.name : 'MOOZISTUDIO'}}</span>
                   </div>
 
               </div>

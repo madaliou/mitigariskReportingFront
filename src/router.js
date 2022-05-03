@@ -99,6 +99,21 @@ const router = new Router({
             rule: 'editor'
           }
         },
+        {
+          path: '/messages',
+          beforeEnter: ifAuthenticated,
+          name: 'tickets',
+          component: () => import('./views_moozisupport/messages/Todo'),
+          meta: {
+            breadcrumb: [
+              { title: 'Tableau de bord', url: '/' },
+              { title: 'Messages', active: true }
+            ],
+            pageTitle: 'Messages',
+            rule: 'editor'
+          }
+        },
+
 
         {
           path: 'companies',

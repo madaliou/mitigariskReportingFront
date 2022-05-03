@@ -463,7 +463,6 @@ export default {
     this.openLoading()
     this.$store.dispatch('email/fetchEmails') // Fetch Emails From API
     this.$store.dispatch('email/fetchTags')  // Fetch Mail Tags
-    this.$store.dispatch('email/fetchMessage') // Fetch Messages
   }
 }
 

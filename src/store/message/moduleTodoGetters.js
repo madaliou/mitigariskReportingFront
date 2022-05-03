@@ -1,6 +1,6 @@
 /*=========================================================================================
-  File Name: moduleEmailMutations.js
-  Description: Email Module Mutations
+  File Name: moduleTodoGetters.js
+  Description: Todo Module Getters
   ----------------------------------------------------------------------------------------
   Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
   Author: Pixinvent
@@ -9,13 +9,5 @@
 
 
 export default {
-  SET_MAILS (state, mails) {
-    state.mails = mails
-  },
-  SET_TAGS (state, tags) {
-    state.mailTags = tags
-  },
-  TOGGLE_IS_MAIL_STARRED (state, payload) {
-    state.mails.find((mail) => mail.id === payload.mailId).isStarred = payload.value
-  }
+  getTask: state => taskId => state.tasks.find((task) => task.id === taskId)
 }

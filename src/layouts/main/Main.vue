@@ -243,6 +243,13 @@ export default {
         icon: 'FileTextIcon',
         i18n: 'Tickets'
       }
+      const message = {
+        url: '/messages',
+        name: 'Message',
+        slug: 'messages',
+        icon: 'MailIcon',
+        i18n: 'Messages'
+      }
       const company = {
         url: '/companies',
         name: 'Company',
@@ -264,6 +271,7 @@ export default {
       const role_admin = [
         dashboard,
         ticket,
+        message,
         company,
         category,
         users

@@ -10,7 +10,6 @@
 
 export default {
   mails: [],
-  messages: [],
   mailTags: [],
   mailSearchQuery: ''
 }

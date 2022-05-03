@@ -1,6 +1,6 @@
 /*=========================================================================================
-  File Name: moduleEmailMutations.js
-  Description: Email Module Mutations
+  File Name: moduleTodo.js
+  Description: Todo Module
   ----------------------------------------------------------------------------------------
   Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
   Author: Pixinvent
@@ -8,14 +8,15 @@
 ==========================================================================================*/
 
 
+import state from './moduleTodoState.js'
+import mutations from './moduleTodoMutations.js'
+import actions from './moduleTodoActions.js'
+import getters from './moduleTodoGetters.js'
+
 export default {
-  SET_MAILS (state, mails) {
-    state.mails = mails
-  },
-  SET_TAGS (state, tags) {
-    state.mailTags = tags
-  },
-  TOGGLE_IS_MAIL_STARRED (state, payload) {
-    state.mails.find((mail) => mail.id === payload.mailId).isStarred = payload.value
-  }
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+  getters
 }

@@ -197,7 +197,7 @@ export default {
       this.openLoading()
       this.HeaderName = 'MESSAGES'
       window.getCloseSidebar.closeMailViewSidebar()
-      this.$store.dispatch('email/replies')
+      this.$router.push('/messages').catch(() => {})
     },
     HeaderNAme () {
       return this.HeaderName

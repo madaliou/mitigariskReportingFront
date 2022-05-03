@@ -9,7 +9,6 @@
 
 <template>
     <div class="mail__mail-item sm:px-4 px-2 py-6">
-        <!-- MAIL ROW 1 : META -->
         <div class="flex w-full">
             <vs-avatar class="sender__avatar flex-shrink-0 mr-3 border-2 border-solid border-white"  size="40px"></vs-avatar>
 
@@ -25,16 +24,19 @@
                 </div>
             </div>
         </div>
-        <!-- /MAIL ROW 1 -->
 
-        <!-- MAIL ROW 2 : MSG & ACTIONS -->
         <div class="flex w-full">
             <div class="flex items-center ml-0" v-if="mail.fixed === false">
-                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" @click.stop="toggleIsStarred"></feather-icon>
+              <vx-tooltip text="Non traité" color="warning">
+                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" ></feather-icon>
+              </vx-tooltip>
             </div>
+
           <div class="flex items-center ml-0" v-if="mail.fixed === true">
-                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-primary fill-current stroke-current'" @click.stop="toggleIsStarred"></feather-icon>
-            </div>
+            <vx-tooltip text="Traité" color="primary">
+                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-primary fill-current stroke-current'" ></feather-icon>
+            </vx-tooltip>
+          </div>
             <div class="mail__message truncate ml-3">
                 <span>{{ mail.description | filter_tags }}</span>
             </div>

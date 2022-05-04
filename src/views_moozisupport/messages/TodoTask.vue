@@ -49,7 +49,7 @@
               icon="EditIcon"
               class="cursor-pointer"
               :svgClasses="['text-warning stroke-current', 'w-5', 'h-5 mr-4']"
-              @click.stop="toggleIsStarred" />
+              @click.stop="EditMessage(taskLocal)" />
           </vx-tooltip>
 
           <vx-tooltip text="Supprimer" color="danger">
@@ -136,11 +136,53 @@
       </vx-card>
 
     </vs-popup>
+<!--    <h1>pour editer le message reçu</h1>-->
+    <vs-prompt
+        class="email-compose"
+        title="Modifier le message"
+        accept-text= "Modifier"
+        cancel-text= "Annuler"
+        @cancel="clearMessage"
+        @accept="EditFunction"
+        @close="clearMessage"
+        :is-valid="validateForm && validateForm1"
+        :active.sync="activePrompt1">
+      <component :is="scrollbarTag" class="scroll-area p-4" :settings="settings" :key="$vs.rtl">
+        <form @submit.prevent>
+          <vs-input disabled="true"
+                    v-validate="'required'"
+                    name="mailTo"
+                    label-placeholder="Destinataire"
+                    v-model="mailTo"
+                    class="w-full mb-6"
+                    :danger="!validateForm && mailTo !== ''"
+                    val-icon-danger="clear"
+                    :success="validateForm"
+                    val-icon-success="done"
+                    :color="validateForm ? 'success' : 'danger'" />
+          <quill-editor
+              v-model="message"
+              name="message"
+              v-validate="'required'"
+              :options="editorOption"
+              :danger="!message"
+              val-icon-danger="clear"
+              :success="!message"
+              val-icon-success="done"
+              :color="!message ? 'success' : 'danger'"
+          />
+        </form>
+      </component>
+    </vs-prompt>
   </div>
 </template>
 
 <script>
 import moduleTodo  from '@/store/message/moduleTodo.js'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import { quillEditor } from 'vue-quill-editor'
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 export default{
   props: {
@@ -152,10 +194,39 @@ export default{
   data () {
     return {
       taskLocal: this.$store.getters['message/getTask'](this.taskId),
-      activePrompt: false
+      activePrompt: false,
+      activePrompt1: false,
+      settings             : {
+        maxScrollbarLength : 60,
+        wheelSpeed         : 0.30
+      },
+      mailTo: 'MOOZISTUDIO',
+      ticket: '',
+      message: '',
+      editorOption: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike', 'link', 'blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'font': [] }]
+          ]
+        },
+        placeholder: 'Message'
+      }
     }
   },
+  components:{
+    quillEditor,
+    VuePerfectScrollbar
+  },
   computed: {
+    validateForm () {
+      return !this.errors.any() && this.mailTo !== ''
+    },
+    validateForm1 () {
+      return !this.errors.any() &&  this.message !== ''
+    },
     scrollbarTag () { return this.$store.getters.scrollbarTag }
   },
   methods: {
@@ -189,6 +260,58 @@ export default{
     },
     viewMessage () {
       this.activePrompt = true
+    },
+    EditMessage (message) {
+      this.ticket = message.id
+      this.message = message.message
+      this.activePrompt1 = true
+    },
+    clearMessage () {
+      this.$nextTick(() => {
+        this.ticket = ''
+        this.message = ''
+      })
+    },
+    async EditFunction () {
+      this.$vs.loading()
+      const input = {
+        message:this.message,
+        ticket:this.ticket
+      }
+      let url = 'replies/'
+      let methods = 'post'
+      const message = {
+        error: 'Votre message à échouer.',
+        success: 'Le message est envoyé avec succès.'
+      }
+      if (input.ticket) {
+        url += `${input.ticket}/`
+        methods = 'put'
+        message.success = 'Le message est modifié avec succès.'
+      }
+      this.$http[methods](url, input)
+        .then((response) => {
+          window.getPrendTaCom.success(message.success, response)
+          this.$store.dispatch('message/fetchMessage')
+          this.clearMessage()
+        })
+        .catch((error) => {
+          const clefs = Object.keys(error.response.data)
+          for (let i = 0; i < clefs.length; i++) {
+            const item = clefs[i]
+            let libelle = ''
+            if (item === 'ticket') {
+              libelle = 'Ticket'
+            }
+            if (item === 'message') {
+              libelle = 'Message'
+            }
+            for (let j = 0; j < error.response.data[item].length; j++) {
+              window.getPrendTaCom.error(`${libelle} :  ${error.response.data[item][j]}`)
+            }
+          }
+          window.getPrendTaCom.error(message.error)
+        })
     }
   },
   created () {

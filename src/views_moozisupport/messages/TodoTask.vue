@@ -9,9 +9,9 @@
 
 
 <template>
-  <div class="mail__mail-item sm:px-4 px-2 py-6">
+  <div  @click="viewMessage()" class="mail__mail-item sm:px-4 px-2 py-6">
     <!-- MAIL ROW 1 : META -->
-    <div class="flex w-full">
+    <div  class="flex w-full">
       <vs-avatar class="sender__avatar flex-shrink-0 mr-3 border-2 border-solid border-white"  size="40px"></vs-avatar>
       <div class="flex w-full justify-between items-start">
         <div class="mail__details">
@@ -36,21 +36,21 @@
               @click.stop="viewMessage()" />
           </vx-tooltip>
 
-          <vx-tooltip text="Message" color="primary">
-          <feather-icon
-              icon="MailIcon"
-              class="cursor-pointer"
-              :svgClasses="['text-primary stroke-current', 'w-5', 'h-5 mr-4']"
-              @click.stop="toggleIsStarred" />
-          </vx-tooltip>
+<!--          <vx-tooltip text="Message" color="primary">-->
+<!--          <feather-icon-->
+<!--              icon="MailIcon"-->
+<!--              class="cursor-pointer"-->
+<!--              :svgClasses="['text-primary stroke-current', 'w-5', 'h-5 mr-4']"-->
+<!--              @click.stop="toggleIsStarred" />-->
+<!--          </vx-tooltip>-->
 
-          <vx-tooltip text="Editer" color="warning">
-          <feather-icon
-              icon="EditIcon"
-              class="cursor-pointer"
-              :svgClasses="['text-warning stroke-current', 'w-5', 'h-5 mr-4']"
-              @click.stop="EditMessage(taskLocal)" />
-          </vx-tooltip>
+<!--          <vx-tooltip text="Editer" color="warning">-->
+<!--          <feather-icon-->
+<!--              icon="EditIcon"-->
+<!--              class="cursor-pointer"-->
+<!--              :svgClasses="['text-warning stroke-current', 'w-5', 'h-5 mr-4']"-->
+<!--              @click.stop="EditMessage(taskLocal)" />-->
+<!--          </vx-tooltip>-->
 
           <vx-tooltip text="Supprimer" color="danger">
           <feather-icon
@@ -262,7 +262,7 @@ export default{
       this.activePrompt = true
     },
     EditMessage (message) {
-      this.ticket = message.id
+      this.ticket = message.ticket.id
       this.message = message.message
       this.activePrompt1 = true
     },

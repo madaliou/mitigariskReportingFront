@@ -251,8 +251,6 @@ export default {
     if (user_role === 'admin') {
       this.showByAdmin = true
       this.dashboard()
-    } else if (user_role === 'user') {
-      this.showByContributors = true
     }
   }
 }

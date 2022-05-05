@@ -278,8 +278,8 @@ export default {
       ]
 
       const role_user = [
-        dashboard,
-        ticket
+        ticket,
+        message
       ]
 
 

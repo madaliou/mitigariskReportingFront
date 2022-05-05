@@ -72,7 +72,7 @@
 
               <!-- inbox -->
 
-                    <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
+                    <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
                         <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
                         <span class="text-lg ml-3">Tickets reçus</span>
                     </div>
@@ -80,7 +80,7 @@
 
                 <!-- sent -->
 
-              <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
+              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
                     <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
                     <span class="text-lg ml-3">Tickets traités</span>
               </div>
@@ -127,6 +127,7 @@ export default {
   data () {
     return {
       activePrompt: false,
+      showByAdmin: false,
       mailTo: 'MOOZISTUDIO',
       categories:[],
       category: '',
@@ -258,6 +259,10 @@ export default {
   async created () {
     this.$store.registerModule('email', moduleEmail)
     window.getHeaderSidebar = this
+    const user_role = JSON.parse(localStorage.getItem('userInfo')).role
+    if (user_role === 'admin') {
+      this.showByAdmin = true
+    }
     this.$http.get('categories/')
       .then((response) => { this.categories = response.data })
       .catch(() => { })

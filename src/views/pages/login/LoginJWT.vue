@@ -40,8 +40,8 @@
 export default {
   data () {
     return {
-      email: 'admin@gmail.com',
-      password: 'admin123',
+      email: '',
+      password: '',
       checkbox_remember_me: false
     }
   },

@@ -24,9 +24,11 @@
             <div class="email__actions--single flex items-baseline">
 <!--              <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="[{'text-warning stroke-current stroke-current': currentMail.isStarred}, 'h-6 w-6']" @click="toggleIsStarred" />-->
               <!-- ADD LABEL DROPDOWN -->
+              <div v-if="showByAdmin===true">
               <vx-tooltip text="Traiter" color="success">
               <feather-icon style="color: lime"  v-if="currentMail.fixed === false" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
               </vx-tooltip>
+              </div>
               <vx-tooltip text="Editer" color="warning">
               <feather-icon style="color: gold" icon="EditIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Edit_ticket')"></feather-icon>
               </vx-tooltip>
@@ -102,6 +104,7 @@ export default {
   },
   data () {
     return {
+      showByAdmin: false,
       showThread: false,
       settings: {
         maxScrollbarLength: 60,
@@ -157,6 +160,12 @@ export default {
   components: {
     VuePerfectScrollbar,
     EmailMailCard
+  },
+  created () {
+    const user_role = JSON.parse(localStorage.getItem('userInfo')).role
+    if (user_role === 'admin') {
+      this.showByAdmin = true
+    }
   }
 
 }

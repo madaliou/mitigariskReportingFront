@@ -315,11 +315,11 @@ export default {
                 if (!response.data.userData.passwordChanged === true) {
                   router.push(router.currentRoute.query.to || '/pages/Changelogin')
                   this.$vs.loading.close()
-                } else {
+                } else if (response.data.userData.role === 'admin') {
                   router.push(router.currentRoute.query.to || '/')
+                } else {
+                  router.push(router.currentRoute.query.to || '/tickets')
                 }
-                // router.push(router.currentRoute.query.to || '/')
-
                 // Set accessToken
                 localStorage.setItem('accessToken', response.data.accessToken)
                 window.getPrendTaCom.$http.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`

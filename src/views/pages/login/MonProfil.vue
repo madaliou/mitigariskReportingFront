@@ -1,15 +1,5 @@
-<!-- =========================================================================================
-  File Name: UserView.vue
-  Description: User View page
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 <template>
   <div id="page-user-view">
-
     <div id="user-data" v-if="user_data" >
       <vx-card title="PROFIL" class="mb-base">
         <!-- Avatar -->
@@ -31,34 +21,18 @@
                 <td class="font-semibold">Prénoms :</td>
                 <td>{{ user_data.first_name}}</td>
               </tr>
-              <tr>
-                <td class="font-semibold">Sexe :</td>
-                <td>{{sexeObject[user_data.gender]}}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Role :</td>
-                <td>{{ roleObject[ user_data.role]}}</td>
-              </tr>
             </table>
           </div>
           <!-- Information - Col 2 -->
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
               <tr>
+                <td class="font-semibold">Role :</td>
+                <td>{{ roleObject[ user_data.role]}}</td>
+              </tr>
+              <tr>
                 <td class="font-semibold">Email :</td>
                 <td>{{ user_data.email}}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Telephone :</td>
-                <td>{{ user_data.phoneNumber}}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Ville :</td>
-                <td>{{ user_data.city}}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Pays :</td>
-                <td>{{ user_data.country.name}}</td>
               </tr>
             </table>
           </div>
@@ -67,11 +41,8 @@
           </div>
         </div>
       </vx-card>
-
-
-      <!-- Permissions -->
-
     </div>
+
     <vs-prompt
       color="danger"
       title="MODIFICATION DE MOT DE PASSE"
@@ -118,17 +89,12 @@
 <script>
 
 export default {
+
   data () {
     return {
       roleObject: {
         admin: 'Administrateur',
-        contributor: 'Apporteur d\'affaire',
-        prospect: 'Prospect',
-        recipient: 'Bénéficaire'
-      },
-      sexeObject: {
-        male: 'Masculin',
-        female: 'Féminin'
+        user: 'Utulisateur'
       },
       user_data: [],
       password: '',
@@ -180,7 +146,6 @@ export default {
         })
     }
   },
-
   created () {
     this.user_data = JSON.parse(localStorage.getItem('userInfo'))
 
@@ -212,7 +177,6 @@ export default {
     }
   }
 }
-
 
 @media screen and (min-width:1201px) and (max-width:1211px),
 only screen and (min-width:636px) and (max-width:991px) {

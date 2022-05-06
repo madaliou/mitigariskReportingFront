@@ -2,7 +2,7 @@
   <div class="the-navbar__user-meta flex items-center" v-if="activeUserInfo.displayName">
 
     <div class="text-right leading-tight hidden sm:block">
-      <p class="font-semibold">{{ activeUserInfo.username}} </p>
+      <p class="font-semibold">{{ activeUserInfo.last_name +" "}}{{ activeUserInfo.first_name}}</p>
       <span class="flex items-center px-2 py-1 rounded"><div class="h-3 w-3 rounded-full mr-2" :class="'bg-success'"></div><small>{{ activeUserInfo.status }}</small></span>
     </div>
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">

@@ -9,14 +9,16 @@
 
 
 <template>
-  <div  @click="viewMessage()" class="mail__mail-item sm:px-4 px-2 py-6">
+  <div  @click="viewMessage();read_Mail(taskLocal.id)" class="mail__mail-item sm:px-4 px-2 py-6">
     <!-- MAIL ROW 1 : META -->
     <div  class="flex w-full">
       <vs-avatar class="sender__avatar flex-shrink-0 mr-3 border-2 border-solid border-white"  size="40px"></vs-avatar>
       <div class="flex w-full justify-between items-start">
         <div class="mail__details">
-          <h5 class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
-          <span style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
+          <h5 v-if="showByAdmin=== true" class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
+          <h5 v-if="showByAdmin=== false" class="mb-1">MOOZISUPPORT</h5>
+          <span v-if="showByAdmin=== true" style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
+          <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" > MOOZISTUDIO</span>
           <br>
           <span v-if="taskLocal.ticket.category.name">{{ taskLocal.ticket.category.name }}</span>
           <span v-else>(no subject)</span>
@@ -28,12 +30,20 @@
             <span>{{ taskLocal.created_at | moment }}</span>
           </vs-chip>
 
-          <vx-tooltip text="voir" color="success">
+          <vx-tooltip v-if="showByAdmin ===false" text="voir" color="success">
           <feather-icon
               icon="EyeIcon"
               class="cursor-pointer"
               :svgClasses="['text-success stroke-current', 'w-5', 'h-5 mr-4']"
-              @click.stop="viewMessage()" />
+              @click.stop="viewMessage();read_Mail(taskLocal.id)" />
+          </vx-tooltip>
+
+          <vx-tooltip v-if="showByAdmin ===true" text="voir" color="success">
+          <feather-icon
+              icon="EyeIcon"
+              class="cursor-pointer"
+              :svgClasses="['text-success stroke-current', 'w-5', 'h-5 mr-4']"
+              @click.stop="viewMessage();read_Mail(taskLocal.id)" />
           </vx-tooltip>
 
 <!--          <vx-tooltip text="Message" color="primary">-->
@@ -93,8 +103,10 @@
                 <vs-avatar class="sender__avatar--single flex-shrink-0 mr-3 border-2 border-solid border-white" size="65px" />
               </div>
               <div class="flex flex-col">
-                <h5 class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
-                <span style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
+                <h5 v-if="showByAdmin=== true" class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
+                <h5 v-if="showByAdmin=== false" class="mb-1">MOOZISUPPORT</h5>
+                <span v-if="showByAdmin=== true" style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
+                <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" > MOOZISTUDIO</span>
                 <span v-if="taskLocal.ticket.category.name">{{ taskLocal.ticket.category.name }}</span>
                 <span v-else>(no subject)</span>
               </div>
@@ -196,6 +208,7 @@ export default{
       taskLocal: this.$store.getters['message/getTask'](this.taskId),
       activePrompt: false,
       activePrompt1: false,
+      showByAdmin: false,
       settings             : {
         maxScrollbarLength : 60,
         wheelSpeed         : 0.30
@@ -261,6 +274,13 @@ export default{
     viewMessage () {
       this.activePrompt = true
     },
+    read_Mail (id) {
+      this.$http.post('read-reply/', {id})
+        .then(() => {
+          this.$store.dispatch('message/fetchMessage')
+          this.$vs.loading.close()
+        })
+    },
     EditMessage (message) {
       this.ticket = message.ticket.id
       this.message = message.message
@@ -316,6 +336,10 @@ export default{
   },
   created () {
     this.$store.registerModule('message', moduleTodo)
+    const user_role = JSON.parse(localStorage.getItem('userInfo')).role
+    if (user_role === 'admin') {
+      this.showByAdmin = true
+    }
   }
 }
 </script>

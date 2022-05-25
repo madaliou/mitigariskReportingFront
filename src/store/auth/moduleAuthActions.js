@@ -350,8 +350,7 @@ export default {
 
 
             })
-            .catch((error) => {
-              console.log(error)
+            .catch(() => {
               reject({message: 'La connexion a échoué.'})
             })
         })

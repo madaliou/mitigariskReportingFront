@@ -9,8 +9,13 @@
             <vs-avatar class="sender__avatar--single flex-shrink-0 mr-3 border-2 border-solid border-white" size="65px" />
           </div>
           <div class="flex flex-col">
-            <h5 class="mb-1">{{ props.mailContent.author.last_name +" "}}{{ props.mailContent.author.first_name}}</h5>
+            <h5 v-if="props.user_role ==='admin'" class="mb-1">{{ props.mailContent.author.last_name +" "}}{{ props.mailContent.author.first_name}}</h5>
+            <h5 v-if="props.user_role ==='user'" class="mb-1">{{ props.mailContent.category.name }}</h5>
             <div class="flex items-center">
+              <span class="text-sm" style="color: blue" >{{ props.mailContent!= null ? props.mailContent.reference : 'MOOZISTUDIO'}}</span>
+            </div>
+
+            <div v-if="props.user_role ==='admin'" class="flex items-center">
               <span class="text-sm">{{ props.mailContent.author.email }}</span>
             </div>
           </div>
@@ -57,7 +62,13 @@ export default {
     mailContent: {
       type: Object,
       required: true
+    },
+    user_role: {
+      type: String,
+      required: true
     }
+
   }
+
 }
 </script>

@@ -52,7 +52,7 @@
     <!-- ENVOYER UN MAIL-->
     <vs-prompt
         class="email-compose"
-        title="Nouveau message"
+        title="Envoyer un mail"
         accept-text= "Envoyer"
         cancel-text= "Annuler"
         @cancel="clearMessage"

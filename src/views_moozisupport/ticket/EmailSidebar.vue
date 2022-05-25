@@ -1,19 +1,20 @@
 <template>
     <div class="email__email-sidebar h-full">
-        <div class="m-6 clearfix">
-            <vs-button class="bg-primary-gradient w-full" icon-pack="feather" icon="icon-edit" @click="activePrompt = true">Envoyer un ticket</vs-button>
+      <div v-if="showByAdmin===false">
+        <div  class="m-6 clearfix">
+            <vs-button class="bg-primary-gradient w-full" icon-pack="feather" icon="icon-edit" @click="activePrompt = true">Créer un ticket</vs-button>
         </div>
-
+      </div>
         <!-- compose email -->
         <vs-prompt
             class="email-compose"
-            title="Nouveau tickets"
+            title="Créer un ticket"
             accept-text= "Envoyer"
             cancel-text= "Annuler"
             @cancel="clearFields"
             @accept="sendMail"
             @close="clearFields"
-            :is-valid="validateForm && validateForm1 && validateForm2"
+            :is-valid="validateForm && validateForm1 && validateForm2 && validateForm3"
             :active.sync="activePrompt">
                 <component :is="scrollbarTag" class="scroll-area p-4" :settings="settings" :key="$vs.rtl">
                     <form @submit.prevent>
@@ -23,7 +24,7 @@
                                   label-placeholder="Destinataire"
                                   v-model="mailTo"
                                   class="w-full mb-6"
-                                  :danger="!validateForm && mailTo !== ''"
+                                  :danger="!validateForm || mailTo !== ''"
                                   val-icon-danger="clear"
                                   :success="validateForm"
                                   val-icon-success="done"
@@ -37,13 +38,29 @@
                         label="Categorie"
                         class="w-full mb-6"
                         name="category"
-                        :danger="!validateForm1 && category !== ''"
+                        :danger="!validateForm1 || category !== ''"
                         val-icon-danger="clear"
                         :success="validateForm1"
                         val-icon-success="done"
                         :color="validateForm1 ? 'success' : 'danger'"
                        >
                         <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in categories" />
+                      </vs-select>
+                      <vs-select
+
+                        v-validate="'required'"
+                        autocomplete
+                        v-model="solution"
+                        label="Solution"
+                        class="w-full mb-6"
+                        name="solution"
+                        :danger="!validateForm1 || category !== '' || solution ===''"
+                        val-icon-danger="clear"
+                        :success="validateForm1"
+                        val-icon-success="done"
+                        :color="validateForm1 ? 'success' : 'danger'"
+                       >
+                        <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in solutions" />
                       </vs-select>
 
                         <quill-editor
@@ -59,30 +76,32 @@
                     </form>
                 </component>
         </vs-prompt>
-
+      <br v-if="showByAdmin===true">
         <component :is="scrollbarTag" class="email-filter-scroll-area" :settings="settings" :key="$vs.rtl">
             <div class="px-6 pb-2 flex flex-col">
 
                 <!-- inbox -->
 
-                    <div class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
-                        <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
-                        <span class="text-lg ml-3">Tickets totaux</span>
-                    </div>
+              <div v-if="showByAdmin===true" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
+                  <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
+                  <span class="text-lg ml-3">Tickets totaux</span>
+              </div>
+
+              <div v-if="showByAdmin===false" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
+                  <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
+                  <span class="text-lg ml-3">Mes tickets</span>
+              </div>
 
               <!-- inbox -->
-
-                    <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
-                        <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
-                        <span class="text-lg ml-3">Tickets reçus</span>
-                    </div>
-
-
-                <!-- sent -->
-
               <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
-                    <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
-                    <span class="text-lg ml-3">Tickets traités</span>
+                <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
+                <span class="text-lg ml-3">Tickets traités</span>
+              </div>
+
+
+              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
+                        <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
+                        <span class="text-lg ml-3">Tickets non traités</span>
               </div>
 
 
@@ -130,6 +149,8 @@ export default {
       showByAdmin: false,
       mailTo: 'MOOZISTUDIO',
       categories:[],
+      solutions:[],
+      solution:'',
       category: '',
       description: '',
       HeaderName: 'Tickets totaux',
@@ -163,6 +184,9 @@ export default {
     },
     validateForm2 () {
       return !this.errors.any()  && this.category !== ''
+    },
+    validateForm3 () {
+      return !this.errors.any()  && this.solution !== ''
     },
     emailMeta () {
       return this.$store.state.email.meta
@@ -213,7 +237,8 @@ export default {
       this.$vs.loading()
       const input = {
         description:this.description,
-        category:this.category
+        category:this.category,
+        solution:this.solution
       }
       let url = 'tickets/'
       let methods = 'post'
@@ -243,6 +268,9 @@ export default {
             if (item === 'description') {
               libelle = 'description'
             }
+            if (item === 'solution') {
+              libelle = 'solution'
+            }
             for (let j = 0; j < error.response.data[item].length; j++) {
               window.getPrendTaCom.error(`${libelle} :  ${error.response.data[item][j]}`)
             }
@@ -264,8 +292,10 @@ export default {
       this.showByAdmin = true
     }
     this.$http.get('categories/')
-      .then((response) => { this.categories = response.data })
-      .catch(() => { })
+      .then((response) => { this.categories = response.data }).catch(() => { })
+
+    this.$http.get('solutions/')
+      .then((response) => { this.solutions = response.data }).catch(() => {})
   }
 }
 

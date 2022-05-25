@@ -18,7 +18,7 @@
           <h5 v-if="showByAdmin=== true" class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
           <h5 v-if="showByAdmin=== false" class="mb-1">MOOZISUPPORT</h5>
           <span v-if="showByAdmin=== true" style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
-          <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" > MOOZISTUDIO</span>
+          <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" >{{ taskLocal.ticket != null ? taskLocal.ticket.reference : 'MOOZISTUDIO'}}</span>
           <br>
           <span v-if="taskLocal.ticket.category.name">{{ taskLocal.ticket.category.name }}</span>
           <span v-else>(no subject)</span>
@@ -62,13 +62,13 @@
 <!--              @click.stop="EditMessage(taskLocal)" />-->
 <!--          </vx-tooltip>-->
 
-          <vx-tooltip text="Supprimer" color="danger">
-          <feather-icon
-              icon="TrashIcon"
-              class="cursor-pointer"
-              svgClasses="text-danger stroke-current w-5 h-5"
-              @click.stop="removeMessage(taskLocal.id)" />
-          </vx-tooltip>
+<!--          <vx-tooltip text="Supprimer" color="danger">-->
+<!--          <feather-icon-->
+<!--              icon="TrashIcon"-->
+<!--              class="cursor-pointer"-->
+<!--              svgClasses="text-danger stroke-current w-5 h-5"-->
+<!--              @click.stop="removeMessage(taskLocal.id)" />-->
+<!--          </vx-tooltip>-->
 
         </div>
 
@@ -77,12 +77,12 @@
     <div class="flex w-full">
       <div class="flex items-center ml-0" v-if="taskLocal.read === false">
         <vx-tooltip text="Non lu" color="danger">
-        <feather-icon icon="UserXIcon" class="cursor-pointer" :svgClasses="'text-danger fill-current stroke-current'"></feather-icon>
+        <feather-icon icon="PlusCircleIcon" class="cursor-pointer" :svgClasses="'text-danger fill-current stroke-current'"></feather-icon>
         </vx-tooltip>
       </div>
       <div class="flex items-center ml-0" v-if="taskLocal.read === true">
-        <vx-tooltip text="Non lu" color="success">
-        <feather-icon icon="UserCheckIcon" class="cursor-pointer" :svgClasses="'text-success fill-current stroke-current'" ></feather-icon>
+        <vx-tooltip text="Lu" color="success">
+        <feather-icon icon="PlusCircleIcon" class="cursor-pointer" :svgClasses="'text-success fill-current stroke-current'" ></feather-icon>
         </vx-tooltip>
       </div>
       <div class="mail__message truncate ml-3">
@@ -106,7 +106,8 @@
                 <h5 v-if="showByAdmin=== true" class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
                 <h5 v-if="showByAdmin=== false" class="mb-1">MOOZISUPPORT</h5>
                 <span v-if="showByAdmin=== true" style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
-                <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" > MOOZISTUDIO</span>
+                <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" >{{ taskLocal.ticket != null ? taskLocal.ticket.reference : 'MOOZISTUDIO'}}</span>
+                <span v-if="showByAdmin=== true" style="color: red " class="mb-1" >{{ taskLocal.ticket != null ? taskLocal.ticket.reference : 'MOOZISTUDIO'}}</span>
                 <span v-if="taskLocal.ticket.category.name">{{ taskLocal.ticket.category.name }}</span>
                 <span v-else>(no subject)</span>
               </div>

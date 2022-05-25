@@ -58,8 +58,8 @@
               <div class="email__labels--single flex ml-10 items-center mt-2">
 
                   <div class="open-mail-label flex items-center mr-4">
-                    <div class="h-3 w-3  rounded-full bg-primary mr-1" ></div>
-                    <span class="text-sm">{{ currentMail.author.company != null ? currentMail.author.company.name : 'MOOZISTUDIO'}}</span>
+                    <div v-if="showByAdmin===true" class="h-3 w-3  rounded-full bg-primary mr-1" ></div>
+                    <span v-if="showByAdmin===true" class="text-sm">{{ currentMail.author.company != null ? currentMail.author.company.name : 'MOOZISTUDIO'}}</span>
                   </div>
 
               </div>
@@ -72,7 +72,9 @@
             <!-- LATEST MESSAGE -->
             <div class="vx-row">
               <div class="vx-col w-full">
-                <email-mail-card :mailContent="currentMail" />
+                <email-mail-card
+                    :user_role="user_roleTop"
+                    :mailContent="currentMail" />
               </div>
             </div>
           </div>
@@ -127,6 +129,9 @@ export default {
   computed: {
     currentMail () {
       return this.$store.getters['email/getMail'](this.openMailId)
+    },
+    user_roleTop () {
+      return JSON.parse(localStorage.getItem('userInfo')).role
     },
     labelColor () {
       return (label) => {

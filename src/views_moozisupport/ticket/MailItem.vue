@@ -14,9 +14,10 @@
 
             <div class="flex w-full justify-between items-start">
                 <div class="mail__details">
-                    <h5 class="mb-1">{{ mail.author.last_name +" "}}{{ mail.author.first_name}}</h5>
-                    <span v-if="mail.category.name">{{ mail.category.name }}</span>
-                    <span v-else>(no subject)</span>
+                    <h5 v-if="showByAdmin===true" class="mb-1">{{ mail.author.last_name +" "}}{{ mail.author.first_name}}</h5>
+                  <span  v-if="mail.category.name">{{ mail.category.name }}</span>
+                  <br>
+                  <span style="color: blue " class="mb-1" >{{ mail != null ? mail.reference : 'MOOZISTUDIO'}}</span>
                 </div>
 
                 <div class="mail-item__meta flex items-center">
@@ -59,6 +60,7 @@ export default {
   },
   data () {
     return {
+      showByAdmin: false,
       isSelectedMail: this.isSelected
     }
   },
@@ -84,6 +86,12 @@ export default {
     toggleIsStarred () {
       const payload = { mailId: this.mail.id, value: !this.mail.isStarred }
       this.$store.dispatch('email/toggleIsMailStarred', payload)
+    }
+  },
+  created () {
+    const user_role = JSON.parse(localStorage.getItem('userInfo')).role
+    if (user_role === 'admin') {
+      this.showByAdmin = true
     }
   }
 }

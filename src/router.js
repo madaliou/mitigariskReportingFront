@@ -138,9 +138,37 @@ const router = new Router({
           meta: {
             breadcrumb: [
               { title: 'Tableau de bord', url: '/' },
-              { title: '', active: true }
+              { title: 'Categories', active: true }
             ],
             pageTitle: 'Categories',
+            rule: 'editor'
+          }
+        },
+        {
+          path: 'categories',
+          beforeEnter: ifAuthenticated,
+          name: 'categories',
+          component: () => import('./views_moozisupport/category/DataListCategory'),
+          meta: {
+            breadcrumb: [
+              { title: 'Tableau de bord', url: '/' },
+              { title: 'Categories', active: true }
+            ],
+            pageTitle: 'Categories',
+            rule: 'editor'
+          }
+        },
+        {
+          path: 'solutions',
+          beforeEnter: ifAuthenticated,
+          name: 'solutions',
+          component: () => import('./views_moozisupport/solution/DataListSolution'),
+          meta: {
+            breadcrumb: [
+              { title: 'Tableau de bord', url: '/' },
+              { title: 'Solutions', active: true }
+            ],
+            pageTitle: 'Solutions',
             rule: 'editor'
           }
         },

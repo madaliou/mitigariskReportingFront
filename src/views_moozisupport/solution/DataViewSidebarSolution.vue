@@ -1,45 +1,47 @@
-<!-- =========================================================================================
-  File Name: AddNewDataSidebar.vue
-  Description: Add New Data - Sidebar component
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
-
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
-      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} COMPAGNIE  </h4>
+      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} SOLUTION  </h4>
       <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
     </div>
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">Compagnie<b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">Solution<b style="color: #ff6141" >*</b> </p>
         <vs-input
-          v-validate="'required'"
-          data-vv-validate-on="blur"
-          name="nametype"
-          v-model="input.name"
-          class="w-full" />
+            v-validate="'required'"
+            data-vv-validate-on="blur"
+            name="nametype"
+            v-model="input.name"
+            class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('nametype')">{{ errors.first('nametype') }}</span>
 
         <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>
-         <vs-input
-          v-validate="'required'"
-          data-vv-validate-on="blur"
-          name="description"
-          v-model="input.description"
-          class="w-full" />
+        <vs-input
+            v-validate="'required'"
+            data-vv-validate-on="blur"
+            name="description"
+            v-model="input.description"
+            class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
+
+        <p class="pt-4"> Compagnie <b style="color: #ff6141" >*</b> </p>
+        <vs-select
+            v-validate="'required'"
+            autocomplete
+            v-model="input.company"
+            class="w-full"
+            name="compagnie"
+        >
+          <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in compagnies" />
+        </vs-select>
+        <span class="text-danger text-sm" v-show="errors.has('compagnie')">{{ errors.first('compagnie') }}</span>
 
       </div>
     </component>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button class="mr-6" @click="company_validate">Soumettre</vs-button>
+      <vs-button class="mr-6" @click="solution_validate">Soumettre</vs-button>
       <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Annuler</vs-button>
     </div>
   </vs-sidebar>
@@ -54,10 +56,13 @@ const dict = {
   custom: {
 
     nametype: {
-      required: 'Le champ compagnie est obligatoire'
+      required: 'Le champ solution est obligatoire'
     },
     description: {
       required: 'Le champ description est obligatoire'
+    },
+    compagnie: {
+      required: 'Le champ compagnie est obligatoire'
     }
 
   }
@@ -70,7 +75,8 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 const input_tempon = {
   name: '',
-  description:''
+  description:'',
+  company:''
 }
 
 export default {
@@ -89,7 +95,7 @@ export default {
   },
   data () {
     return {
-
+      compagnies:[],
       input: JSON.parse(JSON.stringify(input_tempon)),
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
@@ -105,6 +111,7 @@ export default {
         this.$validator.reset()
       } else {
         this.input = JSON.parse(JSON.stringify(this.data))
+        this.input.company = this.input.company.id
         this.initValues()
       }
     }
@@ -130,32 +137,31 @@ export default {
       if (this.data.id) return
       this.input = JSON.parse(JSON.stringify(input_tempon))
     },
-    company_validate () {
+    solution_validate () {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.submitData()
         }
       })
     },
-
     async submitData () {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
-      let url = 'companies/'
+      let url = 'solutions/'
       let methods = 'post'
       const message = {
         error: 'Votre enrégistrement à échouer.',
-        success: 'La compagnie est enrégistrée avec succès.'
+        success: 'La solution est enrégistrée avec succès.'
       }
       if (input.id) {
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'La compagnie est modifiée avec succès.'
+        message.success = 'La solution est modifiée avec succès.'
       }
 
       this.$http[methods](url, input)
         .then((response) => {
-          window.Compagnies.getAllCompagny()
+          window.Solutions.getAllSolution()
           window.getPrendTaCom.success(message.success, response)
           this.$emit('closeSidebar')
           this.initValues()
@@ -167,10 +173,13 @@ export default {
             const item = clefs[i]
             let libelle = ''
             if (item === 'name') {
-              libelle = 'compagnie'
+              libelle = 'solution'
             }
             if (item === 'description') {
               libelle = 'description'
+            }
+            if (item === 'compagny') {
+              libelle = 'Compagnie'
             }
 
             for (let j = 0; j < error.response.data[item].length; j++) {
@@ -180,17 +189,14 @@ export default {
 
           window.getPrendTaCom.error(message.error)
         })
-    },
-    updateCurrImg (input) {
-      if (input.target.files && input.target.files[0]) {
-        const reader = new FileReader()
-        reader.onload = e => {
-          this.dataImg = e.target.result
-        }
-        reader.readAsDataURL(input.target.files[0])
-      }
     }
+  },
+  async created () {
+    this.$http.get('companies/')
+      .then((response) => { this.compagnies = response.data })
+      .catch(() => { })
   }
+
 }
 </script>
 

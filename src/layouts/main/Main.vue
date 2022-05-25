@@ -255,7 +255,7 @@ export default {
         name: 'Company',
         slug: 'company',
         icon: 'GlobeIcon',
-        i18n: 'Compagines'
+        i18n: 'Compagnies'
       }
       const category = {
         url: '/categories',
@@ -263,6 +263,13 @@ export default {
         slug: 'category',
         icon: 'LayersIcon',
         i18n: 'categories'
+      }
+      const solution = {
+        url: '/solutions',
+        name: 'Solution',
+        slug: 'solution',
+        icon: 'ClipboardIcon',
+        i18n: 'Solutions'
       }
 
 
@@ -273,6 +280,7 @@ export default {
         ticket,
         message,
         company,
+        solution,
         category,
         users
       ]

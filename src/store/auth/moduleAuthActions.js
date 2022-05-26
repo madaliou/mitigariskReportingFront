@@ -307,13 +307,13 @@ export default {
         .then(response1 => {
           window.getPrendTaCom.$http.post('login/', payload.userDetails.data)
             .then((response) => {
-
               localStorage.setItem('accessToken', response.data.accessToken)
               // if (response.data.user.passwordChanged === true){
               if (response1.data.userData) {
                 // Navigate User to homepage
                 if (!response.data.userData.passwordChanged === true) {
                   router.push(router.currentRoute.query.to || '/pages/Changelogin')
+                  reject()
                   this.$vs.loading.close()
                 } else if (response.data.userData.role === 'admin') {
                   router.push(router.currentRoute.query.to || '/')
@@ -350,8 +350,8 @@ export default {
 
 
             })
-            .catch(() => {
-              reject({message: 'La connexion a échoué.'})
+            .catch((error) => {
+              reject({message: error.response.data.non_field_errors[0]})
             })
         })
         .catch(error => { reject(error) })

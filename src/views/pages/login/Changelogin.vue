@@ -85,7 +85,7 @@ export default {
         .then((reponse) => {
           // localStorage.clear();
           this.$vs.notify({
-            time:4000,
+            time:10000,
             title: 'MOT DE PASSE CHANGÉ ',
             text: reponse.data.message,
             color: 'success',
@@ -94,7 +94,14 @@ export default {
           router.push(router.currentRoute.query.to || '/pages/login')
           this.$vs.loading.close()
         })
-        .catch(() => {
+        .catch((error) => {
+          this.$vs.notify({
+            time:10000,
+            title: 'MOT DE PASSE ÉCHOUÉ',
+            text: error.response.data.message[0],
+            color: 'warning',
+            position:'top-center'
+          })
           this.$vs.loading.close()
         })
     }

@@ -54,7 +54,7 @@
             <p class="product-name font-medium truncate">{{ tr.description}}</p>
           </vs-td>
           <vs-td>
-            <p class="product-name font-medium truncate">{{ tr.company.description}}</p>
+            <p class="product-name font-medium truncate">{{ tr.company.name}}</p>
           </vs-td>
           <vs-td class="whitespace-no-wrap">
             <div class="flex">

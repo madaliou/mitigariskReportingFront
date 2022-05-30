@@ -10,6 +10,7 @@
 
 module.exports = {
   publicPath: '/',
+  // publicPath: '/moozisupportFrontend/',
   transpileDependencies: [
     'vue-echarts',
     'resize-detector'

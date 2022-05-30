@@ -258,11 +258,11 @@ export default {
         i18n: 'Compagnies'
       }
       const category = {
-        url: '/categories',
-        name: 'Category',
-        slug: 'category',
+        url: '/Types-incidents',
+        name: 'Types-incidents',
+        slug: 'Types-incidents',
         icon: 'LayersIcon',
-        i18n: 'categories'
+        i18n: 'Types d\'incidents'
       }
       const solution = {
         url: '/solutions',

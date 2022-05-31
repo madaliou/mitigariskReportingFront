@@ -24,7 +24,7 @@
 
         <!-- Mail Time & Date -->
         <div class="flex flex-col justify-end">
-          <span class="text-right">{{ props.mailContent.created_at | time }}</span>
+          <span class="text-right">{{ props.mailContent.created_at | time2}}</span>
           <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === true">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-primary mr-2" ></div>

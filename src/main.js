@@ -31,6 +31,13 @@ import moment from 'moment'
 Vue.filter('moment', (arg) => {
   return moment(arg).format('DD/MM/YYYY')
 })
+Vue.filter('date_time', (arg) => {
+  return moment(arg).format('DD/MM/YYYY - HH:mm')
+})
+
+Vue.filter('time2', (arg) => {
+  return moment(arg).format('HH:mm')
+})
 
 
 // axios

@@ -39,7 +39,7 @@ Vue.filter('time', function (value, is24HrFormat = false) {
     let hours = date.getHours()
     const min = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
     if (!is24HrFormat) {
-      const time = hours > 12 ? 'AM' : 'PM'
+      const time = hours > 12 ? 'PM' : 'AM'
       hours = hours % 12 || 12
       return `${hours}:${min} ${time}`
     }

@@ -27,7 +27,7 @@
         <div class="mail-item__meta sm:ml-2 sm:my-0 my-2 flex">
           <vs-chip class="mr-4">
             <div class="h-2 w-2 rounded-full mr-2 bg-primary"></div>
-            <span>{{ taskLocal.created_at | moment }}</span>
+            <span>{{ taskLocal.created_at | date_time }}</span>
           </vs-chip>
 
           <vx-tooltip v-if="showByAdmin ===false" text="voir" color="success">
@@ -116,7 +116,7 @@
 
             <!-- Mail Time & Date -->
             <div class="flex flex-col justify-end">
-              <span class="text-right">{{ taskLocal.created_at | time }}</span>
+              <span class="text-right">{{ taskLocal.created_at | time2 }}</span>
               <div class="flex justify-end mt-2" v-if="taskLocal.read === false">
                 <div class="open-mail-label flex items-center ">
                   <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>

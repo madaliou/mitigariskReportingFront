@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="mail-item__meta flex items-center">
-                    <span>{{ mail.created_at | moment }}</span>
+                    <span>{{ mail.created_at | date_time }}</span>
                 </div>
             </div>
         </div>

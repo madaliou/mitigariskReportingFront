@@ -38,7 +38,7 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="nom">Nom</vs-th>
+        <vs-th sort-key="nom">Solution</vs-th>
         <vs-th sort-key="Description">Description</vs-th>
         <vs-th sort-key="compagnies">Compagnie</vs-th>
         <vs-th>Action</vs-th>

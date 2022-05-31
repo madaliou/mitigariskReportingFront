@@ -113,7 +113,7 @@
             </div>
             <vs-divider></vs-divider>
             <div class="email__labels px-6 py-4">
-                <h5 class="mb-8">Catégories</h5>
+                <h5 class="mb-8">Types d'incidents</h5>
                 <div class="email__lables-list">
                     <router-link tag="span" class="email__label flex items-center mb-4 cursor-pointer" v-for="(tag, index) in emailTags" :key="index" :to="`${baseUrl}`">
                         <div class="ml-1 h-3 w-3 rounded-full mr-4 border-2 border-solid border-primary" ></div>

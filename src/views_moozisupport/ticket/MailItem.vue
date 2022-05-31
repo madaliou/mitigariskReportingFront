@@ -21,7 +21,9 @@
                 </div>
 
                 <div class="mail-item__meta flex items-center">
+                  <vs-chip >
                     <span>{{ mail.created_at | date_time }}</span>
+                  </vs-chip>
                 </div>
             </div>
         </div>

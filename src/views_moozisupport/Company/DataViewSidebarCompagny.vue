@@ -35,6 +35,40 @@
           class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
 
+      <p class="pt-4"> Personne ressource <b style="color: #ff6141" >*</b> </p>
+         <vs-input
+          v-validate="'required'"
+          data-vv-validate-on="blur"
+          name="resourcePerson"
+          v-model="input.resourcePerson"
+          class="w-full" />
+        <span class="text-danger text-sm" v-show="errors.has('resourcePerson')">{{ errors.first('resourcePerson') }}</span>
+
+        <p class="pt-4"> Email <b style="color: #ff6141" >*</b> </p>
+        <vs-input
+            v-validate="'required|email'"
+            data-vv-validate-on="blur"
+            name="email"
+            type="email"
+            v-model="input.email"
+            class="w-full" />
+        <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+
+      <p class="pt-4"> Téléphone <b style="color: #ff6141" >*</b> </p>
+        <vue-tel-input
+            v-model="input.phoneNumber"
+            :enabledCountryCode="true"
+            :enabledFlags="true"
+            :validCharactersOnly="true"
+            data-vv-validate-on="blur"
+            v-validate="'required|min:8|max:25'"
+            @validate="yourValidationMethod"
+            name="phoneNumber"
+            class="w-full"
+        >
+        </vue-tel-input>
+        <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{ errors.first('phoneNumber') }}</span>
+
       </div>
     </component>
 
@@ -58,6 +92,15 @@ const dict = {
     },
     description: {
       required: 'Le champ description est obligatoire'
+    },
+    phoneNumber: {
+      required: 'Le champ téléphone est obligatoire'
+    },
+    resourcePerson: {
+      required: 'Le champ personne ressource est obligatoire'
+    },
+    email: {
+      required: 'Le champ email est obligatoire'
     }
 
   }
@@ -70,7 +113,10 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 const input_tempon = {
   name: '',
-  description:''
+  email: '',
+  description:'',
+  phoneNumber:'',
+  resourcePerson:''
 }
 
 export default {
@@ -89,7 +135,7 @@ export default {
   },
   data () {
     return {
-
+      code:'',
       input: JSON.parse(JSON.stringify(input_tempon)),
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
@@ -137,10 +183,13 @@ export default {
         }
       })
     },
-
+    yourValidationMethod ({ country }) {
+      this.code = country.dialCode
+    },
     async submitData () {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
+      input.phoneNumber = `+${this.code } ${  this.input.phoneNumber}`
       let url = 'companies/'
       let methods = 'post'
       const message = {
@@ -148,6 +197,7 @@ export default {
         success: 'La compagnie est enrégistrée avec succès.'
       }
       if (input.id) {
+        input.phoneNumber = this.input.phoneNumber
         url += `${input.id}/`
         methods = 'put'
         message.success = 'La compagnie est modifiée avec succès.'
@@ -169,8 +219,17 @@ export default {
             if (item === 'name') {
               libelle = 'compagnie'
             }
+            if (item === 'email') {
+              libelle = 'email'
+            }
             if (item === 'description') {
               libelle = 'description'
+            }
+            if (item === 'phoneNumber') {
+              libelle = 'Le Numéro de téléphone'
+            }
+            if (item === 'resourcePerson') {
+              libelle = 'Personne resource'
             }
 
             for (let j = 0; j < error.response.data[item].length; j++) {

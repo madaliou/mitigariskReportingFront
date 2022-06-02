@@ -40,6 +40,9 @@
       <template slot="thead">
         <vs-th sort-key="compagnies">compagnie</vs-th>
         <vs-th sort-key="Description">Description</vs-th>
+        <vs-th sort-key="Personne_ressource">Personne ressource</vs-th>
+        <vs-th sort-key="Email">Email</vs-th>
+        <vs-th sort-key="Telephone">télephone</vs-th>
         <vs-th>Action</vs-th>
       </template>
 
@@ -51,6 +54,15 @@
           </vs-td>
           <vs-td>
             <p class="product-name font-medium truncate">{{ tr.description}}</p>
+          </vs-td>
+          <vs-td>
+            <p class="product-name font-medium truncate">{{ tr.resourcePerson}}</p>
+          </vs-td>
+          <vs-td>
+            <p class="product-name font-medium truncate">{{ tr.email}}</p>
+          </vs-td>
+          <vs-td>
+            <p class="product-name font-medium truncate">{{ tr.phoneNumber}}</p>
           </vs-td>
           <vs-td class="whitespace-no-wrap">
             <div class="flex">

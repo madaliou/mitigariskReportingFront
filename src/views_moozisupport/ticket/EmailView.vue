@@ -59,7 +59,13 @@
 
                   <div class="open-mail-label flex items-center mr-4">
                     <div v-if="showByAdmin===true" class="h-3 w-3  rounded-full bg-primary mr-1" ></div>
-                    <span v-if="showByAdmin===true" class="text-sm">{{ currentMail.author.company != null ? currentMail.author.company.name : 'MOOZISTUDIO'}}</span>
+                    <span v-if="showByAdmin===true" class="text-sm mr-3">{{ currentMail.author.company != null ? currentMail.author.company.name : 'MOOZISTUDIO'}}</span>
+                    <span v-if="showByAdmin===true" class="text-sm"> <b>-></b></span>
+
+                  </div>
+                <div class="open-mail-label flex items-center mr-4">
+                    <div v-if="showByAdmin===true" class="h-3 w-3  rounded-full bg-danger mr-1" ></div>
+                    <span v-if="showByAdmin===true" class="text-sm"><b>{{'SOLUTION'}}</b></span>
                   </div>
 
               </div>

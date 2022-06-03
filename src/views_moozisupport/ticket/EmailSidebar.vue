@@ -98,6 +98,11 @@
                 <span class="text-lg ml-3">Tickets traités</span>
               </div>
 
+              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="infinxing_tickets()">
+                <feather-icon icon="FilePlusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
+                <span class="text-lg ml-3">Tickets en traitement</span>
+              </div>
+
 
               <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
                         <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
@@ -217,6 +222,12 @@ export default {
       this.HeaderName = 'TICKETS TRAITÉS'
       window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmailsRecu')
+    },
+    infinxing_tickets () {
+      this.openLoading()
+      this.HeaderName = 'TICKETS TRAITÉS'
+      window.getCloseSidebar.closeMailViewSidebar()
+      this.$store.dispatch('email/infinxing_tickets')
     },
     All_message () {
       this.openLoading()

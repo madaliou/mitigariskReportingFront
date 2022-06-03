@@ -31,6 +31,16 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+  infinxing_tickets ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('infinxing-tickets/')
+        .then((response) => {
+          commit('SET_MAILS', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
   fetchEmailstrait ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get('unfixed_tickets/')

@@ -29,7 +29,7 @@
         </div>
 
         <div class="flex w-full">
-            <div class="flex items-center ml-0" v-if="mail.fixed === false">
+            <div class="flex items-center ml-0" v-if="mail.fixed === 0">
               <vx-tooltip text="Non traité" color="warning">
                 <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" ></feather-icon>
               </vx-tooltip>

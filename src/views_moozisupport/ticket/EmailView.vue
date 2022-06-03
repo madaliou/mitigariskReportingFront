@@ -26,15 +26,15 @@
               <!-- ADD LABEL DROPDOWN -->
               <div v-if="showByAdmin===true">
               <vx-tooltip text="Traiter" color="success">
-              <feather-icon style="color: lime"  v-if="currentMail.fixed === false" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
+              <feather-icon style="color: lime"  v-if="currentMail.fixed === 0" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
               </vx-tooltip>
               </div>
               <vx-tooltip v-if="false" text="Editer" color="warning">
               <feather-icon style="color: gold" icon="EditIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Edit_ticket')"></feather-icon>
               </vx-tooltip>
-<!--              <vx-tooltip text="Supprimer" color="danger">-->
-<!--              <feather-icon style="color: red" icon="TrashIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>-->
-<!--              </vx-tooltip>-->
+              <vx-tooltip v-if="false" text="Supprimer" color="danger">
+              <feather-icon style="color: red" icon="TrashIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>
+              </vx-tooltip>
               <div v-if="showByAdmin===true">
               <vx-tooltip text="Message" color="primary">
               <feather-icon style="color: blue "  icon="SendIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('send_Message')"></feather-icon>

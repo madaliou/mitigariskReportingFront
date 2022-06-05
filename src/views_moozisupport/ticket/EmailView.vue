@@ -26,15 +26,33 @@
               <!-- ADD LABEL DROPDOWN -->
               <div v-if="showByAdmin===true">
               <vx-tooltip text="Traiter" color="success">
-              <feather-icon style="color: lime"  v-if="currentMail.fixed === 0" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
+              <feather-icon style="color: lime"  v-if="currentMail.fixed === 1" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
               </vx-tooltip>
               </div>
+              <div v-if="showByAdmin===true">
+              <vx-tooltip text="Annuler" color="danger">
+              <feather-icon style="color: red"  v-if="currentMail.fixed === 2" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Annuler_validation')"></feather-icon>
+              </vx-tooltip>
+              </div>
+              <div v-if="showByAdmin===true">
+              <vx-tooltip text="Mettre encours de traitement" color="warning">
+              <feather-icon style="color: yellow"  v-if="currentMail.fixed === 0" icon="LoaderIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Encours_traitement')"></feather-icon>
+              </vx-tooltip>
+              </div>
+              <div v-if="showByAdmin===true">
+              <vx-tooltip text="Annuler le traitement encours" color="danger">
+              <feather-icon style="color: red"  v-if="currentMail.fixed === 1" icon="LoaderIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Annuler_Encours_traitement')"></feather-icon>
+              </vx-tooltip>
+              </div>
+
+
               <vx-tooltip v-if="false" text="Editer" color="warning">
               <feather-icon style="color: gold" icon="EditIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Edit_ticket')"></feather-icon>
               </vx-tooltip>
               <vx-tooltip v-if="false" text="Supprimer" color="danger">
               <feather-icon style="color: red" icon="TrashIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('removeMail')"></feather-icon>
               </vx-tooltip>
+
               <div v-if="showByAdmin===true">
               <vx-tooltip text="Message" color="primary">
               <feather-icon style="color: blue "  icon="SendIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('send_Message')"></feather-icon>
@@ -61,11 +79,10 @@
                     <div v-if="showByAdmin===true" class="h-3 w-3  rounded-full bg-primary mr-1" ></div>
                     <span v-if="showByAdmin===true" class="text-sm mr-3">{{ currentMail.author.company != null ? currentMail.author.company.name : 'MOOZISTUDIO'}}</span>
                     <span v-if="showByAdmin===true" class="text-sm"> <b>-></b></span>
-
                   </div>
                 <div class="open-mail-label flex items-center mr-4">
-                    <div v-if="showByAdmin===true" class="h-3 w-3  rounded-full bg-danger mr-1" ></div>
-                    <span v-if="showByAdmin===true" class="text-sm"><b>{{'SOLUTION'}}</b></span>
+                    <div  class="h-3 w-3  rounded-full bg-danger mr-1" ></div>
+                    <span  style="color: black" class="text-sm"><b>{{currentMail.solution.name}}</b></span>
                   </div>
 
               </div>

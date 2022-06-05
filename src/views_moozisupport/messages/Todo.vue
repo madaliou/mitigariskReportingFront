@@ -71,6 +71,9 @@ export default {
     toggleTodoSidebar (value = false) {
       if (!value && this.clickNotClose) return
       this.isSidebarActive = value
+    },
+    callMessage () {
+      this.$store.dispatch('message/fetchMessage')
     }
   },
   components: {
@@ -78,10 +81,11 @@ export default {
     VuePerfectScrollbar
   },
   created () {
+    window.getAllMessage = this
     this.$store.registerModule('message', moduleTodo)
     this.openLoading()
     this.setSidebarWidth()
-    this.$store.dispatch('message/fetchMessage')
+    this.callMessage()
 
   }
 

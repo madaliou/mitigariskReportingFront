@@ -25,15 +25,21 @@
         <!-- Mail Time & Date -->
         <div class="flex flex-col justify-end">
           <span class="text-right">{{ props.mailContent.created_at | time2}}</span>
-          <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === true">
+          <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 2">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-primary mr-2" ></div>
                <span class="text-right" >Traité</span>
             </div>
           </div>
-          <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 0">
+          <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 1">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-warning mr-2" ></div>
+               <span class="text-right" >Encours de traitement</span>
+            </div>
+          </div>
+          <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 0">
+            <div class="open-mail-label flex items-center ">
+            <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>
                <span class="text-right" >Non traité</span>
             </div>
           </div>

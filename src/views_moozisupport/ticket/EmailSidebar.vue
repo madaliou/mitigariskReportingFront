@@ -93,18 +93,18 @@
               </div>
 
               <!-- inbox -->
-              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="fix_tickets()">
+              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="tickets_traite()">
                 <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
                 <span class="text-lg ml-3">Tickets traités</span>
               </div>
 
-              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="infinxing_tickets()">
+              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="tickets_Encours()">
                 <feather-icon icon="FilePlusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
                 <span class="text-lg ml-3">Tickets en traitement</span>
               </div>
 
 
-              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="unfixed_tickets()">
+              <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="tickets_non_traite()">
                         <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
                         <span class="text-lg ml-3">Tickets non traités</span>
               </div>
@@ -120,10 +120,10 @@
             <div class="email__labels px-6 py-4">
                 <h5 class="mb-8">Types d'incidents</h5>
                 <div class="email__lables-list">
-                    <router-link tag="span" class="email__label flex items-center mb-4 cursor-pointer" v-for="(tag, index) in emailTags" :key="index" :to="`${baseUrl}`">
+                    <div tag="span" class="email__label flex items-center mb-4 cursor-pointer" v-for="(tag, index) in emailTags" :key="index">
                         <div class="ml-1 h-3 w-3 rounded-full mr-4 border-2 border-solid border-primary" ></div>
                         <span class="text-lg" :class="{'text-primary': mailFilter === tag.value}">{{ tag.name }}</span>
-                    </router-link>
+                    </div>
                 </div>
             </div>
         </component>
@@ -211,23 +211,23 @@ export default {
       window.getCloseSidebar.closeMailViewSidebar()
       this.$store.dispatch('email/fetchEmails')
     },
-    unfixed_tickets () {
+    tickets_non_traite () {
       this.openLoading()
-      this.HeaderName = 'TICKETS REÇUS'
+      this.HeaderName = 'TICKETS NON TRAITÉS'
       window.getCloseSidebar.closeMailViewSidebar()
-      this.$store.dispatch('email/fetchEmailstrait')
+      this.$store.dispatch('email/tickets_non_traite')
     },
-    fix_tickets () {
+    tickets_traite () {
       this.openLoading()
       this.HeaderName = 'TICKETS TRAITÉS'
       window.getCloseSidebar.closeMailViewSidebar()
-      this.$store.dispatch('email/fetchEmailsRecu')
+      this.$store.dispatch('email/tickets_traite')
     },
-    infinxing_tickets () {
+    tickets_Encours () {
       this.openLoading()
-      this.HeaderName = 'TICKETS TRAITÉS'
+      this.HeaderName = 'TICKETS ENCOURS'
       window.getCloseSidebar.closeMailViewSidebar()
-      this.$store.dispatch('email/infinxing_tickets')
+      this.$store.dispatch('email/tickets_Encours')
     },
     All_message () {
       this.openLoading()

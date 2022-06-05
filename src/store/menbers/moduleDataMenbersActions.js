@@ -7,12 +7,12 @@
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-import axios from "@/axios.js"
+import axios from '@/axios.js'
 
 export default {
-  addMenbers({ commit }, item) {
+  addMenbers ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post("membershipFees/",item)
+      axios.post('membershipFees/', item)
         .then((response) => {
           commit('ADD_MENBERS', Object.assign(item, {id: response.data.id}))
           resolve(response)
@@ -20,9 +20,9 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  fetchMenbers({ commit }) {
+  fetchMenbers ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get("membershipFees/")
+      axios.get('membershipFees/')
         .then((response) => {
           commit('SET_MENBERS', response.data)
           resolve(response)
@@ -31,9 +31,9 @@ export default {
     })
   },
 
-  updateMenbers({ commit }, item) {
+  updateMenbers ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.put(`membershipFees/${item.id}/`,item)
+      axios.put(`membershipFees/${item.id}/`, item)
         .then((response) => {
           commit('UPDATE_MENBERS', response.data)
           resolve(response)
@@ -41,7 +41,7 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  removeMenbers({ commit }, itemId) {
+  removeMenbers ({ commit }, itemId) {
     return new Promise((resolve, reject) => {
       axios.delete(`membershipFees/${itemId}`)
         .then((response) => {
@@ -50,9 +50,7 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
-  },
-
-
+  }
 
 
 }

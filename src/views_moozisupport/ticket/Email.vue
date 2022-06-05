@@ -42,6 +42,9 @@
         :isSidebarActive = "isSidebarActive"
         @removeMail      = "removeMail"
         @validation      = "validation"
+        @Annuler_validation = "Annuler_validation"
+        @Encours_traitement = "Encours_traitement"
+        @Annuler_Encours_traitement = "Annuler_Encours_traitement"
         @send_Message    = "send_Message"
         @Edit_ticket     = "Edit_ticket"
         @previousMail    = "previousMail"
@@ -264,7 +267,85 @@ export default {
       })
 
     },
-    //pour effecer un ticket
+    //pour annuler un ticket traité
+    Annuler_validation () {
+      this.$vs.dialog({
+        type:'confirm',
+        color: 'warning',
+        title: 'Confirmation',
+        text: 'Confirmer l\'annulation du ticket traité?',
+        acceptText: 'Confirmer',
+        cancelText: 'Annuler',
+        accept: async () => {
+          this.$vs.loading()
+          this.$http.post('unfix_ticket/', { ticket:this.openMailId})
+            .then(response => {
+              this.openLoading()
+              window.getPrendTaCom.success('Ticket traité annuller avec succès.', response)
+              this.$store.dispatch('email/fetchEmails')
+              this.isSidebarActive = false
+            })
+            .catch(() => {
+              window.getPrendTaCom.error({ message: 'l\'annulation du ticket a échoué.' })
+              this.isSidebarActive = false
+            })
+        }
+      })
+
+    },
+    //pour mettre un ticket encours de traitement
+    Encours_traitement () {
+      this.$vs.dialog({
+        type:'confirm',
+        color: 'warning',
+        title: 'Confirmation',
+        text: 'Mettre le ticket encours de traitement?',
+        acceptText: 'Confirmer',
+        cancelText: 'Annuler',
+        accept: async () => {
+          this.$vs.loading()
+          this.$http.post('begin-fixing-ticket/', { ticket:this.openMailId})
+            .then(response => {
+              this.openLoading()
+              window.getPrendTaCom.success('Ticket mis encours de traitement avec succès.', response)
+              this.$store.dispatch('email/tickets_Encours')
+              this.isSidebarActive = false
+            })
+            .catch(() => {
+              window.getPrendTaCom.error({ message: 'le mis encours de traitement à échoué.' })
+              this.isSidebarActive = false
+            })
+        }
+      })
+
+    },
+    //pour annuller un ticket encours de traitement
+    Annuler_Encours_traitement () {
+      this.$vs.dialog({
+        type:'confirm',
+        color: 'warning',
+        title: 'Confirmation',
+        text: 'Annuler le traitement encours?',
+        acceptText: 'Confirmer',
+        cancelText: 'Annuler',
+        accept: async () => {
+          this.$vs.loading()
+          this.$http.post('begin-unfixing-ticket/', { ticket:this.openMailId})
+            .then(response => {
+              this.openLoading()
+              window.getPrendTaCom.success('le traitement encours du tickets annuller avec succès.', response)
+              this.$store.dispatch('email/tickets_Encours')
+              this.isSidebarActive = false
+            })
+            .catch(() => {
+              window.getPrendTaCom.error({ message: 'l\'annulation du ticket en traitement a échoué.' })
+              this.isSidebarActive = false
+            })
+        }
+      })
+
+    },
+    //pour effecer un ticke
     removeMail () {
       const id = this.openMailId
       this.$vs.dialog({

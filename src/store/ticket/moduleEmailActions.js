@@ -21,7 +21,7 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  fetchEmailsRecu ({ commit }) {
+  tickets_traite ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get('fixed_tickets/')
         .then((response) => {
@@ -31,7 +31,7 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  infinxing_tickets ({ commit }) {
+  tickets_Encours ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get('infinxing-tickets/')
         .then((response) => {
@@ -41,7 +41,7 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  fetchEmailstrait ({ commit }) {
+  tickets_non_traite ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get('unfixed_tickets/')
         .then((response) => {

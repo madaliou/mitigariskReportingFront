@@ -11,13 +11,13 @@
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
-      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} CATEGORIE  </h4>
+      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UN" : "MODIFIER LE " }} TYPE D'INCIDENT  </h4>
       <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
     </div>
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">Categorie<b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">Type d'incident<b style="color: #ff6141" >*</b> </p>
         <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"

@@ -17,11 +17,15 @@
         <div class="mail__details">
           <h5 v-if="showByAdmin=== true" class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
           <h5 v-if="showByAdmin=== false" class="mb-1">MOOZISUPPORT</h5>
-          <span v-if="showByAdmin=== true" style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
+          <span v-if="showByAdmin=== true" style="color: blue " class="mb-4" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
           <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" >{{ taskLocal.ticket != null ? taskLocal.ticket.reference : 'MOOZISTUDIO'}}</span>
+          <span v-if="showByAdmin===true" class="text-sm"> <b>-></b></span>
+          <span  v-if="showByAdmin===true" style="color: black" class="mb-4"><b>{{taskLocal.ticket.solution.name}}</b></span>
+          <br v-if="showByAdmin=== false">
+          <span v-if="showByAdmin=== false" style="color: black" class="mb-4"><b>{{taskLocal.ticket.solution.name}}</b></span>
           <br>
           <span v-if="taskLocal.ticket.category.name">{{ taskLocal.ticket.category.name }}</span>
-          <span v-else>(no subject)</span>
+          <span v-else>{{ taskLocal.ticket.category.name }}</span>
         </div>
 
         <div class="mail-item__meta sm:ml-2 sm:my-0 my-2 flex">
@@ -105,9 +109,14 @@
               <div class="flex flex-col">
                 <h5 v-if="showByAdmin=== true" class="mb-1">{{ taskLocal.ticket.author.last_name +" "}}{{ taskLocal.ticket.author.first_name}}</h5>
                 <h5 v-if="showByAdmin=== false" class="mb-1">MOOZISUPPORT</h5>
-                <span v-if="showByAdmin=== true" style="color: blue " class="mb-1" > {{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
+                <div class="open-mail-label flex items-center mr-4">
+                  <span v-if="showByAdmin=== true" style="color: blue " class="mb-1" >{{ taskLocal.ticket.author.company != null ? taskLocal.ticket.author.company.name  : 'MOOZISTUDIO'}}</span>
+                  <span v-if="showByAdmin===true" class="mb-2"> <b>-></b></span>
+                  <span  v-if="showByAdmin===true" style="color: black" class="mb-1"><b>{{taskLocal.ticket.solution.name}}</b></span>
+                </div>
                 <span v-if="showByAdmin=== false" style="color: blue " class="mb-1" >{{ taskLocal.ticket != null ? taskLocal.ticket.reference : 'MOOZISTUDIO'}}</span>
                 <span v-if="showByAdmin=== true" style="color: red " class="mb-1" >{{ taskLocal.ticket != null ? taskLocal.ticket.reference : 'MOOZISTUDIO'}}</span>
+                <span  v-if="showByAdmin===false" style="color: black"><b>{{taskLocal.ticket.solution.name}}</b></span>
                 <span v-if="taskLocal.ticket.category.name">{{ taskLocal.ticket.category.name }}</span>
                 <span v-else>(no subject)</span>
               </div>
@@ -279,8 +288,7 @@ export default{
       if (read === false && this.showByAdmin === false) {
         this.$http.post('read-reply/', {id})
           .then(() => {
-            this.$store.dispatch('message/fetchMessage')
-            this.$vs.loading.close()
+            window.getAllMessage.callMessage()
           })
       }
 

@@ -17,6 +17,8 @@
                     <h5 v-if="showByAdmin===true" class="mb-1">{{ mail.author.last_name +" "}}{{ mail.author.first_name}}</h5>
                   <span  v-if="mail.category.name">{{ mail.category.name }}</span>
                   <br>
+                  <span style="color:  black" class="mb-1" ><b>{{mail.solution.name}}</b></span>
+                  <br>
                   <span style="color: blue " class="mb-1" >{{ mail != null ? mail.reference : 'MOOZISTUDIO'}}</span>
                 </div>
 
@@ -30,16 +32,24 @@
 
         <div class="flex w-full">
             <div class="flex items-center ml-0" v-if="mail.fixed === 0">
-              <vx-tooltip text="Non traité" color="warning">
-                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" ></feather-icon>
+              <vx-tooltip text="Non traité" color="danger">
+                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-danger fill-current stroke-current'" ></feather-icon>
               </vx-tooltip>
             </div>
 
-          <div class="flex items-center ml-0" v-if="mail.fixed === true">
+          <div class="flex items-center ml-0" v-if="mail.fixed === 1">
+            <vx-tooltip text="Encours de traitement" color="warning">
+                <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" ></feather-icon>
+            </vx-tooltip>
+          </div>
+
+          <div class="flex items-center ml-0" v-if="mail.fixed === 2">
             <vx-tooltip text="Traité" color="primary">
                 <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-primary fill-current stroke-current'" ></feather-icon>
             </vx-tooltip>
           </div>
+
+
             <div class="mail__message truncate ml-3">
                 <span>{{ mail.description | filter_tags }}</span>
             </div>

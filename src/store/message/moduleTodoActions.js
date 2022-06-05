@@ -19,5 +19,15 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
+  },
+  ReadMessage ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.post('read-reply/', {id:item})
+        .then((response) => {
+          commit('UPDATE_MESSAGE', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
   }
 }

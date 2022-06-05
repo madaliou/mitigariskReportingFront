@@ -286,12 +286,8 @@ export default{
     },
     read_Mail (id, read) {
       if (read === false && this.showByAdmin === false) {
-        this.$http.post('read-reply/', {id})
-          .then(() => {
-            window.getAllMessage.callMessage()
-          })
+        this.$store.dispatch('message/ReadMessage', id)
       }
-
     },
     EditMessage (message) {
       this.ticket = message.ticket.id

@@ -11,5 +11,9 @@
 export default {
   SET_TASKS (state, tasks) {
     state.tasks = tasks
+  },
+  UPDATE_MESSAGE (state, task) {
+    const taskIndex = state.tasks.findIndex((p) => p.id === task.id)
+    Object.assign(state.tasks[taskIndex], task)
   }
 }

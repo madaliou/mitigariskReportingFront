@@ -9,7 +9,7 @@
 
 
 <template>
-  <div  @click="viewMessage();read_Mail(taskLocal.id,taskLocal.read)" class="mail__mail-item sm:px-4 px-2 py-6">
+  <div  @click.passive="viewMessage(taskLocal.id,taskLocal.read)" class="mail__mail-item sm:px-4 px-2 py-6">
     <!-- MAIL ROW 1 : META -->
     <div  class="flex w-full">
       <vs-avatar class="sender__avatar flex-shrink-0 mr-3 border-2 border-solid border-white"  size="40px"></vs-avatar>
@@ -39,7 +39,7 @@
               icon="EyeIcon"
               class="cursor-pointer"
               :svgClasses="['text-success stroke-current', 'w-5', 'h-5 mr-4']"
-              @click.stop="viewMessage();read_Mail(taskLocal.id,taskLocal.read)" />
+              @click.passive="viewMessage(taskLocal.id,taskLocal.read)" />
           </vx-tooltip>
 
           <vx-tooltip v-if="showByAdmin ===true" text="voir" color="success">
@@ -47,7 +47,7 @@
               icon="EyeIcon"
               class="cursor-pointer"
               :svgClasses="['text-success stroke-current', 'w-5', 'h-5 mr-4']"
-              @click.stop="viewMessage()" />
+              @click="viewMessage()" />
           </vx-tooltip>
 
 <!--          <vx-tooltip text="Message" color="primary">-->
@@ -281,14 +281,17 @@ export default{
         }
       })
     },
-    viewMessage () {
+    viewMessage (id, read) {
       this.activePrompt = true
-    },
-    read_Mail (id, read) {
       if (read === false && this.showByAdmin === false) {
         this.$store.dispatch('message/ReadMessage', id)
       }
     },
+    // read_Mail (id, read) {
+    //   if (read === false && this.showByAdmin === false) {
+    //     this.$store.dispatch('message/ReadMessage', id)
+    //   }
+    // },
     EditMessage (message) {
       this.ticket = message.ticket.id
       this.message = message.message

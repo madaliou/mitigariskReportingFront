@@ -47,8 +47,15 @@
               icon="EyeIcon"
               class="cursor-pointer"
               :svgClasses="['text-success stroke-current', 'w-5', 'h-5 mr-4']"
-              @click="viewMessage()" />
+              @click.passive="viewMessage()" />
           </vx-tooltip>
+<!--          <vx-tooltip  text="Actualiser" color="primary">-->
+<!--          <feather-icon-->
+<!--              icon="RefreshCwIcon"-->
+<!--              class="cursor-pointer"-->
+<!--              :svgClasses="['text-primary stroke-current', 'w-5', 'h-5 mr-4']"-->
+<!--              @click="actualisation()" />-->
+<!--          </vx-tooltip>-->
 
 <!--          <vx-tooltip text="Message" color="primary">-->
 <!--          <feather-icon-->
@@ -73,6 +80,14 @@
 <!--              svgClasses="text-danger stroke-current w-5 h-5"-->
 <!--              @click.stop="removeMessage(taskLocal.id)" />-->
 <!--          </vx-tooltip>-->
+
+          <vx-tooltip text="Actualiser" color="primary">
+          <feather-icon
+              icon="RefreshCwIcon"
+              class="cursor-pointer"
+              svgClasses="text-primary stroke-current w-5 h-5"
+              @click="actualisation()" />
+          </vx-tooltip>
 
         </div>
 
@@ -197,6 +212,7 @@
       </component>
     </vs-prompt>
   </div>
+
 </template>
 
 <script>
@@ -297,11 +313,16 @@ export default{
       this.message = message.message
       this.activePrompt1 = true
     },
+
     clearMessage () {
       this.$nextTick(() => {
         this.ticket = ''
         this.message = ''
       })
+    },
+    actualisation () {
+      window.getAllMessage.openLoading()
+      window.getAllMessage.callMessage()
     },
     async EditFunction () {
       this.$vs.loading()

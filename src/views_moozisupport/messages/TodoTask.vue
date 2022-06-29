@@ -86,7 +86,7 @@
               icon="RefreshCwIcon"
               class="cursor-pointer"
               svgClasses="text-primary stroke-current w-5 h-5"
-              @click="actualisation()" />
+              @click.stop="actualisation()" />
           </vx-tooltip>
 
         </div>
@@ -372,6 +372,7 @@ export default{
     if (user_role === 'admin') {
       this.showByAdmin = true
     }
+    window.setInterval(window.callMessage(), 5000)
   }
 }
 </script>

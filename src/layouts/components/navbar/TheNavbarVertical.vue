@@ -23,14 +23,20 @@
         <!-- <bookmarks :navbarColor="navbarColor" v-if="windowWidth >= 992" /> -->
         <div class="bookmark-container">
         <span>
-                    <feather-icon icon="UserIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor !== '#fff'}]" class="cursor-pointer p-2" />
-                  {{ roleObject[user.role]}}
+          <feather-icon
+              icon="UserIcon"
+              :svgClasses="['stoke-current text-warning', {'text-white': navbarColor !== '#fff'}]"
+              class="cursor-pointer p-2"
+          />
+          {{ roleObject[user.role]}}
         </span>
 
         </div>
         <vs-spacer />
+        <div class=" mr-8">
+          <i18n />
+        </div>
 
-        <!-- <i18n /> -->
 
         <search-bar />
 

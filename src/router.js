@@ -145,16 +145,16 @@ const router = new Router({
           }
         },
         {
-          path: 'Types-incidents',
+          path: 'Incidents',
           beforeEnter: ifAuthenticated,
-          name: 'Types-incidents',
+          name: 'Incidents',
           component: () => import('./views_moozisupport/category/DataListCategory'),
           meta: {
             breadcrumb: [
               { title: 'Tableau de bord', url: '/' },
-              { title: 'Types d\'incidents', active: true }
+              { title: 'Incidents', active: true }
             ],
-            pageTitle: 'Types d\'incidents',
+            pageTitle: 'Incidents',
             rule: 'editor'
           }
         },

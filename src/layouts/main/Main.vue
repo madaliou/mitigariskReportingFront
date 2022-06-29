@@ -227,7 +227,8 @@ export default {
         url: 'users',
         name: 'Utilisateurs',
         icon: 'UsersIcon',
-        slug: 'users'
+        slug: 'users',
+        i18n: 'Utilisateurs'
       }
       const dashboard = {
         url: '/dashboard',
@@ -258,11 +259,11 @@ export default {
         i18n: 'Compagnies'
       }
       const category = {
-        url: '/Types-incidents',
+        url: '/Incidents',
         name: 'Types-incidents',
         slug: 'Types-incidents',
         icon: 'LayersIcon',
-        i18n: 'Types d\'incidents'
+        i18n: 'Incidents'
       }
       const solution = {
         url: '/solutions',

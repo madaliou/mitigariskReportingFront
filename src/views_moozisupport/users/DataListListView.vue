@@ -19,7 +19,7 @@
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
           <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Ajouter</span>
+              <span class="ml-2 text-base text-primary">{{ $t("Ajouter") }}</span>
           </div>
         </div>
 
@@ -49,11 +49,12 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="cni">Profil</vs-th>
-        <vs-th sort-key="last_name">NOM & PRENOMS </vs-th>
-        <vs-th sort-key="email">Email</vs-th>
-        <vs-th sort-key="compagny">Compagnie</vs-th>
-        <vs-th>Action</vs-th>
+        <vs-th sort-key="profile">{{ $t("Profil") }}</vs-th>
+        <vs-th sort-key="last_name">{{ $t("Nom_Prenons") }}</vs-th>
+        <vs-th sort-key="email">{{ $t("mail") }}</vs-th>
+        <vs-th sort-key="Telephone">{{ $t("Phone") }}</vs-th>
+        <vs-th sort-key="compagny">{{ $t("Compagnie") }}</vs-th>
+        <vs-th>{{ $t("Action") }}</vs-th>
       </template>
 
         <template slot-scope="{data}">
@@ -72,11 +73,14 @@
                 <p :style="'color: ' + getOrderStatusColor()">{{ tr.email }}</p>
               </vs-td>
               <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.phoneNumber}}</p>
+              </vs-td>
+              <vs-td>
                 <p class="product-name font-medium truncate">{{ tr.company != null ? tr.company.name : 'MOOZISTUDIO'}}</p>
               </vs-td>
               <vs-td class="whitespace-no-wrap">
                 <div class="flex">
-                  <vx-tooltip text="Modifier" color="warning">
+                  <vx-tooltip :text="$t('Modifier')" color="warning">
                     <feather-icon
                       style="color: #FF9F43"
                       icon="EditIcon"
@@ -85,7 +89,7 @@
                       @click="editData(tr)"
                     />
                   </vx-tooltip>
-                  <vx-tooltip text="Supprimer" color="danger">
+                  <vx-tooltip :text="$t('Supprimer')" color="danger">
                     <feather-icon
                       @click="deleteData(tr.id)"
                       style="color: red"

@@ -84,7 +84,7 @@
 
               <div v-if="showByAdmin===true" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
                   <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
-                  <span class="text-lg ml-3">Tickets totaux</span>
+                  <span class="text-lg ml-3">{{ $t("Tickets_totaux") }}</span>
               </div>
 
               <div v-if="showByAdmin===false" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
@@ -118,7 +118,7 @@
             </div>
             <vs-divider></vs-divider>
             <div class="email__labels px-6 py-4">
-                <h5 class="mb-8">Types d'incidents</h5>
+                <h5 class="mb-8">Incident</h5>
                 <div class="email__lables-list">
                     <div tag="span" class="email__label flex items-center mb-4 cursor-pointer" v-for="(tag, index) in emailTags" :key="index">
                         <div class="ml-1 h-3 w-3 rounded-full mr-4 border-2 border-solid border-primary" ></div>

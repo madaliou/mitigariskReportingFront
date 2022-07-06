@@ -11,14 +11,15 @@
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
       <div class="mt-6 flex items-center justify-between px-6">
-          <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UN" : "MODIFICATION DE L'" }} UTILISATEUR</h4>
+          <h4>{{ Object.entries(this.data).length === 0 ? $t("AJOUTER_UN") : $t("MODIFICATION_DE_L") }} {{$t("UTILISATEUR")}}</h4>
           <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
       </div>
       <vs-divider class="mb-0"></vs-divider>
+
       <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
         <div class="p-6">
 
-          <p> Rôle <b style="color: #ff6141" >*</b> </p>
+          <p> {{$t("Rôle")}} <b style="color: #ff6141" >*</b> </p>
           <v-select
             v-validate="'required'"
             name="role"
@@ -29,7 +30,7 @@
           </v-select>
           <span class="text-danger text-sm" v-show="errors.has('role')">{{ errors.first('role') }}</span>
           <div v-if="input.role ==='user'">
-          <p class="pt-4">Compagnie<b style="color: #ff6141" >*</b> </p>
+          <p class="pt-4">{{$t("Compagnie")}}<b style="color: #ff6141" >*</b> </p>
           <vs-select
               v-validate="'required'"
               autocomplete
@@ -40,7 +41,7 @@
           </vs-select>
           <span class="text-danger text-sm" v-show="errors.has('compagnie')">{{ errors.first('compagnie') }}</span>
           </div>
-          <p class="pt-4"> Nom <b style="color: #ff6141" >*</b> </p>
+          <p class="pt-4"> {{$t("Nom")}} <b style="color: #ff6141" >*</b> </p>
           <vs-input
             v-validate="'required'"
             name="last_name"
@@ -48,7 +49,7 @@
             class="w-full" />
           <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
 
-          <p class="pt-4"> Prénoms <b style="color: #ff6141" >*</b> </p>
+          <p class="pt-4"> {{$t("Prénoms")}} <b style="color: #ff6141" >*</b> </p>
           <vs-input
             v-validate="'required'"
             name="first_name"
@@ -56,7 +57,7 @@
             class="w-full" />
           <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
 
-          <p class="pt-4"> Email <b style="color: #ff6141" >*</b> </p>
+          <p class="pt-4"> {{$t("mail")}} <b style="color: #ff6141" >*</b> </p>
           <vs-input
             v-validate="'required|email'"
             name="email"
@@ -64,12 +65,28 @@
             v-model="input.email"
             class="w-full" />
           <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+
+          <p class="pt-4"> {{$t("Phone")}} <b style="color: #ff6141" >*</b> </p>
+          <vue-tel-input
+              v-model="input.phoneNumber"
+              :enabledCountryCode="true"
+              :enabledFlags="true"
+              :validCharactersOnly="true"
+              data-vv-validate-on="blur"
+              v-validate="'required|min:8|max:25'"
+              @validate="yourValidationMethod"
+              name="phoneNumber"
+              class="w-full"
+          >
+          </vue-tel-input>
+          <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{ errors.first('phoneNumber') }}</span>
         </div>
+
       </component>
 
       <div class="flex flex-wrap items-center p-6" slot="footer">
-        <vs-button class="mr-6" @click="User_validate">Soumettre</vs-button>
-        <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Annuler</vs-button>
+        <vs-button class="mr-6" @click="User_validate">{{$t("Soumettre")}}</vs-button>
+        <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">{{$t("Annuler")}}</vs-button>
       </div>
   </vs-sidebar>
 </template>
@@ -94,6 +111,9 @@ const dict = {
     email: {
       required: 'Le champ email est obligatoire'
     },
+    phoneNumber: {
+      required: 'Le champ téléphone est obligatoire'
+    },
     compagnie: {
       required: 'Le champ compagnie est obligatoire'
     }
@@ -101,7 +121,7 @@ const dict = {
 }
 
 // register custom messages
-Validator.localize('en', dict)
+Validator.localize('fr', dict)
 
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
@@ -110,6 +130,7 @@ const input_tempon = {
   first_name: '',
   last_name: '',
   company: '',
+  phoneNumber:'',
   role: ''
 }
 
@@ -192,9 +213,13 @@ export default {
         }
       })
     },
+    yourValidationMethod ({ country }) {
+      this.code = country.dialCode
+    },
     async submitData () {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
+      input.phoneNumber = `+${this.code } ${  this.input.phoneNumber}`
       delete input.parent
       let url = 'users/'
       let methods = 'post'
@@ -203,6 +228,7 @@ export default {
         success: 'L\'utilisateur est enrégistrer avec succès.'
       }
       if (input.id) {
+        input.phoneNumber = this.input.phoneNumber
         url += `${input.id}/`
         methods = 'put'
         message.success = 'L\'utilisateur est modifié avec succès.'
@@ -225,6 +251,8 @@ export default {
               libelle = 'Email'
             } else if (item === 'first_name') {
               libelle = 'Prénoms'
+            } else if (item === 'phoneNumber')  {
+              libelle = 'Le Numéro de téléphone'
             } else if (item === 'company') {
               libelle = 'Compagnie'
             } else if (item === 'last_name') {

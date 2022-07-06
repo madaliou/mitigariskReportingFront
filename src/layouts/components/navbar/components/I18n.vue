@@ -22,14 +22,12 @@ export default {
     },
     getCurrentLocaleData () {
       const locale = this.$i18n.locale
-      console.log(`voir le local ${ locale}`)
       if (locale === 'fr') return { flag: 'fr', lang: 'French'    }
       else if   (locale === 'en')      return { flag: 'us', lang: 'English'   }
     }
   },
   methods: {
     updateLocale (locale) {
-
       this.$i18n.locale = locale
     }
   }

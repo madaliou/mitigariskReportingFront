@@ -164,7 +164,7 @@ export default {
               window.getPrendTaCom.success(this.$t('SuppressionUser1'), response)
             })
             .catch(() => {
-              window.getPrendTaCom.error({ message: this.$t('SuppressionUser2')})
+              window.getPrendTaCom.error({ message: this.$t('Suppression')})
             })
         }
       })

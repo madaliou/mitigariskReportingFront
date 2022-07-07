@@ -29,11 +29,22 @@ export default {
     enteteDelete: 'do you  want to delete',
     Confirmer :'comfirm',
     SuppressionUser1:'The user is successfully deleted.',
-    SuppressionUser2:'User deletion failed.',
+    Suppression:'deletion failed.',
     save_error:'User deletion failed.',
-    save_sucess_user:'The user is registered successfully.',
-    update_user:'The user is changed successfully.'
-
+    save_sucess_user:'The user is save successfully.',
+    update_user:'The user is changed successfully.',
+    last_name_error:  'The last name field is required',
+    first_name_error: 'The first names field is required',
+    role_error:  'The role field is required',
+    email_error: 'The e-mail field is required',
+    phoneNumber_error:'The phone number field is required',
+    compagnie_error: 'The compagnie field is required',
+    SuppressionIncident1:'The category is deleted successfully.',
+    description_error:'The description field is required',
+    nametype_error:'The incident field is required',
+    INCIDENT:'INCIDENT',
+    incident_update:'The incident is modified successfully.',
+    incident_save:'The incident is save successfully.'
   },
   fr: {
     Dashboard: 'Tableau de bord',
@@ -65,9 +76,22 @@ export default {
     enteteDelete: 'Confirmer la suppressions?',
     Confirmer :'comfirmer',
     SuppressionUser1:'L\'utilisateur est supprimé avec succès.',
-    SuppressionUser2:'User deletion failed.',
+    Suppression:'La suppression a échoué.',
     save_error:'Votre enrégistrement à échouer.',
     save_sucess_user:'L\'utilisateur est enrégistrer avec succès.',
-    update_user:'L\'utilisateur est modifié avec succès.'
+    update_user:'L\'utilisateur est modifié avec succès.',
+    last_name_error:  'Le champ nom est obligatoire',
+    first_name_error: 'Le champ prénoms est obligatoire',
+    role_error:  'Le champ role est obligatoire',
+    email_error: 'Le champ email est obligatoire',
+    phoneNumber_error:'Le champ téléphone est obligatoire',
+    compagnie_error: 'Le champ compagnie est obligatoire',
+    Description:'Description',
+    SuppressionIncident1:'La categorie est supprimée avec succès.',
+    description_error:'Le champ description est obligatoire',
+    nametype_error:'Le champ incident est obligatoire',
+    INCIDENT:'INCIDENT',
+    incident_update:'L\'incident est modifiée avec succès.',
+    incident_save:'L\'incident est enrégistrée avec succès.'
   }
 }

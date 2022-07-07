@@ -28,7 +28,7 @@
             v-model="input.role"
             :options="roles">
           </v-select>
-          <span class="text-danger text-sm" v-show="errors.has('role')">{{ errors.first('role') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('role')">{{$t("role_error")}}</span>
           <div v-if="input.role ==='user'">
           <p class="pt-4">{{$t("Compagnie")}}<b style="color: #ff6141" >*</b> </p>
           <vs-select
@@ -39,7 +39,7 @@
               name="compagnie">
             <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in companies" />
           </vs-select>
-          <span class="text-danger text-sm" v-show="errors.has('compagnie')">{{ errors.first('compagnie') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('compagnie')">{{$t("compagnie_error")}}</span>
           </div>
           <p class="pt-4"> {{$t("Nom")}} <b style="color: #ff6141" >*</b> </p>
           <vs-input
@@ -47,7 +47,7 @@
             name="last_name"
             v-model="input.last_name"
             class="w-full" />
-          <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('last_name')">{{$t("last_name_error")}}</span>
 
           <p class="pt-4"> {{$t("Prénoms")}} <b style="color: #ff6141" >*</b> </p>
           <vs-input
@@ -55,7 +55,7 @@
             name="first_name"
             v-model="input.first_name"
             class="w-full" />
-          <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('first_name')">{{$t("first_name_error")}}</span>
 
           <p class="pt-4"> {{$t("mail")}} <b style="color: #ff6141" >*</b> </p>
           <vs-input
@@ -64,7 +64,7 @@
             type="email"
             v-model="input.email"
             class="w-full" />
-          <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('email')">{{$t("email_error")}}</span>
 
           <p class="pt-4"> {{$t("Phone")}} <b style="color: #ff6141" >*</b> </p>
           <vue-tel-input
@@ -79,7 +79,7 @@
               class="w-full"
           >
           </vue-tel-input>
-          <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{ errors.first('phoneNumber') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{$t("phoneNumber_error")}}</span>
         </div>
 
       </component>
@@ -120,7 +120,7 @@ const dict = {
 }
 
 // register custom messages
-Validator.localize('en', dict)
+Validator.localize('fr', dict)
 
 const input_tempon = {
   email: '',

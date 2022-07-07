@@ -11,36 +11,36 @@
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
-      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UN" : "MODIFIER L' " }} INCIDENT  </h4>
+      <h4>{{ Object.entries(this.data).length === 0 ? $t("AJOUTER_UN") : $t("MODIFICATION_DE_L") }} {{$t("INCIDENT")}}  </h4>
       <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
     </div>
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">Incident<b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">{{ $t("Incidents") }}<b style="color: #ff6141" >*</b> </p>
         <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
           name="nametype"
           v-model="input.name"
           class="w-full" />
-        <span class="text-danger text-sm" v-show="errors.has('nametype')">{{ errors.first('nametype') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('nametype')">{{$t("nametype_error")}}</span>
 
-        <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">{{ $t("Description") }}<b style="color: #ff6141" >*</b> </p>
         <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
           name="description"
           v-model="input.description"
           class="w-full" />
-        <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('description')">{{$t("description_error")}}</span>
 
       </div>
     </component>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button class="mr-6" @click="category_validate">Soumettre</vs-button>
-      <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Annuler</vs-button>
+      <vs-button class="mr-6" @click="category_validate">{{$t("Soumettre")}}</vs-button>
+      <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">{{$t("Annuler")}}</vs-button>
     </div>
   </vs-sidebar>
 </template>
@@ -54,7 +54,7 @@ const dict = {
   custom: {
 
     nametype: {
-      required: 'Le champ compagnie est obligatoire'
+      required: 'Le champ incident est obligatoire'
     },
     description: {
       required: 'Le champ description est obligatoire'
@@ -145,13 +145,13 @@ export default {
       let url = 'categories/'
       let methods = 'post'
       const message = {
-        error: 'Votre enrégistrement à échouer.',
-        success: 'La categorie est enrégistrée avec succès.'
+        error: this.$t('save_error'),
+        success: this.$t('incident_save')
       }
       if (input.id) {
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'La catetegorie est modifiée avec succès.'
+        message.success = this.$t('incident_update')
       }
 
       this.$http[methods](url, input)
@@ -168,7 +168,7 @@ export default {
             const item = clefs[i]
             let libelle = ''
             if (item === 'name') {
-              libelle = 'categorie'
+              libelle = 'incident'
             }
             if (item === 'description') {
               libelle = 'description'

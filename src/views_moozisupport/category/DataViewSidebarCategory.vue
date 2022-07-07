@@ -168,10 +168,10 @@ export default {
             const item = clefs[i]
             let libelle = ''
             if (item === 'name') {
-              libelle = 'incident'
+              libelle = this.$t('Incidents')
             }
             if (item === 'description') {
-              libelle = 'description'
+              libelle = this.$t('Description')
             }
 
             for (let j = 0; j < error.response.data[item].length; j++) {

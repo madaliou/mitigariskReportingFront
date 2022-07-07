@@ -44,8 +44,16 @@ export default {
     nametype_error:'The incident field is required',
     INCIDENT:'INCIDENT',
     incident_update:'The incident is modified successfully.',
-    incident_save:'The incident is save successfully.'
+    incident_save:'The incident is save successfully.',
+    Solution:'Solution',
+    Solution_delete: 'The solution is deleted successfully.',
+    SOLUTION:'SOLUTION',
+    error_solution: 'The solution field is required',
+    solution_field_error:'The solution field is required',
+    solution_save:'The solution is saved successfully.',
+    solution_update:'The solution is modified successfully.'
   },
+
   fr: {
     Dashboard: 'Tableau de bord',
     Utilisateurs: 'Utilisateurs',
@@ -64,6 +72,7 @@ export default {
     Ajouter: 'Ajouter',
     AJOUTER_UN: 'AJOUTER UN',
     MODIFICATION_DE_L: 'MODIFIIER L\'',
+    MODIFICATION_DE: 'MODIFIIER LA',
     UTILISATEUR: 'UTILISATEUR',
     Modifier: 'Modifier',
     Supprimer: 'Supprimer',
@@ -92,6 +101,13 @@ export default {
     nametype_error:'Le champ incident est obligatoire',
     INCIDENT:'INCIDENT',
     incident_update:'L\'incident est modifiée avec succès.',
-    incident_save:'L\'incident est enrégistrée avec succès.'
+    incident_save:'L\'incident est enrégistrée avec succès.',
+    Solution:'Solution',
+    Solution_delete: 'La solution est supprimée avec succès.',
+    error_solution: 'Le champ solution est obligatoire',
+    solution_field_error:'Le champ solution est obligatoire',
+    solution_save:'La solution est enrégistrée avec succès.',
+    solution_update:'La solution est modifiée avec succès.',
+
   }
 }

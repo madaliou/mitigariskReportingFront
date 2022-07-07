@@ -242,18 +242,16 @@ export default {
           for (let i = 0; i < clefs.length; i++) {
             const item = clefs[i]
             let libelle = ''
-            if (item === 'username') {
-              libelle = 'Nom d\'utilisateur'
-            } else if (item === 'email') {
-              libelle = 'Email'
+            if (item === 'email') {
+              libelle = this.$t('mail')
             } else if (item === 'first_name') {
-              libelle = 'Prénoms'
+              libelle = this.$t('Prénoms')
             } else if (item === 'phoneNumber')  {
-              libelle = 'Le Numéro de téléphone'
+              libelle = this.$t('Phone')
             } else if (item === 'company') {
-              libelle = 'Compagnie'
+              libelle = this.$t('Compagnie')
             } else if (item === 'last_name') {
-              libelle = 'Nom'
+              libelle = this.$t('Nom')
             }
             for (let j = 0; j < error.response.data[item].length; j++) {
               window.getPrendTaCom.error(`${libelle} :  ${error.response.data[item][j]}`)

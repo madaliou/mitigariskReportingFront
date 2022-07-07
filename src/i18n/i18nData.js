@@ -107,7 +107,7 @@ export default {
     error_solution: 'Le champ solution est obligatoire',
     solution_field_error:'Le champ solution est obligatoire',
     solution_save:'La solution est enrégistrée avec succès.',
-    solution_update:'La solution est modifiée avec succès.',
+    solution_update:'La solution est modifiée avec succès.'
 
   }
 }

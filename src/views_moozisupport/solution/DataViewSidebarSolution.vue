@@ -41,7 +41,7 @@
     </component>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button class="mr-6" @click="solution_validate">{{$t("save_error")}}</vs-button>
+      <vs-button class="mr-6" @click="solution_validate">{{$t("Soumettre")}}</vs-button>
       <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">{{$t("Annuler")}}</vs-button>
     </div>
   </vs-sidebar>

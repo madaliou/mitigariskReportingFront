@@ -153,18 +153,18 @@ export default {
         type:'confirm',
         color: 'danger',
         title: 'Confirmation',
-        text: 'Confirmer la suppression?',
-        acceptText: 'Confirmer',
-        cancelText: 'Annuler',
+        text: this.$t('enteteDelete'),
+        acceptText: this.$t('Confirmer'),
+        cancelText: this.$t('Annuler'),
         accept: async () => {
           this.$vs.loading()
           this.$http.delete(`users/${id}/`)
             .then(response => {
               base_self.getAllUsers()
-              window.getPrendTaCom.success('L\'utilisateur est supprimé avec succès.', response)
+              window.getPrendTaCom.success(this.$t('SuppressionUser1'), response)
             })
             .catch(() => {
-              window.getPrendTaCom.error({ message: 'La suppression de l\'utilisateur a échoué.' })
+              window.getPrendTaCom.error({ message: this.$t('SuppressionUser2')})
             })
         }
       })

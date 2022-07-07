@@ -25,7 +25,15 @@ export default {
     Nom: 'Last Name',
     Prénoms: 'First names',
     Soumettre: 'Submit',
-    Annuler: 'Cancel'
+    Annuler: 'Cancel',
+    enteteDelete: 'do you  want to delete',
+    Confirmer :'comfirm',
+    SuppressionUser1:'The user is successfully deleted.',
+    SuppressionUser2:'User deletion failed.',
+    save_error:'User deletion failed.',
+    save_sucess_user:'The user is registered successfully.',
+    update_user:'The user is changed successfully.'
+
   },
   fr: {
     Dashboard: 'Tableau de bord',
@@ -53,6 +61,13 @@ export default {
     Nom: 'Nom',
     Prénoms: 'Prénoms',
     Soumettre: 'Soumettre',
-    Annuler: 'Annuler'
+    Annuler: 'Annuler',
+    enteteDelete: 'Confirmer la suppressions?',
+    Confirmer :'comfirmer',
+    SuppressionUser1:'L\'utilisateur est supprimé avec succès.',
+    SuppressionUser2:'User deletion failed.',
+    save_error:'Votre enrégistrement à échouer.',
+    save_sucess_user:'L\'utilisateur est enrégistrer avec succès.',
+    update_user:'L\'utilisateur est modifié avec succès.'
   }
 }

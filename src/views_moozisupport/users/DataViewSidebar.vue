@@ -83,7 +83,7 @@
         </div>
 
       </component>
-
+color: #ff6141"
       <div class="flex flex-wrap items-center p-6" slot="footer">
         <vs-button class="mr-6" @click="User_validate">{{$t("Soumettre")}}</vs-button>
         <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">{{$t("Annuler")}}</vs-button>
@@ -93,8 +93,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker'
-
-// For custom error message
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import { Validator } from 'vee-validate'
 
 const dict = {
@@ -121,9 +120,7 @@ const dict = {
 }
 
 // register custom messages
-Validator.localize('fr', dict)
-
-import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+Validator.localize('en', dict)
 
 const input_tempon = {
   email: '',
@@ -224,14 +221,14 @@ export default {
       let url = 'users/'
       let methods = 'post'
       const message = {
-        error: 'Votre enrégistrement à échouer.',
-        success: 'L\'utilisateur est enrégistrer avec succès.'
+        error: this.$t('save_error'),
+        success: this.$t('save_sucess_user')
       }
       if (input.id) {
         input.phoneNumber = this.input.phoneNumber
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'L\'utilisateur est modifié avec succès.'
+        message.success = this.$t('update_user')
       }
       this.$http[methods](url, input)
         .then((response) => {

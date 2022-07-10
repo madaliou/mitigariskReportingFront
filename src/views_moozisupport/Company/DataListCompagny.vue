@@ -9,7 +9,7 @@
           <!-- ADD NEW -->
           <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
             <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-            <span class="ml-2 text-base text-primary">Ajouter</span>
+            <span class="ml-2 text-base text-primary">{{ $t("Ajouter") }}</span>
           </div>
         </div>
 
@@ -38,11 +38,11 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="compagnies">compagnie</vs-th>
-        <vs-th sort-key="Description">Description</vs-th>
-        <vs-th sort-key="Personne_ressource">Personne ressource</vs-th>
-        <vs-th sort-key="Email">Email</vs-th>
-        <vs-th sort-key="Telephone">télephone</vs-th>
+        <vs-th sort-key="compagnies">{{ $t("Compagnie") }}</vs-th>
+        <vs-th sort-key="Description">{{ $t("Description") }}</vs-th>
+        <vs-th sort-key="Personne_ressource">{{ $t("resource_person") }}</vs-th>
+        <vs-th sort-key="Email">{{ $t("mail") }}</vs-th>
+        <vs-th sort-key="Telephone">{{ $t("Phone") }}</vs-th>
         <vs-th>Action</vs-th>
       </template>
 
@@ -66,7 +66,7 @@
           </vs-td>
           <vs-td class="whitespace-no-wrap">
             <div class="flex">
-              <vx-tooltip text="Modifier" color="warning">
+              <vx-tooltip :text="$t('Modifier')"  color="warning">
                 <feather-icon
                   style="color: #FF9F43"
                   icon="EditIcon"
@@ -75,7 +75,7 @@
                   @click="editData(tr)"
                 />
               </vx-tooltip>
-              <vx-tooltip text="Supprimer" color="danger">
+              <vx-tooltip :text="$t('Supprimer')" color="danger">
                 <feather-icon
                   @click="deleteData(tr.id)"
                   style="color: red"
@@ -136,18 +136,18 @@ export default {
         type:'confirm',
         color: 'danger',
         title: 'Confirmation',
-        text: 'Confirmer la suppression?',
-        acceptText: 'Confirmer',
-        cancelText: 'Annuler',
+        text: this.$t('enteteDelete'),
+        acceptText: this.$t('Confirmer'),
+        cancelText: this.$t('Annuler'),
         accept: async () => {
           this.$vs.loading()
           this.$http.delete(`companies/${id}/`)
             .then(response => {
               base_self.getAllCompagny()
-              window.getPrendTaCom.success('La compagnie est supprimée avec succès.', response)
+              window.getPrendTaCom.success(this.$t('Company_delete'), response)
             })
             .catch(() => {
-              window.getPrendTaCom.error({ message: 'La suppression a échoué.' })
+              window.getPrendTaCom.error({ message: this.$t('Suppression') })
             })
         }
       })

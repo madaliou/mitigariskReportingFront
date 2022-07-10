@@ -11,40 +11,40 @@
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
-      <h4>{{ Object.entries(this.data).length === 0 ? "AJOUTER UNE" : "MODIFIER LA " }} COMPAGNIE  </h4>
+      <h4>{{ Object.entries(this.data).length === 0 ? $t("AJOUTER_UNE") : $t("MODIFICATION_DE") }} {{ $t("COMPAGNIE") }} </h4>
       <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
     </div>
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">Compagnie<b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">{{ $t("Compagnie") }}<b style="color: #ff6141" >*</b> </p>
         <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
           name="nametype"
           v-model="input.name"
           class="w-full" />
-        <span class="text-danger text-sm" v-show="errors.has('nametype')">{{ errors.first('nametype') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('nametype')">{{$t("compagnie_error")}}</span>
 
-        <p class="pt-4"> Description <b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4"> {{ $t("Description") }} <b style="color: #ff6141" >*</b> </p>
          <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
           name="description"
           v-model="input.description"
           class="w-full" />
-        <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('description')">{{$t("description_error")}}</span>
 
-      <p class="pt-4"> Personne ressource <b style="color: #ff6141" >*</b> </p>
+      <p class="pt-4">{{ $t("resource_person") }}<b style="color: #ff6141" >*</b> </p>
          <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
           name="resourcePerson"
           v-model="input.resourcePerson"
           class="w-full" />
-        <span class="text-danger text-sm" v-show="errors.has('resourcePerson')">{{ errors.first('resourcePerson') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('resourcePerson')">{{$t("resourcePerson_error")}}</span>
 
-        <p class="pt-4"> Email <b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4"> {{ $t("mail") }} <b style="color: #ff6141" >*</b> </p>
         <vs-input
             v-validate="'required|email'"
             data-vv-validate-on="blur"
@@ -52,9 +52,9 @@
             type="email"
             v-model="input.email"
             class="w-full" />
-        <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('email')">{{$t("email_error")}}</span>
 
-      <p class="pt-4"> Téléphone <b style="color: #ff6141" >*</b> </p>
+      <p class="pt-4"> {{ $t("Phone") }} <b style="color: #ff6141" >*</b> </p>
         <vue-tel-input
             v-model="input.phoneNumber"
             :enabledCountryCode="true"
@@ -67,14 +67,14 @@
             class="w-full"
         >
         </vue-tel-input>
-        <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{ errors.first('phoneNumber') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{$t("phoneNumber_error")}}</span>
 
       </div>
     </component>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button class="mr-6" @click="company_validate">Soumettre</vs-button>
-      <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Annuler</vs-button>
+      <vs-button class="mr-6" @click="company_validate">{{$t("Soumettre")}}</vs-button>
+      <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">{{$t("Annuler")}}</vs-button>
     </div>
   </vs-sidebar>
 </template>
@@ -193,14 +193,14 @@ export default {
       let url = 'companies/'
       let methods = 'post'
       const message = {
-        error: 'Votre enrégistrement à échouer.',
-        success: 'La compagnie est enrégistrée avec succès.'
+        error: this.$t('save_error'),
+        success: this.$t('compagny_save')
       }
       if (input.id) {
         input.phoneNumber = this.input.phoneNumber
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'La compagnie est modifiée avec succès.'
+        message.success = this.$t('compagny_update')
       }
 
       this.$http[methods](url, input)
@@ -217,19 +217,19 @@ export default {
             const item = clefs[i]
             let libelle = ''
             if (item === 'name') {
-              libelle = 'compagnie'
+              libelle = this.$t('Compagnie')
             }
             if (item === 'email') {
-              libelle = 'email'
+              libelle =  this.$t('mail')
             }
             if (item === 'description') {
-              libelle = 'description'
+              libelle = this.$t('Description')
             }
             if (item === 'phoneNumber') {
-              libelle = 'Le Numéro de téléphone'
+              libelle = this.$t('Phone')
             }
             if (item === 'resourcePerson') {
-              libelle = 'Personne resource'
+              libelle = this.$t('resource_person')
             }
 
             for (let j = 0; j < error.response.data[item].length; j++) {

@@ -13,9 +13,10 @@ export default {
     Nom_Prenons: 'full name',
     mail: 'Email',
     Phone: 'Telephone',
-    Compagnie: 'Compagny',
+    Compagnie: 'Company',
     Ajouter: 'Add',
     AJOUTER_UN: 'ADD',
+    AJOUTER_UNE: 'ADD',
     MODIFICATION_DE_L: 'EDIT',
     UTILISATEUR: 'USER',
     Modifier: 'Edit',
@@ -51,7 +52,13 @@ export default {
     error_solution: 'The solution field is required',
     solution_field_error:'The solution field is required',
     solution_save:'The solution is saved successfully.',
-    solution_update:'The solution is modified successfully.'
+    solution_update:'The solution is modified successfully.',
+    Company_delete :'The compagny is deleted successfully.',
+    resource_person:'Resource person',
+    resourcePerson_error:'The resource person field is required',
+    compagny_save: 'The compagny is saved successfully.',
+    compagny_update : 'The compagny is modified successfully.',
+    COMPAGNIE:'COMPANY'
   },
 
   fr: {
@@ -71,6 +78,7 @@ export default {
     Compagnie: 'Compagnie',
     Ajouter: 'Ajouter',
     AJOUTER_UN: 'AJOUTER UN',
+    AJOUTER_UNE: 'AJOUTER UNE',
     MODIFICATION_DE_L: 'MODIFIIER L\'',
     MODIFICATION_DE: 'MODIFIIER LA',
     UTILISATEUR: 'UTILISATEUR',
@@ -107,7 +115,12 @@ export default {
     error_solution: 'Le champ solution est obligatoire',
     solution_field_error:'Le champ solution est obligatoire',
     solution_save:'La solution est enrégistrée avec succès.',
-    solution_update:'La solution est modifiée avec succès.'
-
+    solution_update:'La solution est modifiée avec succès.',
+    Company_delete :'La compagnie est supprimée avec succès.',
+    resource_person:'Personne ressource',
+    resourcePerson_error:'Le champ personne ressource est obligatoire',
+    compagny_save: 'La compagnie est enrégistrée avec succès.',
+    compagny_update : 'La compagnie est modifiée avec succès.',
+    COMPAGNIE:'COMPAGNIE'
   }
 }

@@ -2,15 +2,15 @@
     <div class="email__email-sidebar h-full">
       <div v-if="showByAdmin===false">
         <div  class="m-6 clearfix">
-            <vs-button class="bg-primary-gradient w-full" icon-pack="feather" icon="icon-edit" @click="activePrompt = true">Créer un ticket</vs-button>
+            <vs-button class="bg-primary-gradient w-full" icon-pack="feather" icon="icon-edit" @click="activePrompt = true">{{ $t("Créer_un_ticket") }}</vs-button>
         </div>
       </div>
         <!-- compose email -->
         <vs-prompt
             class="email-compose"
-            title="Créer un ticket"
-            accept-text= "Envoyer"
-            cancel-text= "Annuler"
+            :title="this.$t('Créer_un_ticket')"
+            :accept-text= "this.$t('Envoyer')"
+            :cancel-text= "this.$t('Annuler')"
             @cancel="clearFields"
             @accept="sendMail"
             @close="clearFields"
@@ -21,7 +21,7 @@
                         <vs-input disabled="true"
                                   v-validate="'required'"
                                   name="mailTo"
-                                  label-placeholder="Destinataire"
+                                  :label-placeholder="this.$t('Destinataire')"
                                   v-model="mailTo"
                                   class="w-full mb-6"
                                   :danger="!validateForm || mailTo !== ''"
@@ -35,7 +35,7 @@
                         v-validate="'required'"
                         autocomplete
                         v-model="category"
-                        label="Categorie"
+                        :label="this.$t('incident')"
                         class="w-full mb-6"
                         name="category"
                         :danger="!validateForm1 || category !== ''"
@@ -51,7 +51,7 @@
                         v-validate="'required'"
                         autocomplete
                         v-model="solution"
-                        label="Solution"
+                        :label="this.$t('Solution')"
                         class="w-full mb-6"
                         name="solution"
                         :danger="!validateForm1 || category !== '' || solution ===''"
@@ -84,7 +84,7 @@
 
               <div v-if="showByAdmin===true" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
                   <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
-                  <span class="text-lg ml-3">{{ $t("Tickets_totaux") }}</span>
+                  <span class="text-lg ml-3">{{ $t("Créer_un_ticket") }}</span>
               </div>
 
               <div v-if="showByAdmin===false" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
@@ -112,7 +112,7 @@
 
               <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="All_message()">
                     <feather-icon icon="MailIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
-                    <span class="text-lg ml-3">{{ $t("incident") }}</span>
+                    <span class="text-lg ml-3">{{ $t("Messages") }}</span>
               </div>
 
             </div>
@@ -254,8 +254,8 @@ export default {
       let url = 'tickets/'
       let methods = 'post'
       const message = {
-        error: 'Votre enrégistrement à échouer.',
-        success: 'Le ticket est enrégistré avec succès.'
+        error: this.$t('ticket_error'),
+        success: this.$t('ticket_succes')
       }
       if (input.id) {
         url += `${input.id}/`

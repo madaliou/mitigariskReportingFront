@@ -58,7 +58,11 @@ export default {
     resourcePerson_error:'The resource person field is required',
     compagny_save: 'The compagny is saved successfully.',
     compagny_update : 'The compagny is modified successfully.',
-    COMPAGNIE:'COMPANY'
+    COMPAGNIE:'COMPANY',
+    non_lu : 'Unread',
+    lu :'Read',
+    actualiser:'Refresh',
+    voir:'View'
   },
 
   fr: {
@@ -121,6 +125,10 @@ export default {
     resourcePerson_error:'Le champ personne ressource est obligatoire',
     compagny_save: 'La compagnie est enrégistrée avec succès.',
     compagny_update : 'La compagnie est modifiée avec succès.',
-    COMPAGNIE:'COMPAGNIE'
+    COMPAGNIE:'COMPAGNIE',
+    non_lu : 'Non lu',
+    lu :'Lu',
+    actualiser:'Actualiser',
+    voir:'Voir'
   }
 }

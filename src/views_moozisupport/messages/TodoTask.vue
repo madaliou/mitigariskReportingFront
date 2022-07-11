@@ -29,12 +29,21 @@
         </div>
 
         <div class="mail-item__meta sm:ml-2 sm:my-0 my-2 flex">
+          <vs-chip class="mr-4" v-if="taskLocal.read === false">
+            <div class="h-2 w-2 rounded-full mr-2 bg-danger"></div>
+            <span>{{ $t("non_lu") }}</span>
+          </vs-chip>
+          <vs-chip class="mr-4" v-if="taskLocal.read === true">
+            <div class="h-2 w-2 rounded-full mr-2 bg-success"></div>
+            <span>{{ $t("lu") }}</span>
+          </vs-chip>
+
           <vs-chip class="mr-4">
             <div class="h-2 w-2 rounded-full mr-2 bg-primary"></div>
             <span>{{ taskLocal.created_at | date_time }}</span>
           </vs-chip>
 
-          <vx-tooltip v-if="showByAdmin ===false" text="voir" color="success">
+          <vx-tooltip v-if="showByAdmin ===false" :text="$t('voir')" color="success">
           <feather-icon
               icon="EyeIcon"
               class="cursor-pointer"
@@ -42,7 +51,7 @@
               @click.passive="viewMessage(taskLocal.id,taskLocal.read)" />
           </vx-tooltip>
 
-          <vx-tooltip v-if="showByAdmin ===true" text="voir" color="success">
+          <vx-tooltip v-if="showByAdmin ===true" :text="$t('voir')" color="success">
           <feather-icon
               icon="EyeIcon"
               class="cursor-pointer"
@@ -81,7 +90,7 @@
 <!--              @click.stop="removeMessage(taskLocal.id)" />-->
 <!--          </vx-tooltip>-->
 
-          <vx-tooltip text="Actualiser" color="primary">
+          <vx-tooltip :text="$t('actualiser')" color="primary">
           <feather-icon
               icon="RefreshCwIcon"
               class="cursor-pointer"
@@ -95,12 +104,12 @@
     </div>
     <div class="flex w-full">
       <div class="flex items-center ml-0" v-if="taskLocal.read === false">
-        <vx-tooltip text="Non lu" color="danger">
+        <vx-tooltip :text="$t('non_lu')" color="danger">
         <feather-icon icon="PlusCircleIcon" class="cursor-pointer" :svgClasses="'text-danger fill-current stroke-current'"></feather-icon>
         </vx-tooltip>
       </div>
       <div class="flex items-center ml-0" v-if="taskLocal.read === true">
-        <vx-tooltip text="Lu" color="success">
+        <vx-tooltip :text="$t('lu')" color="success">
         <feather-icon icon="PlusCircleIcon" class="cursor-pointer" :svgClasses="'text-success fill-current stroke-current'" ></feather-icon>
         </vx-tooltip>
       </div>
@@ -144,14 +153,14 @@
               <div class="flex justify-end mt-2" v-if="taskLocal.read === false">
                 <div class="open-mail-label flex items-center ">
                   <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>
-                  <span class="text-right" >Non lu</span>
+                  <span class="text-right" >{{ $t("non_lu") }}</span>
                 </div>
               </div>
               <div class="flex justify-end mt-2" v-if="taskLocal.read === true">
                 <div class="open-mail-label flex items-center ">
 
                   <div class="h-3 w-3  rounded-full bg-success mr-2" ></div>
-                  <span class="text-right" >Lu</span>
+                  <span class="text-right" >{{ $t("lu") }}</span>
                 </div>
               </div>
 

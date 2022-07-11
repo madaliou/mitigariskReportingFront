@@ -19,7 +19,7 @@
       <!-- EMAIL ACTION BAR -->
       <div class="email__actions flex items-center flex-wrap justify-between p-4 border border-r-0 border-l-0 border-solid d-theme-border-grey-light">
         <div class="flex items-center">
-          <h1>TICKETS</h1>
+          <h1>{{ $t("Tickets") }}</h1>
         </div>
         <div class="flex"></div>
 
@@ -55,9 +55,9 @@
     <!-- ENVOYER UN MAIL-->
     <vs-prompt
         class="email-compose"
-        title="Envoyer un mail"
-        accept-text= "Envoyer"
-        cancel-text= "Annuler"
+        :title="this.$t('Envoyer_un_mail')"
+        :accept-text= "this.$t('Envoyer')"
+        :cancel-text= "this.$t('Annuler')"
         @cancel="clearMessage"
         @accept="sendMail"
         @close="clearMessage"
@@ -68,7 +68,7 @@
           <vs-input disabled="true"
                     v-validate="'required'"
                     name="mailTo"
-                    label-placeholder="Destinataire"
+                    :label-placeholder="this.$t('Destinataire')"
                     v-model="mailTo"
                     class="w-full mb-6"
                     :danger="!validateForm && mailTo !== ''"
@@ -497,13 +497,13 @@ export default {
       let url = 'replies/'
       let methods = 'post'
       const message = {
-        error: 'Votre message à échouer.',
-        success: 'Le message est envoyé avec succès.'
+        error: this.$t('message_error'),
+        success: this.$t('messsage_envoyer')
       }
       if (input.id) {
         url += `${input.id}/`
         methods = 'put'
-        message.success = 'Le message est modifié avec succès.'
+        message.success = this.$t('message_update')
       }
       this.$http[methods](url, input)
         .then((response) => {

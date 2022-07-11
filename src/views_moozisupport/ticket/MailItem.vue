@@ -23,28 +23,44 @@
                 </div>
 
                 <div class="mail-item__meta flex items-center">
+
+                  <vs-chip v-if="mail.fixed === 0" >
+                      <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>
+                      <span class="text-right" >{{ $t("Non_Traité") }}</span>
+                  </vs-chip>
+
+                  <vs-chip v-if="mail.fixed === 1">
+                      <div class="h-3 w-3  rounded-full bg-warning mr-2"  ></div>
+                      <span class="text-right" >{{ $t("En_cours_de_traitement") }}</span>
+                  </vs-chip>
+                  <vs-chip v-if="mail.fixed === 2">
+                      <div class="h-3 w-3  rounded-full bg-primary mr-2" ></div>
+                      <span class="text-right" >{{ $t("Traiter") }}</span>
+                  </vs-chip>
+
                   <vs-chip >
                     <span>{{ mail.created_at | date_time }}</span>
                   </vs-chip>
+
                 </div>
             </div>
         </div>
 
         <div class="flex w-full">
             <div class="flex items-center ml-0" v-if="mail.fixed === 0">
-              <vx-tooltip text="Non traité" color="danger">
+              <vx-tooltip :text="$t('Non_Traité')" color="danger">
                 <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-danger fill-current stroke-current'" ></feather-icon>
               </vx-tooltip>
             </div>
 
           <div class="flex items-center ml-0" v-if="mail.fixed === 1">
-            <vx-tooltip text="Encours de traitement" color="warning">
+            <vx-tooltip :text="$t('En_cours_de_traitement')" color="warning">
                 <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-warning fill-current stroke-current'" ></feather-icon>
             </vx-tooltip>
           </div>
 
           <div class="flex items-center ml-0" v-if="mail.fixed === 2">
-            <vx-tooltip text="Traité" color="primary">
+            <vx-tooltip :text="$t('Traiter')" color="primary">
                 <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="'text-primary fill-current stroke-current'" ></feather-icon>
             </vx-tooltip>
           </div>

@@ -25,22 +25,22 @@
 <!--              <feather-icon icon="StarIcon" class="cursor-pointer" :svgClasses="[{'text-warning stroke-current stroke-current': currentMail.isStarred}, 'h-6 w-6']" @click="toggleIsStarred" />-->
               <!-- ADD LABEL DROPDOWN -->
               <div v-if="showByAdmin===true">
-              <vx-tooltip text="Traiter" color="success">
+              <vx-tooltip :text="$t('Traiter1')"  color="success">
               <feather-icon style="color: lime"  v-if="currentMail.fixed === 1" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('validation')"></feather-icon>
               </vx-tooltip>
               </div>
               <div v-if="showByAdmin===true">
-              <vx-tooltip text="Annuler" color="danger">
+              <vx-tooltip :text="$t('Annuler')"  color="danger">
               <feather-icon style="color: red"  v-if="currentMail.fixed === 2" icon="CheckSquareIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Annuler_validation')"></feather-icon>
               </vx-tooltip>
               </div>
               <div v-if="showByAdmin===true">
-              <vx-tooltip text="Mettre encours de traitement" color="warning">
+              <vx-tooltip :text="$t('Mettre_encours_de_traitement')" color="warning">
               <feather-icon style="color: yellow"  v-if="currentMail.fixed === 0" icon="LoaderIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Encours_traitement')"></feather-icon>
               </vx-tooltip>
               </div>
               <div v-if="showByAdmin===true">
-              <vx-tooltip text="Annuler le traitement encours" color="danger">
+              <vx-tooltip :text="$t('Annuler_le_traitement_encours')" color="danger">
               <feather-icon style="color: red"  v-if="currentMail.fixed === 1" icon="LoaderIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('Annuler_Encours_traitement')"></feather-icon>
               </vx-tooltip>
               </div>
@@ -58,10 +58,10 @@
               <feather-icon style="color: blue "  icon="SendIcon" svg-classes="h-6 w-6" class="cursor-pointer ml-4" @click="$emit('send_Message')"></feather-icon>
               </vx-tooltip>
               </div>
-              <vx-tooltip text="Précédent" color="black">
+              <vx-tooltip :text="$t('Précédent')" color="black">
               <feather-icon style="color: black " :icon="$vs.rtl ? 'ChevronsRightIcon' : 'ChevronsLeftIcon'" svg-classes="h-6 w-6" class="cursor-pointer ml-4 hidden sm:inline-flex" @click="$emit('previousMail')" />
               </vx-tooltip>
-              <vx-tooltip text="Suivant" color="black">
+              <vx-tooltip :text="$t('Suivant')" color="black">
               <feather-icon style="color: black " :icon="$vs.rtl ? 'ChevronsLeftIcon' : 'ChevronsRightIcon'" svg-classes="h-6 w-6" class="cursor-pointer ml-4 hidden sm:inline-flex" @click="$emit('nextMail')" />
               </vx-tooltip>
             </div>

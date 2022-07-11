@@ -32,7 +32,7 @@
                 icon="FileIcon"
                 icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.unfixed_tickets || 0) )"
-                statisticTitle="Tickets non Traités " />
+                :statisticTitle="$t('actualiser')" />
             </div>
 
             <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3" @click="companies">
@@ -42,7 +42,7 @@
                 icon="GlobeIcon"
                 icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.companies || 0) )"
-                statisticTitle="Compagnies" />
+                :statisticTitle="$t('Compagnie')"  />
             </div>
 
 <!--            <chartjs-bar-chart></chartjs-bar-chart>-->

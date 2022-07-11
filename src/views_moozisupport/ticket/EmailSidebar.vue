@@ -89,36 +89,36 @@
 
               <div v-if="showByAdmin===false" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
                   <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
-                  <span class="text-lg ml-3">Mes tickets</span>
+                  <span class="text-lg ml-3">{{ $t("Tickets") }}</span>
               </div>
 
               <!-- inbox -->
               <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="tickets_traite()">
                 <feather-icon icon="FileIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
-                <span class="text-lg ml-3">Tickets traités</span>
+                <span class="text-lg ml-3">{{ $t("Tickets_traité") }}</span>
               </div>
 
               <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="tickets_Encours()">
                 <feather-icon icon="FilePlusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
-                <span class="text-lg ml-3">Tickets en traitement</span>
+                <span class="text-lg ml-3">{{ $t("tickets_encours_traitement") }}</span>
               </div>
 
 
               <div v-if="this.showByAdmin" class="flex items-center mb-2 mt-4 cursor-pointer" @click="tickets_non_traite()">
                         <feather-icon icon="FileMinusIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
-                        <span class="text-lg ml-3">Tickets non traités</span>
+                        <span class="text-lg ml-3">{{ $t("Tickets_non_traités") }}</span>
               </div>
 
 
               <div class="flex items-center mb-2 mt-4 cursor-pointer" @click="All_message()">
                     <feather-icon icon="MailIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'sent'}, 'h-6 w-6']"></feather-icon>
-                    <span class="text-lg ml-3">Messages</span>
+                    <span class="text-lg ml-3">{{ $t("incident") }}</span>
               </div>
 
             </div>
             <vs-divider></vs-divider>
             <div class="email__labels px-6 py-4">
-                <h5 class="mb-8">Incident</h5>
+                <h5 class="mb-8">{{ $t("incident") }}</h5>
                 <div class="email__lables-list">
                     <div tag="span" class="email__label flex items-center mb-4 cursor-pointer" v-for="(tag, index) in emailTags" :key="index">
                         <div class="ml-1 h-3 w-3 rounded-full mr-4 border-2 border-solid border-primary" ></div>

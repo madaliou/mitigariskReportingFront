@@ -22,7 +22,7 @@
                 icon="FileTextIcon"
                 icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.fixed_tickets || 0) )"
-                statisticTitle="Tickets Traités" />
+                :statisticTitle="$t('Tickets_traité')"/>
             </div>
 
             <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets">
@@ -32,7 +32,7 @@
                 icon="FileIcon"
                 icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.unfixed_tickets || 0) )"
-                :statisticTitle="$t('actualiser')" />
+                :statisticTitle="$t('Tickets_non_traités')"  />
             </div>
 
             <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3" @click="companies">

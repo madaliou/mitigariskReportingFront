@@ -72,7 +72,7 @@ const router = new Router({
 
 
         {
-          path: 'users',
+          path: 'Utilisateurs',
           beforeEnter: ifAuthenticated,
           name: 'users',
           component: () => import('./views_moozisupport/users/DataListListView.vue'),

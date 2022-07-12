@@ -223,11 +223,11 @@ export default {
       const user_name = JSON.parse(localStorage.getItem('userInfo')).username
       // eslint-disable-next-line no-unused-vars
 
-      const users = {
-        url: 'users',
+      const Utilisateurs = {
+        url: 'Utilisateurs',
         name: 'Utilisateurs',
         icon: 'UsersIcon',
-        slug: 'users',
+        slug: 'Utilisateurs',
         i18n: 'Utilisateurs'
       }
       const dashboard = {
@@ -283,7 +283,7 @@ export default {
         company,
         solution,
         category,
-        users
+        Utilisateurs
       ]
 
       const role_user = [

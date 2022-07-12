@@ -28,19 +28,22 @@
           <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 2">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-primary mr-2" ></div>
-               <span class="text-right" >Traité</span>
+               <span class="text-right"  v-if="props.local_lang==='fr'">Traité</span>
+               <span class="text-right" v-if="props.local_lang==='en'" >Treaty</span>
             </div>
           </div>
           <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 1">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-warning mr-2" ></div>
-               <span class="text-right" >Encours de traitement</span>
+               <span class="text-right" v-if="props.local_lang==='fr'" >Encours de traitement</span>
+               <span class="text-right" v-if="props.local_lang==='en'" >Initiate treatment</span>
             </div>
           </div>
           <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 0">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>
-               <span class="text-right" >Non traité</span>
+               <span class="text-right" v-if="props.local_lang==='fr'">Non traité</span>
+               <span class="text-right" v-if="props.local_lang==='en'" >Untreated</span>
             </div>
           </div>
 
@@ -70,6 +73,10 @@ export default {
       required: true
     },
     user_role: {
+      type: String,
+      required: true
+    },
+    local_lang: {
       type: String,
       required: true
     }

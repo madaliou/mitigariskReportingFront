@@ -97,6 +97,7 @@
               <div class="vx-col w-full">
                 <email-mail-card
                     :user_role="user_roleTop"
+                    :local_lang="local_lang"
                     :mailContent="currentMail" />
               </div>
             </div>
@@ -155,6 +156,9 @@ export default {
     },
     user_roleTop () {
       return JSON.parse(localStorage.getItem('userInfo')).role
+    },
+    local_lang () {
+      return this.$i18n.locale
     },
     labelColor () {
       return (label) => {

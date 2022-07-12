@@ -22,13 +22,21 @@
         </template>
         <!-- <bookmarks :navbarColor="navbarColor" v-if="windowWidth >= 992" /> -->
         <div class="bookmark-container">
-        <span>
+        <span v-if="getlang ==='en'">
           <feather-icon
               icon="UserIcon"
               :svgClasses="['stoke-current text-warning', {'text-white': navbarColor !== '#fff'}]"
               class="cursor-pointer p-2"
           />
-          {{ roleObject[user.role]}}
+          {{ roleObject_en[user.role]}}
+        </span>
+        <span v-if="getlang ==='fr'">
+          <feather-icon
+              icon="UserIcon"
+              :svgClasses="['stoke-current text-warning', {'text-white': navbarColor !== '#fff'}]"
+              class="cursor-pointer p-2"
+          />
+          {{ roleObject_fr[user.role]}}
         </span>
 
         </div>
@@ -64,9 +72,13 @@ export default {
 
   data () {
     return {
-      roleObject: {
+      roleObject_fr: {
         admin: 'ADMINISTRATEUR',
         user: 'UTILISATEUR'
+      },
+      roleObject_en: {
+        admin: 'ADMINISTRATOR',
+        user: 'USER'
       }
     }
   },
@@ -88,6 +100,9 @@ export default {
   computed: {
     navbarColorLocal () {
       return this.$store.state.theme === 'dark' && this.navbarColor === '#fff' ? '#10163a' : this.navbarColor
+    },
+    getlang () {
+      return window.getPrendTaCom.$i18n.locale
     },
     user () {
       return this.$store.state.AppActiveUser

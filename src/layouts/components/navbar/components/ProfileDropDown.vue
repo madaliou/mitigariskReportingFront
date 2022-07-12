@@ -3,7 +3,8 @@
 
     <div class="text-right leading-tight hidden sm:block">
       <p class="font-semibold">{{ activeUserInfo.last_name +" "}}{{ activeUserInfo.first_name}}</p>
-      <span class="flex items-center px-2 py-1 rounded"><div class="h-3 w-3 rounded-full mr-2" :class="'bg-success'"></div><small>{{ activeUserInfo.status }}</small></span>
+      <span v-if="getlang==='fr'" class="flex items-center px-2 py-1 rounded"><div class="h-3 w-3 rounded-full mr-2" :class="'bg-success'"></div><small>En ligne</small></span>
+      <span v-if="getlang==='en'" class="flex items-center px-2 py-1 rounded"><div class="h-3 w-3 rounded-full mr-2" :class="'bg-success'"></div><small>{{ activeUserInfo.status }}</small></span>
     </div>
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
       <div class="con-img ml-3">
@@ -17,7 +18,7 @@
             @click="$router.push('/pages/Profile').catch(() => {})">
 
             <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Profil</span>
+            <span class="ml-2">{{ $t("Profil") }}</span>
           </li>
 
           <li v-if="is_admin===false"
@@ -25,14 +26,14 @@
             @click="$router.push('/pages/Profil').catch(() => {})">
 
             <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Profil</span>
+            <span class="ml-2">{{ $t("Profil") }}</span>
           </li>
           <vs-divider class="m-1" />
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
             @click="logout">
             <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Déconnexion</span>
+            <span class="ml-2">{{ $t("Déconnexion") }}</span>
           </li>
         </ul>
       </vs-dropdown-menu>
@@ -53,6 +54,9 @@ export default {
   computed: {
     activeUserInfo () {
       return this.$store.state.AppActiveUser
+    },
+    getlang () {
+      return window.getPrendTaCom.$i18n.locale
     }
   },
   methods: {

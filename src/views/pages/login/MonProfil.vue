@@ -1,7 +1,7 @@
 <template>
   <div id="page-user-view">
     <div id="user-data" v-if="user_data" >
-      <vx-card title="PROFIL" class="mb-base">
+      <vx-card :title="$t('PROFIL')" class="mb-base">
         <!-- Avatar -->
         <div class="vx-row">
           <!-- Avatar Col -->
@@ -14,11 +14,11 @@
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
               <tr>
-                <td class="font-semibold">Nom :</td>
+                <td class="font-semibold">{{ $t("Nom") }} {{' :'}}</td>
                 <td>{{ user_data.last_name}}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Prénoms :</td>
+                <td class="font-semibold">{{ $t("Prénoms") }} {{' :'}}</td>
                 <td>{{ user_data.first_name}}</td>
               </tr>
             </table>
@@ -27,17 +27,17 @@
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
               <tr>
-                <td class="font-semibold">Role :</td>
+                <td class="font-semibold">{{ $t("Rôle") }} {{' :'}}</td>
                 <td>{{ roleObject[ user_data.role]}}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Email :</td>
+                <td class="font-semibold">{{ $t("mail") }} {{' :'}}</td>
                 <td>{{ user_data.email}}</td>
               </tr>
             </table>
           </div>
           <div class="vx-col w-full flex" id="account-manage-buttons">
-            <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" @click="activePrompt3 = true">Modifier mon mot de passe</vs-button>
+            <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" @click="activePrompt3 = true">{{ $t("Modifier_mon_mot_de_passe") }}</vs-button>
           </div>
         </div>
       </vx-card>
@@ -45,14 +45,14 @@
 
     <vs-prompt
       color="danger"
-      title="MODIFICATION DE MOT DE PASSE"
+      :title="$t('MODIFICATION_DE_MOT_DE_PASSE')"
       @cancel=" password= '';confirm_password='' "
       @accept="acceptAlert3"
       @close="close"
       :is-valid="validateForm"
       :active.sync="activePrompt3">
       <div class="con-exemple-prompt">
-        <b>Entez les infomations pour continuer</b>.
+        <b>{{ $t("Entez_les_infomations_pour_continuer") }}</b>.
         <div>
           <vs-input
             ref="password"
@@ -61,7 +61,7 @@
             v-validate="'required|min:8|max:15'"
             name="password"
             label-placeholder="Password"
-            placeholder="Mot de passe"
+            :placeholder="$t('Mot_de_passe')"
             v-model="password"
             class="w-full mt-8" />
           <span class="text-danger text-sm">{{ errors.first('password') }}</span>
@@ -72,13 +72,13 @@
             data-vv-as="password"
             name="confirm_password"
             label-placeholder="Confirm Password"
-            placeholder="Confirmation mot de passe"
+            :placeholder="$t('Confirmation_mot_de_passe')"
             v-model="confirm_password"
             class="w-full mt-8" />
           <span class="text-danger text-sm">{{ errors.first('confirm_password') }}</span>
         </div>
         <vs-alert :active="inputValid" color="danger" icon="new_releases" >
-          veuillez saisir le nouveau mot de passe
+          {{ $t("Confirmation_mot_de_passe") }}
         </vs-alert>
       </div>
     </vs-prompt>
@@ -127,7 +127,7 @@ export default {
           // localStorage.clear();
           this.$vs.notify({
             time:4000,
-            title: 'MOT DE PASSE CHANGÉ ',
+            title: this.$t('MOT_DE_PASSE_CHANGÉ'),
             text: reponse.data.message,
             color: 'success',
             position:'top-center'
@@ -137,7 +137,7 @@ export default {
         .catch((error) => {
           this.$vs.notify({
             time:4000,
-            title: 'CHAMP VIDE',
+            title: this.$t('ERROR_PASSWORD'),
             text: error.response.data.password[0],
             color: 'danger',
             position:'top-center'

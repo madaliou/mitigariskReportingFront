@@ -18,6 +18,7 @@ export default {
     Traiter1:'Treaty',
     Non_Traité:'Untreated',
     Profil: 'Profile',
+    PROFIL: 'PROFILE',
     Nom_Prenons: 'full name',
     mail: 'Email',
     Phone: 'Telephone',
@@ -52,7 +53,7 @@ export default {
     description_error:'The description field is required',
     nametype_error:'The incident field is required',
     INCIDENT:'INCIDENT',
-    incident:'incident',
+    incident:'Incidents',
     incident_update:'The incident is modified successfully.',
     incident_save:'The incident is save successfully.',
     Solution:'Solution',
@@ -84,7 +85,16 @@ export default {
     Mettre_encours_de_traitement:'Put in process',
     message_error:'Message failed.',
     messsage_envoyer:'The message is sent successfully.',
-    message_update:'The message is modified successfully.'
+    message_update:'The message is modified successfully.',
+    Déconnexion:'Logout',
+    MODIFICATION_DE_MOT_DE_PASSE:'CHANGE PASSWORD',
+    Entez_les_infomations_pour_continuer:'Enter the information to continue',
+    Mot_de_passe:'Password',
+    Confirmation_mot_de_passe:'Password confirmation',
+    veuillez_saisir_le_nouveau_mot_de_passe:'Please enter the new password',
+    MOT_DE_PASSE_CHANGÉ:'PASSWORD CHANGED',
+    ERROR_PASSWORD:'ERROR',
+    Modifier_mon_mot_de_passe:'Change password'
   },
 
   fr: {
@@ -106,6 +116,7 @@ export default {
     Traiter1:'Traiter',
     Non_Traité:'Non traité',
     Profil: 'Profil',
+    PROFIL: 'PROFIL',
     Nom_Prenons: 'Nom & Prénoms',
     mail: 'E-mail',
     Phone: 'Téléphone',
@@ -142,7 +153,7 @@ export default {
     description_error:'Le champ description est obligatoire',
     nametype_error:'Le champ incident est obligatoire',
     INCIDENT:'INCIDENT',
-    incident:'Incident',
+    incident:'Incidents',
     incident_update:'L\'incident est modifiée avec succès.',
     incident_save:'L\'incident est enrégistrée avec succès.',
     Solution:'Solution',
@@ -169,12 +180,19 @@ export default {
     ticket_succes:'Ticket est créé avec succès.',
     Précédent:'Précédent',
     Suivant:'Suivant',
-    Annuler_le_traitement_encours:'Annuler_le_traitement_encours',
+    Annuler_le_traitement_encours:'Annuler le traitement encours',
     Mettre_encours_de_traitement:'Mettre encours de traitement',
     message_error:'Le message à échouer.',
     messsage_envoyer:'Le message est envoyé avec succès.',
-    message_update:'Le message est modifié avec succès.'
-
-
+    message_update:'Le message est modifié avec succès.',
+    Déconnexion:'Déconnexion',
+    MODIFICATION_DE_MOT_DE_PASSE:'MODIFICATION DE MOT DE PASSE',
+    Entez_les_infomations_pour_continuer:'Entez les infomations pour continuer',
+    Mot_de_passe:'Mot de passe',
+    Confirmation_mot_de_passe:'Confirmation mot de passe',
+    veuillez_saisir_le_nouveau_mot_de_passe:'veuillez saisir le nouveau mot de passe',
+    MOT_DE_PASSE_CHANGÉ:'MOT DE PASSE CHANGÉ',
+    ERROR_PASSWORD:'ERREUR',
+    Modifier_mon_mot_de_passe:'Modifier mon mot de passe'
   }
 }

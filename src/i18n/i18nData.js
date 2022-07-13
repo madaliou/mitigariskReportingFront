@@ -46,7 +46,7 @@ export default {
     last_name_error:  'The last name field is required',
     first_name_error: 'The first names field is required',
     role_error:  'The role field is required',
-    email_error: 'The e-mail field is required',
+    email_error: 'The email field is required',
     phoneNumber_error:'The phone number field is required',
     compagnie_error: 'The compagnie field is required',
     SuppressionIncident1:'The category is deleted successfully.',
@@ -101,7 +101,8 @@ export default {
     Connexion:'Login',
     Récupérez_votre_mot_de_passe:'Recover your password',
     recupération:'Please enter your email address and we\'ll send you instructions to reset your password.',
-    Changer:'Change'
+    Changer:'Change',
+    password_error:'The password field is required'
   },
 
   fr: {
@@ -152,7 +153,7 @@ export default {
     last_name_error:  'Le champ nom est obligatoire',
     first_name_error: 'Le champ prénoms est obligatoire',
     role_error:  'Le champ role est obligatoire',
-    email_error: 'Le champ email est obligatoire',
+    email_error: 'Le champ e-mail est obligatoire',
     phoneNumber_error:'Le champ téléphone est obligatoire',
     compagnie_error: 'Le champ compagnie est obligatoire',
     Description:'Description',
@@ -207,7 +208,8 @@ export default {
     Connexion:'Connexion',
     Récupérez_votre_mot_de_passe:'Récupérez votre mot de passe',
     recupération:'Veuillez saisir votre adresse e-mail et nous vous enverrons des instructions pour réinitialiser votre mot de passe.',
-    Changer:'Changer'
+    Changer:'Changer',
+    password_error:'Le champ mot de passe est obligatoire'
 
   }
 }

@@ -10,7 +10,7 @@
         :label-placeholder="$t('mail')"
         v-model="email"
         class="w-full"/>
-    <span class="text-danger text-sm">{{ errors.first('email') }}</span>
+    <span class="text-danger text-sm">{{$t("email_error")}}</span>
 
     <vs-input
         data-vv-validate-on="blur"
@@ -23,7 +23,7 @@
         :label-placeholder="$t('Mot_de_passe')"
         v-model="password"
         class="w-full mt-6" />
-    <span class="text-danger text-sm">{{ errors.first('password') }}</span>
+    <span class="text-danger text-sm">{{$t("password_error")}}</span>
 
     <div class="flex flex-wrap justify-between my-5">
         <vs-checkbox v-model="checkbox_remember_me" class="mb-3">{{ $t("Se_souvenir_de_moi") }}</vs-checkbox>
@@ -37,6 +37,18 @@
 </template>
 
 <script>
+import { Validator } from 'vee-validate'
+const dict = {
+  custom: {
+    email: {
+      required: 'Le champ email est obligatoire'
+    },
+    password: {
+      required: 'Le champ mot de passe est obligatoire'
+    }
+  }
+}
+Validator.localize('fr', dict)
 export default {
   data () {
     return {

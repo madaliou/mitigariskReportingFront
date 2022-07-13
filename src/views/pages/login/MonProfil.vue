@@ -94,7 +94,7 @@ export default {
     return {
       roleObject: {
         admin: 'Administrateur',
-        user: 'Utulisateur'
+        user: 'Utilisateur'
       },
       user_data: [],
       password: '',

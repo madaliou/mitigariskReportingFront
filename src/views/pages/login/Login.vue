@@ -16,6 +16,7 @@
 
           <div class="vx-row no-gutter justify-center items-center d-theme-dark-bg">
 
+
             <div class="vx-col hidden lg:block lg:w-1/2 d-theme-dark-bg">
               <img src="@/assets/images/pages/login.png" alt="login" class="mx-auto d-theme-dark-bg">
             </div>
@@ -24,8 +25,9 @@
               <div class="px-8 pt-20 login-tabs-container items-center">
 
                 <div class="vx-card__title mb-8">
-                  <h1 class="mb-4" > <strong style="color: #0263AC" >Moozi</strong><strong style="color: #000000" >Support</strong></h1>
-                  <p>Ouvrez une session pour commencer à utiliser l'application.</p>
+                  <h1 class="mb-4" > <strong style="color: #0263AC" >Moozi</strong><strong style="color: #000000" >Support</strong><span class="ml-4"><i18n /></span></h1>
+<!--                  <h1 class="mb-4" > <strong style="color: #0263AC" >Moozi</strong><strong style="color: #000000" >Support</strong></h1><i18n />-->
+                  <p>{{ $t("Ouvrez_une_session_pour_commencer_à_utiliser_application") }}</p>
                 </div>
 
                 <login-jwt></login-jwt>
@@ -57,11 +59,13 @@
 import LoginJwt from './LoginJWT.vue'
 import LoginFirebase from './LoginFirebase.vue'
 import LoginAuth0 from './LoginAuth0.vue'
+import I18n from '../../../layouts/components/navbar/components/I18n'
 
 export default {
   components: {
     LoginJwt,
     LoginFirebase,
+    I18n,
     LoginAuth0
   }
 }

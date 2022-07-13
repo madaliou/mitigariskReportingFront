@@ -94,7 +94,14 @@ export default {
     veuillez_saisir_le_nouveau_mot_de_passe:'Please enter the new password',
     MOT_DE_PASSE_CHANGÉ:'PASSWORD CHANGED',
     ERROR_PASSWORD:'ERROR',
-    Modifier_mon_mot_de_passe:'Change password'
+    Modifier_mon_mot_de_passe:'Change password',
+    Ouvrez_une_session_pour_commencer_à_utiliser_application:'Log in to start using the application.',
+    Se_souvenir_de_moi:'Remember me',
+    Mot_de_passe_oublié:'Forgot your password?',
+    Connexion:'Login',
+    Récupérez_votre_mot_de_passe:'Recover your password',
+    recupération:'Please enter your email address and we\'ll send you instructions to reset your password.',
+    Changer:'Change'
   },
 
   fr: {
@@ -193,6 +200,14 @@ export default {
     veuillez_saisir_le_nouveau_mot_de_passe:'veuillez saisir le nouveau mot de passe',
     MOT_DE_PASSE_CHANGÉ:'MOT DE PASSE CHANGÉ',
     ERROR_PASSWORD:'ERREUR',
-    Modifier_mon_mot_de_passe:'Modifier mon mot de passe'
+    Modifier_mon_mot_de_passe:'Modifier mon mot de passe',
+    Ouvrez_une_session_pour_commencer_à_utiliser_application:'Ouvrez une session pour commencer à utiliser l\'application.',
+    Se_souvenir_de_moi:'Se souvenir de moi',
+    Mot_de_passe_oublié:'Mot de passe oublié?',
+    Connexion:'Connexion',
+    Récupérez_votre_mot_de_passe:'Récupérez votre mot de passe',
+    recupération:'Veuillez saisir votre adresse e-mail et nous vous enverrons des instructions pour réinitialiser votre mot de passe.',
+    Changer:'Changer'
+
   }
 }

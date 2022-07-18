@@ -25,6 +25,20 @@
         <!-- Mail Time & Date -->
         <div class="flex flex-col justify-end">
           <span class="text-right">{{ props.mailContent.created_at | time2}}</span>
+          <div class="flex justify-end mt-2" v-if="props.mailContent.urgency === true">
+            <div class="open-mail-label flex items-center ">
+            <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>
+               <span class="text-right"  v-if="props.local_lang==='fr'">Urgent</span>
+               <span class="text-right" v-if="props.local_lang==='en'" >Urgency</span>
+            </div>
+          </div>
+          <div class="flex justify-end mt-2" v-if="props.mailContent.urgency === false">
+            <div class="open-mail-label flex items-center ">
+            <div class="h-3 w-3  rounded-full bg-dark mr-2" ></div>
+               <span class="text-right"  v-if="props.local_lang==='fr'">Non urgent</span>
+               <span class="text-right" v-if="props.local_lang==='en'" >No urgency</span>
+            </div>
+          </div>
           <div class="flex justify-end mt-2" v-if="props.mailContent.fixed === 2">
             <div class="open-mail-label flex items-center ">
             <div class="h-3 w-3  rounded-full bg-primary mr-2" ></div>

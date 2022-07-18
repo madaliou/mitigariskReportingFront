@@ -29,7 +29,7 @@
                       <span class="text-right" >{{ $t("urgency") }}</span>
                   </vs-chip>
                   <vs-chip v-if="mail.urgency === false" >
-                      <div class="h-3 w-3  rounded-full bg-danger-before mr-2" ></div>
+                      <div class="h-3 w-3  rounded-full bg-dark mr-2" ></div>
                       <span class="text-right" >{{ $t("no_urgency") }}</span>
                   </vs-chip>
                   <vs-chip v-if="mail.fixed === 0" >

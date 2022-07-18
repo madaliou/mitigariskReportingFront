@@ -24,6 +24,14 @@
 
                 <div class="mail-item__meta flex items-center">
 
+                  <vs-chip v-if="mail.urgency === true" >
+                      <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>
+                      <span class="text-right" >{{ $t("urgency") }}</span>
+                  </vs-chip>
+                  <vs-chip v-if="mail.urgency === false" >
+                      <div class="h-3 w-3  rounded-full bg-danger-before mr-2" ></div>
+                      <span class="text-right" >{{ $t("no_urgency") }}</span>
+                  </vs-chip>
                   <vs-chip v-if="mail.fixed === 0" >
                       <div class="h-3 w-3  rounded-full bg-danger mr-2" ></div>
                       <span class="text-right" >{{ $t("Non_Traité") }}</span>

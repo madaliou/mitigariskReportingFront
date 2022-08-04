@@ -9,7 +9,8 @@
 
 <template>
   <div id="data-list-list-view" class="data-list-container">
-
+    <h1>{{ $t("UTILISATEURS") }}</h1>
+    <br>
     <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
 
     <vs-table ref="table" pagination :max-items="itemsPerPage" search :data="users">

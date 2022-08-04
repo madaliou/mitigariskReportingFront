@@ -9,8 +9,10 @@
 
 
 <template>
+  <fragment>
+  <h1>{{ $t("messages") }}</h1>
+  <br>
   <div id="email-app" class="border border-solid d-theme-border-grey-light rounded relative overflow-hidden">
-
     <component :is="scrollbarTag" class="email-content-scroll-area" :settings="settings" ref="mailListPS" :key="$vs.rtl">
       <transition-group name="list-enter-up" class="email__mails" tag="ul" appear>
         <li class="cursor-pointer email__mail-item"
@@ -21,8 +23,8 @@
         </li>
       </transition-group>
     </component>
-
   </div>
+  </fragment>
 </template>
 
 <script>

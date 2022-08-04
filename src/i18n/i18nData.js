@@ -8,7 +8,7 @@ export default {
     Compagnies: 'Companies',
     Solutions: 'Solutions',
     Incidents : 'Incidents',
-    Tickets_totaux: 'Total tickets',
+    Tickets_totaux: 'All tickets',
     Tickets_traité:'Processed tickets',
     Tickets_non_traités:'Unprocessed tickets',
     tickets_encours_traitement:'Being processed tickets ',
@@ -30,6 +30,7 @@ export default {
     AJOUTER_UNE: 'ADD',
     MODIFICATION_DE_L: 'EDIT',
     UTILISATEUR: 'USER',
+    UTILISATEURS: 'Users',
     Modifier: 'Edit',
     Supprimer: 'Delete',
     Action: 'Action',
@@ -104,7 +105,8 @@ export default {
     Récupérez_votre_mot_de_passe:'Recover your password',
     recupération:'Please enter your email address and we\'ll send you instructions to reset your password.',
     Changer:'Change',
-    password_error:'The password field is required'
+    password_error:'The password field is required',
+    messages:'Messages'
   },
 
   fr: {
@@ -139,6 +141,7 @@ export default {
     MODIFICATION_DE_L: 'MODIFIIER L\'',
     MODIFICATION_DE: 'MODIFIIER LA',
     UTILISATEUR: 'UTILISATEUR',
+    UTILISATEURS: 'Utilisateurs',
     Modifier: 'Modifier',
     Supprimer: 'Supprimer',
     Action: 'Action',
@@ -213,7 +216,8 @@ export default {
     Récupérez_votre_mot_de_passe:'Récupérez votre mot de passe',
     recupération:'Veuillez saisir votre adresse e-mail et nous vous enverrons des instructions pour réinitialiser votre mot de passe.',
     Changer:'Changer',
-    password_error:'Le champ mot de passe est obligatoire'
+    password_error:'Le champ mot de passe est obligatoire',
+    messages:'Messages'
 
   }
 }

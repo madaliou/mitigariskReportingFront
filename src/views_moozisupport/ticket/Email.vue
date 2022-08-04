@@ -9,8 +9,8 @@
 
 
 <template>
-  <div id="email-app" class="border border-solid d-theme-border-grey-light rounded relative overflow-hidden">
 
+  <div id="email-app" class="border border-solid d-theme-border-grey-light rounded relative overflow-hidden">
     <vs-sidebar class="items-no-padding" parent="#email-app" :click-not-close="clickNotClose" :hidden-background="clickNotClose" v-model="isEmailSidebarActive">
       <email-sidebar :emailTags="emailTags" @closeSidebar="toggleEmailSidebar" :mailFilter="mailFilter" />
     </vs-sidebar>

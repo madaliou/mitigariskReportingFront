@@ -77,11 +77,6 @@ const router = new Router({
           name: 'users',
           component: () => import('./views_moozisupport/users/DataListListView.vue'),
           meta: {
-            breadcrumb: [
-              { title: 'Tableau de bord', url: '/' },
-              { title: 'Utilisateurs', active: true }
-            ],
-            pageTitle: 'Utilisateurs',
             rule: 'editor'
           }
         },
@@ -91,11 +86,6 @@ const router = new Router({
           name: 'tickets',
           component: () => import('./views_moozisupport/ticket/Email'),
           meta: {
-            breadcrumb: [
-              { title: 'Tableau de bord', url: '/' },
-              { title: 'Tickets', active: true }
-            ],
-            pageTitle: 'Tickets',
             rule: 'editor'
           }
         },
@@ -105,11 +95,6 @@ const router = new Router({
           name: 'tickets',
           component: () => import('./views_moozisupport/messages/Todo'),
           meta: {
-            breadcrumb: [
-              { title: 'Tableau de bord', url: '/' },
-              { title: 'Messages', active: true }
-            ],
-            pageTitle: 'Messages',
             rule: 'editor'
           }
         },
@@ -121,11 +106,6 @@ const router = new Router({
           name: 'companies',
           component: () => import('./views_moozisupport/Company/DataListCompagny.vue'),
           meta: {
-            breadcrumb: [
-              { title: 'Tableau de bord', url: '/' },
-              { title: 'Compagnies', active: true }
-            ],
-            pageTitle: 'Compagnies',
             rule: 'editor'
           }
         },
@@ -136,11 +116,6 @@ const router = new Router({
           name: 'categories',
           component: () => import('./views_moozisupport/category/DataListCategory'),
           meta: {
-            breadcrumb: [
-              { title: 'Tableau de bord', url: '/' },
-              { title: 'Categories', active: true }
-            ],
-            pageTitle: 'Categories',
             rule: 'editor'
           }
         },
@@ -150,11 +125,6 @@ const router = new Router({
           name: 'Incidents',
           component: () => import('./views_moozisupport/category/DataListCategory'),
           meta: {
-            breadcrumb: [
-              { title: 'Tableau de bord', url: '/' },
-              { title: 'Incidents', active: true }
-            ],
-            pageTitle: 'Incidents',
             rule: 'editor'
           }
         },
@@ -164,11 +134,6 @@ const router = new Router({
           name: 'solutions',
           component: () => import('./views_moozisupport/solution/DataListSolution'),
           meta: {
-            breadcrumb: [
-              { title: 'Tableau de bord', url: '/' },
-              { title: 'Solutions', active: true }
-            ],
-            pageTitle: 'Solutions',
             rule: 'editor'
           }
         },

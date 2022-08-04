@@ -84,7 +84,7 @@
 
               <div v-if="showByAdmin===true" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">
                   <feather-icon icon="FileTextIcon" :svgClasses="[{'text-primary stroke-current': mailFilter === 'inbox'}, 'h-6 w-6']"></feather-icon>
-                  <span class="text-lg ml-3">{{ $t("Créer_un_ticket") }}</span>
+                  <span class="text-lg ml-3">{{ $t("Tickets_totaux") }}</span>
               </div>
 
               <div v-if="showByAdmin===false" class="flex items-center mb-2 cursor-pointer" @click="All_tickets()">

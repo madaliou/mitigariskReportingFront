@@ -15,176 +15,57 @@
         <!-- CARD 6: Product Orders -->
         <div class="vx-col w-full mb-base">
           <div class="vx-row" v-if="showByAdmin">
-            <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets" >
+
+            <div class="cursor-pointer vx-col w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2" @click="tickets">
               <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="FileTextIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.fixed_tickets || 0) )"
-                :statisticTitle="$t('Tickets_traité')"/>
+                  hideChart
+                  class="mb-base"
+                  icon="FileTextIcon"
+                  icon-right
+                  :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.total_tickets || 0) )"
+                  :statisticTitle="$t('Tickets_totaux')"  />
             </div>
 
-            <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets">
+            <div class="cursor-pointer vx-col w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2" @click="companies">
+              <statistics-card-line
+                  hideChart
+                  class="mb-base"
+                  icon="GlobeIcon"
+                  icon-right
+                  :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.companies || 0) )"
+                  :statisticTitle="$t('Compagnie')"  />
+            </div>
+
+            <div class=" vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" >
               <statistics-card-line
                 hideChart
                 class="mb-base"
                 icon="FileIcon"
                 icon-right
+                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.fixed_tickets || 0) )"
+                :statisticTitle="$t('Tickets_traité')"/>
+            </div>
+
+            <div class="vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3">
+              <statistics-card-line
+                hideChart
+                class="mb-base"
+                icon="FileMinusIcon"
+                icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.unfixed_tickets || 0) )"
                 :statisticTitle="$t('Tickets_non_traités')"  />
             </div>
 
-            <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3" @click="companies">
+            <div class="vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3">
               <statistics-card-line
                 hideChart
                 class="mb-base"
-                icon="GlobeIcon"
+                icon="FilePlusIcon"
                 icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.companies || 0) )"
-                :statisticTitle="$t('Compagnie')"  />
+                :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.infixing_tickets || 0) )"
+                :statisticTitle="$t('tickets_encours_traitement')"  />
             </div>
-
 <!--            <chartjs-bar-chart></chartjs-bar-chart>-->
-          </div>
-          <div class="vx-row" v-if="showByContributors">
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/3"  >
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="UsersIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (0) )"
-                statisticTitle="Beneficiaires" />
-            </div>
-
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="TrendingUpIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (0))"
-                statisticTitle="Chiffre d'affaire" />
-            </div>
-
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="PieChartIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format( (0))"
-                statisticTitle="Taux commission(%)" />
-            </div>
-
-            <div class="cursor-pointer vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4" >
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="PieChartIcon"
-                icon-right
-                :statistic="new Intl.NumberFormat('de-DE').format((0))"
-                statisticTitle="Consommation" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-                <statistics-card-line
-                  hideChart
-                  class="mb-base"
-                  icon="HeartIcon"
-                  icon-right
-                  statistic="26.8k"
-                  statisticTitle="Favorited"
-                  color="danger" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-                <statistics-card-line
-                  hideChart
-                  class="mb-base"
-                  icon="SmileIcon"
-                  icon-right
-                  statistic="689"
-                  statisticTitle="Reviews"
-                  color="success" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-                <statistics-card-line
-                  hideChart
-                  class="mb-base"
-                  icon="TruckIcon"
-                  icon-right
-                  statistic="2"
-                  statisticTitle="Returns"
-                  color="warning" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="EyeIcon"
-                  icon-right
-                statistic="36.9k"
-                statisticTitle="Views" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-              <statistics-card-line
-                hideChart
-                class="mb-base"
-                icon="MessageSquareIcon"
-                  icon-right
-                statisticTitle="Comments"
-                statistic="12k"
-                color="success" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-                <statistics-card-line
-                  hideChart
-                  class="mb-base"
-                  icon="ShoppingBagIcon"
-                  icon-right
-                  statistic="978"
-                  statisticTitle="Orders"
-                  color="warning" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-                <statistics-card-line
-                  hideChart
-                  class="mb-base"
-                  icon="HeartIcon"
-                  icon-right
-                  statistic="26.8k"
-                  statisticTitle="Favorited"
-                  color="danger" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-                <statistics-card-line
-                  hideChart
-                  class="mb-base"
-                  icon="SmileIcon"
-                  icon-right
-                  statistic="689"
-                  statisticTitle="Reviews"
-                  color="success" />
-            </div>
-
-            <div class="vx-col w-full md:w-full xl:w-1/3" v-if="false">
-                <statistics-card-line
-                  hideChart
-                  class="mb-base"
-                  icon="TruckIcon"
-                  icon-right
-                  statistic="2"
-                  statisticTitle="Returns"
-                  color="warning" />
-            </div>
           </div>
         </div>
     </div>

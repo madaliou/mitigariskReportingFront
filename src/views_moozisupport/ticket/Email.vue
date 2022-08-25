@@ -164,6 +164,7 @@ const lastData = {
 export default {
   data () {
     return {
+      dashbordValuemail:'',
       openMailId           : null,
       openMailTexte        : null,
       openMailCategotyId   : null,
@@ -540,9 +541,12 @@ export default {
   created () {
     this.$store.registerModule('email', moduleEmail)
     window.getCloseSidebar = this
+    this.dashbordValuemail = window.getdashboard._data.dashboardValue
     this.setSidebarWidth()
     this.openLoading()
-    this.$store.dispatch('email/fetchEmails') // Fetch Emails From API
+    if (this.dashbordValuemail === false) {
+      this.$store.dispatch('email/fetchEmails') // Fetch Emails From API
+    }
     this.$store.dispatch('email/fetchTags')  // Fetch Mail Tags
   }
 }

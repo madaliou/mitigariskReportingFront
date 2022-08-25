@@ -16,7 +16,7 @@
         <div class="vx-col w-full mb-base">
           <div class="vx-row" v-if="showByAdmin">
 
-            <div class="cursor-pointer vx-col w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2" @click="tickets">
+            <div class="cursor-pointer vx-col w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2" @click="tickets_totaux">
               <statistics-card-line
                   hideChart
                   class="mb-base"
@@ -33,10 +33,10 @@
                   icon="GlobeIcon"
                   icon-right
                   :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.companies || 0) )"
-                  :statisticTitle="$t('Compagnie')"  />
+                  :statisticTitle="$t('Compagnies')"  />
             </div>
 
-            <div class=" vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" >
+            <div class="cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets_traites" >
               <statistics-card-line
                 hideChart
                 class="mb-base"
@@ -46,7 +46,7 @@
                 :statisticTitle="$t('Tickets_traité')"/>
             </div>
 
-            <div class="vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3">
+            <div class=" cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets_non_traites">
               <statistics-card-line
                 hideChart
                 class="mb-base"
@@ -56,7 +56,7 @@
                 :statisticTitle="$t('Tickets_non_traités')"  />
             </div>
 
-            <div class="vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3">
+            <div class="cursor-pointer  vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3" @click="tickets_encours">
               <statistics-card-line
                 hideChart
                 class="mb-base"
@@ -82,12 +82,13 @@ import analyticsData from '@/views/ui-elements/card/analyticsData.js'
 import ChangeTimeDurationDropdown from '@/components/ChangeTimeDurationDropdown.vue'
 import VxTimeline from '@/components/timeline/VxTimeline'
 import ChartjsBarChart from '/src/views_moozisupport/statistiqueGraph/ChartjsBarChart'
-
+import moduleEmail         from '@/store/ticket/moduleEmail.js'
 
 export default {
   data () {
     return {
       showByAdmin: false,
+      dashboardValue: false,
       showByContributors: false,
       variable_dashboard : {},
       variable_prospects : {},
@@ -106,15 +107,40 @@ export default {
     VxTimeline
   },
   methods: {
-    tickets () {
-      this.$router.push('/tickets').catch(() => {})
+    tickets_totaux () {
+      this.$router.push('/tickets')
+        .then(() => {
+          this.dashboardValue = true
+          this.$store.dispatch('email/fetchEmails')
+        })
+        .catch(() => {})
     },
-
+    tickets_traites () {
+      this.$router.push('/tickets')
+        .then(() => {
+          this.dashboardValue = true
+          this.$store.dispatch('email/tickets_traite')
+        })
+        .catch(() => {})
+    },
+    tickets_non_traites () {
+      this.$router.push('/tickets')
+        .then(() => {
+          this.dashboardValue = true
+          this.$store.dispatch('email/tickets_non_traite')
+        })
+        .catch(() => {})
+    },
+    tickets_encours () {
+      this.$router.push('/tickets')
+        .then(() => {
+          this.dashboardValue = true
+          this.$store.dispatch('email/tickets_Encours')
+        })
+        .catch(() => {})
+    },
     companies () {
       this.$router.push('/companies').catch(() => {})
-    },
-    sites () {
-      this.$router.push('/base/sites').catch(() => {})
     },
 
     dashboard () {
@@ -128,6 +154,8 @@ export default {
   },
   created () {
     // this.dashboard()
+    window.getdashboard = this
+    this.$store.registerModule('email', moduleEmail)
     const user_role = JSON.parse(localStorage.getItem('userInfo')).role
     if (user_role === 'admin') {
       this.showByAdmin = true

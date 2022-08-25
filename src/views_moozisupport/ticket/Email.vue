@@ -164,7 +164,7 @@ const lastData = {
 export default {
   data () {
     return {
-      dashbordValuemail:'',
+      dashbordValuemail    :false,
       openMailId           : null,
       openMailTexte        : null,
       openMailCategotyId   : null,
@@ -540,12 +540,19 @@ export default {
   },
   created () {
     this.$store.registerModule('email', moduleEmail)
+    const user_role = JSON.parse(localStorage.getItem('userInfo')).role
     window.getCloseSidebar = this
-    this.dashbordValuemail = window.getdashboard._data.dashboardValue
+
     this.setSidebarWidth()
     this.openLoading()
-    if (this.dashbordValuemail === false) {
-      this.$store.dispatch('email/fetchEmails') // Fetch Emails From API
+    if (user_role === 'admin') {
+      this.dashbordValuemail = window.getdashboard._data.dashboardValue
+      if (this.dashbordValuemail === false) {
+        this.$store.dispatch('email/fetchEmails')// Fetch Emails From API
+      }
+    }
+    if (user_role === 'user') {
+      this.$store.dispatch('email/fetchEmails')
     }
     this.$store.dispatch('email/fetchTags')  // Fetch Mail Tags
   }

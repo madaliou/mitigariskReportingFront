@@ -546,7 +546,11 @@ export default {
     this.setSidebarWidth()
     this.openLoading()
     if (user_role === 'admin') {
-      this.dashbordValuemail = window.getdashboard._data.dashboardValue
+      if (window.getdashboard === undefined) {
+        this.dashbordValuemail = false
+      } else {
+        this.dashbordValuemail = window.getdashboard._data.dashboardValue
+      }
       if (this.dashbordValuemail === false) {
         this.$store.dispatch('email/fetchEmails')// Fetch Emails From API
       }

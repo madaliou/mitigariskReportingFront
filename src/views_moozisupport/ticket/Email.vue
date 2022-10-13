@@ -490,10 +490,12 @@ export default {
       })
     },
     async sendMail () {
+      const lang = window.getlanguage.$i18n.locale
       this.$vs.loading()
       const input = {
         message:this.message,
-        ticket:this.openMailId
+        ticket:this.openMailId,
+        // lg : lang
       }
       let url = 'replies/'
       let methods = 'post'

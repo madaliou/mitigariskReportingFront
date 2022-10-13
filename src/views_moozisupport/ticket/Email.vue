@@ -494,7 +494,7 @@ export default {
       this.$vs.loading()
       const input = {
         message:this.message,
-        ticket:this.openMailId,
+        ticket:this.openMailId
         // lg : lang
       }
       let url = 'replies/'

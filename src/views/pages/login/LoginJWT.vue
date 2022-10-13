@@ -94,7 +94,6 @@ export default {
         password: this.password,
         lg: lang
       }
-      console.log('voir', data)
       const payload = {
         checkbox_remember_me: this.checkbox_remember_me,
         userDetails: {

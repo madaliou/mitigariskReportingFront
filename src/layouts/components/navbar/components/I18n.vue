@@ -30,6 +30,10 @@ export default {
     updateLocale (locale) {
       this.$i18n.locale = locale
     }
+  },
+
+  created () {
+    window.getlanguage = this
   }
 }
 </script>

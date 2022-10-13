@@ -83,7 +83,7 @@ export default {
       return true
     },
     loginJWT () {
-
+      const lang = window.getlanguage.$i18n.locale
       if (!this.checkLogin()) return
 
       // Loading
@@ -91,9 +91,10 @@ export default {
 
       const data = {
         username: this.email,
-        password: this.password
+        password: this.password,
+        lg: lang
       }
-
+      console.log('voir', data)
       const payload = {
         checkbox_remember_me: this.checkbox_remember_me,
         userDetails: {
@@ -102,11 +103,10 @@ export default {
           data
         }
       }
-
       this.$store.dispatch('auth/loginJWT', payload)
         .then(() => { this.$vs.loading.close() })
         .catch(error => {
-          this.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
+          // this.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
           this.$vs.loading.close()
           this.$vs.notify({
             title: 'Error',

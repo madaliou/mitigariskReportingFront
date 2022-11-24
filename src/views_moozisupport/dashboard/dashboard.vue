@@ -23,7 +23,7 @@
                   icon="FileTextIcon"
                   icon-right
                   :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.total_tickets || 0) )"
-                  :statisticTitle="$t('Tickets_totaux')"  />
+                  :statisticTitle="$t('Reportings totaux')"  />
             </div>
 
             <div class="cursor-pointer vx-col w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2" @click="companies">
@@ -43,7 +43,7 @@
                 icon="FileIcon"
                 icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.fixed_tickets || 0) )"
-                :statisticTitle="$t('Tickets_traité')"/>
+                :statisticTitle="$t('Reportings traités')"/>
             </div>
 
             <div class=" cursor-pointer vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/3" @click="tickets_non_traites">
@@ -53,7 +53,7 @@
                 icon="FileMinusIcon"
                 icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.unfixed_tickets || 0) )"
-                :statisticTitle="$t('Tickets_non_traités')"  />
+                :statisticTitle="$t('Reportings non traités')"  />
             </div>
 
             <div class="cursor-pointer  vx-col w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3" @click="tickets_encours">
@@ -63,7 +63,7 @@
                 icon="FilePlusIcon"
                 icon-right
                 :statistic="new Intl.NumberFormat('de-DE').format( ( variable_dashboard.infixing_tickets || 0) )"
-                :statisticTitle="$t('tickets_encours_traitement')"  />
+                :statisticTitle="$t('Reportings en cours de traitement')"  />
             </div>
 <!--            <chartjs-bar-chart></chartjs-bar-chart>-->
           </div>

@@ -14,10 +14,10 @@
 
             <div class="flex w-full justify-between items-start">
                 <div class="mail__details">
-                    <h5 v-if="showByAdmin===true" class="mb-1">{{ mail.author.last_name +" "}}{{ mail.author.first_name}}</h5>
+                    <!-- <h5 v-if="showByAdmin===true" class="mb-1">{{ mail.author.last_name +" "}}{{ mail.author.first_name}}</h5> -->
                   <span  v-if="mail.category.name">{{ mail.category.name }}</span>
                   <br>
-                  <span style="color:  black" class="mb-1" ><b>{{mail.solution.name}}</b></span>
+                  <span style="color:  black" class="mb-1" ><b>{{mail.type.name}}</b></span>
                   <br>
                   <span style="color: blue " class="mb-1" >{{ mail != null ? mail.reference : 'MOOZISTUDIO'}}</span>
                 </div>

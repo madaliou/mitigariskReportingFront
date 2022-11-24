@@ -19,7 +19,7 @@
       <!-- EMAIL ACTION BAR -->
       <div class="email__actions flex items-center flex-wrap justify-between p-4 border border-r-0 border-l-0 border-solid d-theme-border-grey-light">
         <div class="flex items-center">
-          <h1>{{ $t("Tickets") }}</h1>
+          <h1>{{ $t("Reportings") }}</h1>
         </div>
         <div class="flex"></div>
 

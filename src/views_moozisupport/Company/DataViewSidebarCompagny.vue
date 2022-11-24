@@ -35,7 +35,7 @@
           class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('description')">{{$t("description_error")}}</span>
 
-      <p class="pt-4">{{ $t("resource_person") }}<b style="color: #ff6141" >*</b> </p>
+     <!--  <p class="pt-4">{{ $t("resource_person") }}<b style="color: #ff6141" >*</b> </p>
          <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"
@@ -67,7 +67,7 @@
             class="w-full"
         >
         </vue-tel-input>
-        <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{$t("phoneNumber_error")}}</span>
+        <span class="text-danger text-sm" v-show="errors.has('phoneNumber')">{{$t("phoneNumber_error")}}</span> -->
 
       </div>
     </component>
@@ -190,7 +190,7 @@ export default {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
       input.phoneNumber = `+${this.code } ${  this.input.phoneNumber}`
-      let url = 'companies/'
+      let url = 'types/'
       let methods = 'post'
       const message = {
         error: this.$t('save_error'),

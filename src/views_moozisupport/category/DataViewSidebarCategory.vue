@@ -17,7 +17,7 @@
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">{{ $t("Incidents") }}<b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">{{ $t("Catégorie") }}<b style="color: #ff6141" >*</b> </p>
         <vs-input
           v-validate="'required'"
           data-vv-validate-on="blur"

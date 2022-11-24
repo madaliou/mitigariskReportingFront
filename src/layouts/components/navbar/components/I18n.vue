@@ -1,4 +1,4 @@
-<template>
+<!--template>
   <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
     <span class="cursor-pointer flex items-center i18n-locale">
       <img class="h-4 w-5" :src="i18n_locale_img" :alt="$i18n.locale" />
@@ -9,7 +9,7 @@
       <vs-dropdown-item @click="updateLocale('en')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/en.png" alt="en" /> &nbsp;English</vs-dropdown-item>
     </vs-dropdown-menu>
   </vs-dropdown>
-</template>
+</template-->
 
 <script>
 export default {

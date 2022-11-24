@@ -1,13 +1,13 @@
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
-      <h4>{{ Object.entries(this.data).length === 0 ? $t("AJOUTER_UNE") : $t("MODIFICATION_DE") }} {{ $t("SOLUTION") }}  </h4>
+      <h4>{{ Object.entries(this.data).length === 0 ? $t("AJOUTER_UNE") : $t("MODIFICATION_DE") }} {{ $t("GRAVITÉ") }}  </h4>
       <feather-icon icon="XIcon" @click.stop="isSidebarActiveLocal = false" class="cursor-pointer"></feather-icon>
     </div>
     <vs-divider class="mb-0"></vs-divider>
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
       <div class="p-6">
-        <p class="pt-4">{{ $t("Solution") }}<b style="color: #ff6141" >*</b> </p>
+        <p class="pt-4">{{ $t("Gravité") }}<b style="color: #ff6141" >*</b> </p>
         <vs-input
             v-validate="'required'"
             data-vv-validate-on="blur"
@@ -25,7 +25,7 @@
             class="w-full" />
         <span class="text-danger text-sm" v-show="errors.has('description')">{{$t("description_error")}}</span>
 
-        <p class="pt-4"> {{$t("Compagnie")}} <b style="color: #ff6141" >*</b> </p>
+       <!--  <p class="pt-4"> {{$t("Compagnie")}} <b style="color: #ff6141" >*</b> </p>
         <vs-select
             v-validate="'required'"
             autocomplete
@@ -35,7 +35,7 @@
         >
           <vs-select-item :key="item" :value="item.id" :text="item.name" v-for="item in compagnies" />
         </vs-select>
-        <span class="text-danger text-sm" v-show="errors.has('compagnie')">{{$t("compagnie_error")}}</span>
+        <span class="text-danger text-sm" v-show="errors.has('compagnie')">{{$t("compagnie_error")}}</span> -->
 
       </div>
     </component>
@@ -147,7 +147,7 @@ export default {
     async submitData () {
       this.$vs.loading()
       const input = JSON.parse(JSON.stringify(this.input))
-      let url = 'solutions/'
+      let url = 'gravities/'
       let methods = 'post'
       const message = {
         error: this.$t('save_error'),
@@ -192,7 +192,7 @@ export default {
     }
   },
   async created () {
-    this.$http.get('companies/')
+    this.$http.get('types/')
       .then((response) => { this.compagnies = response.data })
       .catch(() => { })
   }

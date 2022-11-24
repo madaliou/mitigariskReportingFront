@@ -42,7 +42,7 @@
       <template slot="thead">
         <vs-th sort-key="nom">{{ $t("Solution") }}</vs-th>
         <vs-th sort-key="Description">{{ $t("Description") }}</vs-th>
-        <vs-th sort-key="compagnies">{{ $t("Compagnie") }}</vs-th>
+        <!-- <vs-th sort-key="compagnies">{{ $t("Compagnie") }}</vs-th> -->
         <vs-th>Action</vs-th>
       </template>
 
@@ -55,9 +55,9 @@
           <vs-td>
             <p class="product-name font-medium truncate">{{ tr.description}}</p>
           </vs-td>
-          <vs-td>
+          <!-- <vs-td>
             <p class="product-name font-medium truncate">{{ tr.company.name}}</p>
-          </vs-td>
+          </vs-td> -->
           <vs-td class="whitespace-no-wrap">
             <div class="flex">
               <vx-tooltip :text="$t('Modifier')" color="warning">
@@ -135,7 +135,7 @@ export default {
         cancelText: this.$t('Annuler'),
         accept: async () => {
           this.$vs.loading()
-          this.$http.delete(`solutions/${id}/`)
+          this.$http.delete(`gravities/${id}/`)
             .then(response => {
               base_self.getAllSolution()
               window.getPrendTaCom.success(this.$t('Solution_delete'), response)
@@ -166,7 +166,7 @@ export default {
     },
     getAllSolution () {
       this.$vs.loading()
-      this.$http.get('solutions/')
+      this.$http.get('gravities/')
         .then((response) => {
           this.solutions = response.data
           this.$vs.loading.close()

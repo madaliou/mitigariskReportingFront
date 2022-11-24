@@ -83,7 +83,7 @@ export default {
       return true
     },
     loginJWT () {
-      // const lang = window.getlanguage.$i18n.locale
+      const lang = window.getlanguage.$i18n.locale
       if (!this.checkLogin()) return
 
       // Loading

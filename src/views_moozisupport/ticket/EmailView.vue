@@ -82,7 +82,7 @@
                   </div>
                 <div class="open-mail-label flex items-center mr-4">
                     <div  class="h-3 w-3  rounded-full bg-danger mr-1" ></div>
-                    <span  style="color: black" class="text-sm"><b>{{currentMail.solution.name}}</b></span>
+                    <span  style="color: black" class="text-sm"><b>{{currentMail.type.name}}</b></span>
                   </div>
 
               </div>

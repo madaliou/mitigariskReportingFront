@@ -29,7 +29,7 @@
     <v-nav-menu
       :navMenuItems = "navMenuItems"
       :logo         = "navMenuLogo"
-      title         = "MooziSupport"
+      title         = "Mitigarisk"
       parent        = ".layout--main" />
 
     <div id="content-area" :class="[contentAreaClass, {'show-overlay': bodyOverlay}]">
@@ -242,7 +242,7 @@ export default {
         name: 'Ticket',
         slug: 'tickets',
         icon: 'FileTextIcon',
-        i18n: 'Tickets'
+        i18n: 'Reportings'
       }
       const message = {
         url: '/messages',
@@ -256,21 +256,21 @@ export default {
         name: 'Company',
         slug: 'company',
         icon: 'GlobeIcon',
-        i18n: 'Compagnies'
+        i18n: 'Types'
       }
       const category = {
         url: '/Incidents',
         name: 'Types-incidents',
         slug: 'Types-incidents',
         icon: 'LayersIcon',
-        i18n: 'Incidents'
+        i18n: 'Catégories'
       }
       const solution = {
         url: '/solutions',
         name: 'Solution',
         slug: 'solution',
         icon: 'ClipboardIcon',
-        i18n: 'Solutions'
+        i18n: 'Gravités'
       }
 
 
